@@ -1,0 +1,3383 @@
+<!-- Prompt Library Page - Full Rewrite -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link
+  href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap"
+  rel="stylesheet">
+<style>
+  /* ── Hero ── */
+  .pw-lib-hero {
+    background: linear-gradient(135deg, #171717 0%, #1292eb 100%);
+    padding: 100px 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    width: 100vw;
+  }
+
+  .pw-lib-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 60px 60px;
+    -webkit-mask-image: radial-gradient(ellipse at 50% 50%, black 20%, transparent 70%);
+    mask-image: radial-gradient(ellipse at 50% 50%, black 20%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .pw-lib-inner {
+    position: relative;
+    z-index: 2;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  .pw-lib-badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50px;
+    padding: 12px 28px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 32px;
+  }
+
+  .pw-lib-title {
+    font-size: clamp(42px, 6vw, 64px);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.5px;
+    color: #fff;
+    margin-bottom: 12px;
+  }
+
+  /* FIX 1: "Library" word white instead of blue */
+  .pw-lib-title span {
+    color: #ffffff;
+  }
+
+  .pw-lib-tagline {
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 16px;
+  }
+
+  .pw-lib-sub {
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.88);
+    max-width: 520px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 600px) {
+    .pw-lib-hero {
+      padding: 72px 20px;
+    }
+
+    .pw-lib-title {
+      font-size: 36px;
+    }
+
+    .pw-lib-sub {
+      font-size: 17px;
+    }
+  }
+
+  /* ── Prompt Bank ── */
+  .prompt-bank-section {
+    --white: #ffffff;
+    --black: #000000;
+    --blue: #1292eb;
+    --blue-light: #e8f4fd;
+    --blue-hover: #0d7fd4;
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-400: #9ca3af;
+    --gray-500: #6b7280;
+    --gray-600: #4b5563;
+    --gray-700: #374151;
+    --gray-800: #1f2937;
+    --gray-900: #111827;
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+    /* FIX 2 + 3: grey bg, full bleed width */
+    background: #ffffff;
+    color: var(--gray-900);
+    line-height: 1.6;
+    padding: 40px 0;
+    position: relative;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    width: 100vw;
+  }
+
+  .prompt-bank-section * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .pb-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* FIX 2: removed old margin-top: 46px that caused white gap */
+  .pb-search-section {
+    margin-bottom: 32px;
+    margin-top: 40px;
+  }
+
+  .pb-search-container {
+    max-width: 600px;
+    margin: 0 auto 24px;
+    position: relative;
+  }
+
+  .pb-search-input {
+    width: 100%;
+    padding: 16px 20px 16px 52px;
+    font-size: 16px;
+    font-family: 'Inter', Helvetica, sans-serif;
+    background: var(--white);
+    border: 2px solid var(--gray-200);
+    border-radius: 12px;
+    color: var(--gray-900);
+    transition: all 0.2s ease;
+  }
+
+  .pb-search-input::placeholder {
+    color: var(--gray-400);
+  }
+
+  .pb-search-input:focus {
+    outline: none;
+    border-color: var(--blue);
+    box-shadow: 0 0 0 4px rgba(18, 146, 235, 0.1);
+  }
+
+  .pb-search-icon {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gray-400);
+  }
+
+  .pb-filter-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 24px;
+  }
+
+  .pb-tag-btn {
+    padding: 10px 20px;
+    font-size: 14px;
+    font-family: 'Inter', Helvetica, sans-serif;
+    font-weight: 600;
+    background: var(--white);
+    border: 2px solid var(--gray-200);
+    border-radius: 100px;
+    color: var(--gray-600);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .pb-tag-btn:hover {
+    border-color: var(--blue);
+    color: var(--blue);
+  }
+
+  .pb-tag-btn.active {
+    background: var(--blue);
+    border-color: var(--blue);
+    color: var(--white);
+  }
+
+  .pb-sort-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .pb-results-count {
+    font-size: 15px;
+    color: var(--gray-500);
+  }
+
+  .pb-results-count strong {
+    color: var(--blue);
+    font-weight: 700;
+  }
+
+  .pb-sort-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .pb-sort-label {
+    font-size: 14px;
+    color: var(--gray-500);
+    font-weight: 500;
+  }
+
+  .pb-sort-select {
+    padding: 10px 40px 10px 16px;
+    font-size: 14px;
+    font-family: 'Inter', Helvetica, sans-serif;
+    font-weight: 500;
+    background: var(--white);
+    border: 2px solid var(--gray-200);
+    border-radius: 8px;
+    color: var(--gray-700);
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+  }
+
+  .pb-sort-select:focus {
+    outline: none;
+    border-color: var(--blue);
+  }
+
+  .pb-prompt-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 24px;
+    padding-bottom: 60px;
+  }
+
+  .pb-prompt-card {
+    background: var(--white);
+    border: 2px solid var(--gray-200);
+    border-radius: 16px;
+    padding: 24px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+
+  .pb-prompt-card:hover {
+    border-color: var(--blue);
+    box-shadow: 0 8px 30px rgba(18, 146, 235, 0.12);
+    transform: translateY(-2px);
+  }
+
+  .pb-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+  }
+
+  .pb-card-category {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--blue);
+    background: var(--blue-light);
+    padding: 6px 12px;
+    border-radius: 100px;
+  }
+
+  .pb-copy-count {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: var(--gray-100);
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--gray-600);
+  }
+
+  .pb-copy-count svg {
+    width: 14px;
+    height: 14px;
+    color: var(--blue);
+  }
+
+  .pb-card-icon {
+    width: 56px;
+    height: 56px;
+    background: var(--gray-100);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    font-size: 28px;
+  }
+
+  .pb-card-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--gray-900);
+  }
+
+  .pb-card-description {
+    font-size: 14px;
+    color: var(--gray-500);
+    margin-bottom: 20px;
+    line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .pb-card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .pb-card-tag {
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 500;
+    background: var(--gray-100);
+    border-radius: 100px;
+    color: var(--gray-600);
+  }
+
+  /* ── Modal ── */
+  .pb-modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100%;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 1000;
+    display: none;
+    justify-content: center;
+    padding: 40px 24px 60px;
+    align-items: flex-start;
+  }
+
+  .pb-modal-overlay.active {
+    display: flex;
+  }
+
+  .pb-modal {
+    background: var(--white);
+    border-radius: 20px;
+    max-width: 800px;
+    width: 100%;
+    overflow: hidden;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
+    position: relative;
+    height: fit-content;
+    margin-top: 20px;
+  }
+
+  .pb-modal-header {
+    padding: 32px 32px 24px;
+    border-bottom: 2px solid var(--gray-100);
+    position: relative;
+  }
+
+  .pb-modal-close {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    width: 40px;
+    height: 40px;
+    background: var(--gray-100);
+    border: none;
+    border-radius: 10px;
+    color: var(--gray-500);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    z-index: 10;
+  }
+
+  .pb-modal-close:hover {
+    background: var(--gray-200);
+    color: var(--gray-700);
+  }
+
+  .pb-modal-category {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--blue);
+    background: var(--blue-light);
+    padding: 6px 14px;
+    border-radius: 100px;
+    display: inline-block;
+    margin-bottom: 16px;
+  }
+
+  .pb-modal-title-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+
+  .pb-modal-icon {
+    font-size: 28px;
+  }
+
+  .pb-modal-title {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--gray-900);
+  }
+
+  .pb-modal-subtitle {
+    font-size: 15px;
+    color: var(--gray-500);
+    line-height: 1.6;
+  }
+
+  .pb-modal-body {
+    padding: 32px;
+  }
+
+  .pb-modal-section {
+    margin-bottom: 28px;
+  }
+
+  .pb-modal-section:last-child {
+    margin-bottom: 0;
+  }
+
+  .pb-modal-section-title {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--gray-400);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .pb-modal-section-title svg {
+    width: 16px;
+    height: 16px;
+    color: var(--blue);
+  }
+
+  .pb-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+  }
+
+  .pb-info-item {
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-radius: 12px;
+    padding: 16px;
+  }
+
+  .pb-info-item-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--gray-400);
+    margin-bottom: 8px;
+  }
+
+  .pb-info-item-value {
+    font-size: 14px;
+    color: var(--gray-700);
+    line-height: 1.5;
+  }
+
+  .pb-prompt-box {
+    background: var(--gray-900);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .pb-prompt-box-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    background: var(--black);
+    border-bottom: 1px solid var(--gray-800);
+  }
+
+  .pb-prompt-box-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gray-400);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .pb-prompt-box-title svg {
+    color: var(--blue);
+  }
+
+  .pb-copy-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: 'Inter', Helvetica, sans-serif;
+    background: var(--blue);
+    border: none;
+    border-radius: 10px;
+    color: var(--white);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .pb-copy-btn:hover {
+    background: var(--blue-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(18, 146, 235, 0.4);
+  }
+
+  .pb-copy-btn.copied {
+    background: #10b981;
+  }
+
+  .pb-prompt-content {
+    padding: 20px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--gray-300);
+    white-space: pre-wrap;
+    max-height: 350px;
+    overflow-y: auto;
+  }
+
+  .pb-prompt-content::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .pb-prompt-content::-webkit-scrollbar-track {
+    background: var(--gray-800);
+  }
+
+  .pb-prompt-content::-webkit-scrollbar-thumb {
+    background: var(--gray-600);
+    border-radius: 4px;
+  }
+
+  .pb-modal-footer {
+    padding: 20px 32px;
+    border-top: 2px solid var(--gray-100);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--gray-50);
+  }
+
+  .pb-modal-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .pb-modal-copy-count {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--gray-500);
+  }
+
+  .pb-modal-copy-count svg {
+    width: 18px;
+    height: 18px;
+    color: var(--blue);
+  }
+
+  .pb-no-results {
+    text-align: center;
+    padding: 80px 20px;
+    color: var(--gray-400);
+  }
+
+  .pb-no-results-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+  }
+
+  .pb-no-results h3 {
+    font-size: 20px;
+    color: var(--gray-600);
+    margin-bottom: 8px;
+  }
+
+  @media (max-width: 768px) {
+    .pb-prompt-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .pb-filter-controls {
+      justify-content: flex-start;
+      overflow-x: auto;
+      flex-wrap: nowrap;
+      padding-bottom: 8px;
+    }
+
+    .pb-tag-btn {
+      flex-shrink: 0;
+    }
+
+    .pb-sort-row {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .pb-modal-body {
+      padding: 24px;
+    }
+
+    .pb-modal-header {
+      padding: 24px;
+    }
+
+    .pb-info-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .pb-prompt-box-header {
+      flex-direction: column;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .pb-copy-btn {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .pb-modal-title {
+      font-size: 22px;
+    }
+  }
+
+  /* ═══════════ PROMPTWIRE THEME OVERRIDE ═══════════ */
+
+  /* Fonts. Was Inter. */
+  .pw-lib-hero,
+  .prompt-bank-section,
+  .pb-search-input,
+  .pb-tag-btn,
+  .pb-sort-select,
+  .pb-copy-btn {
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+
+  /* Headings in Barlow Condensed, same as every other page */
+  .pw-lib-title {
+    font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+    font-weight: 800;
+    font-style: normal;
+    font-size: clamp(46px, 6.5vw, 72px);
+    line-height: 1.0;
+    letter-spacing: -0.01em;
+  }
+
+  .pb-card-title,
+  .pb-modal-title {
+    font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+    font-weight: 800;
+  }
+
+  .pb-card-title {
+    font-size: 22px;
+    line-height: 1.15;
+  }
+
+  .pb-modal-title {
+    font-size: 34px;
+    line-height: 1.05;
+  }
+
+  /* Accessible blue for small text.
+   #1292eb on white is ~3.1:1 and fails WCAG AA at body size. */
+  .prompt-bank-section {
+    --blue-text: #0C6BAF;
+  }
+
+  .pb-card-category,
+  .pb-modal-category,
+  .pb-results-count strong {
+    color: var(--blue-text);
+  }
+
+  .pb-tag-btn:hover {
+    color: var(--blue-text);
+  }
+
+  /* Kill the pills. border-radius: 100px is the single biggest AI tell in the file. */
+  .pb-card-category,
+  .pb-card-tag,
+  .pb-copy-count,
+  .pb-tag-btn,
+  .pb-modal-category {
+    border-radius: 5px;
+  }
+
+  .pb-search-input {
+    border-radius: 10px;
+    border-width: 1.5px;
+  }
+
+  .pb-sort-select,
+  .pb-copy-btn,
+  .pb-modal-close {
+    border-radius: 8px;
+  }
+
+  .pb-modal {
+    border-radius: 18px;
+  }
+
+  /* Cards: same accent bar as the home, upgrade and thank-you pages */
+  .pb-prompt-card {
+    position: relative;
+    overflow: hidden;
+    border-width: 1.5px;
+  }
+
+  .pb-prompt-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: #1292eb;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .3s ease;
+  }
+
+  .pb-prompt-card:hover::before {
+    transform: scaleX(1);
+  }
+
+  /* Tag chips: outlined, not grey blobs */
+  .pb-card-tag {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    padding: 4px 9px;
+  }
+
+  /* Filters left-aligned, active state matches the site */
+  .pb-filter-controls {
+    justify-content: flex-start;
+  }
+
+  .pb-tag-btn {
+    border-width: 1.5px;
+  }
+
+  .pb-tag-btn.active {
+    background: #111827;
+    border-color: #111827;
+    color: #fff;
+  }
+
+  /* Modal: no emoji, hairline rules */
+  .pb-modal-icon {
+    display: none;
+  }
+
+  .pb-modal-header {
+    border-bottom: 2px solid #111827;
+  }
+
+  .pb-modal-section-title {
+    letter-spacing: .1em;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+
+    .prompt-bank-section *,
+    .pw-lib-hero * {
+      transition: none !important;
+      animation: none !important;
+    }
+  }
+</style>
+
+<!-- Hero -->
+<div class="pw-lib-hero">
+  <div class="pw-lib-grid"></div>
+  <div class="pw-lib-inner">
+    <h1 class="pw-lib-title">Pro Workflow Template Library</h1>
+    <p class="pw-lib-tagline">Ready to Use. Updated Weekly.</p>
+    <p class="pw-lib-sub">Ready-to-run workflows & agents covering the tasks you are still
+      doing manually. Copy, paste, and run inside ChatGPT, Claude and
+      Gemini.</p>
+  </div>
+</div>
+
+<!-- Prompt Bank -->
+<div class="prompt-bank-section" id="promptBankSection">
+  <div class="pb-container">
+    <section class="pb-search-section">
+      <div class="pb-search-container">
+        <svg class="pb-search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="2">
+          <circle cx="11" cy="11" r="8" />
+          <path d="M21 21l-4.35-4.35" />
+        </svg>
+        <input type="text" class="pb-search-input" id="pbSearchInput" placeholder="Search prompts...">
+      </div>
+      <div class="pb-filter-controls" id="pbTagFilter">
+        <button class="pb-tag-btn active" data-tag="all">All</button>
+        <button class="pb-tag-btn" data-tag="business">Business</button>
+        <button class="pb-tag-btn" data-tag="content">Content</button>
+        <button class="pb-tag-btn" data-tag="marketing">Marketing</button>
+        <button class="pb-tag-btn" data-tag="research">Research</button>
+        <button class="pb-tag-btn" data-tag="productivity">Productivity</button>
+        <button class="pb-tag-btn" data-tag="creative">Creative</button>
+      </div>
+      <div class="pb-sort-row">
+        <p class="pb-results-count" id="pbResultsCount">Showing <strong>30</strong> prompts</p>
+        <div class="pb-sort-controls">
+          <span class="pb-sort-label">Sort by:</span>
+          <select class="pb-sort-select" id="pbSortSelect">
+            <option value="popular">Most Copied</option>
+            <option value="alphabetical">Alphabetical</option>
+            <option value="newest" selected>Newest</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <div class="pb-prompt-grid" id="pbPromptGrid"></div>
+    <div class="pb-no-results" id="pbNoResults" style="display:none;">
+      <div class="pb-no-results-icon">🔍</div>
+      <h3>No prompts found</h3>
+      <p>Try adjusting your search or filter criteria</p>
+    </div>
+  </div>
+
+  <div class="pb-modal-overlay" id="pbModalOverlay">
+    <div class="pb-modal">
+      <button class="pb-modal-close" id="pbModalClose" type="button" onclick="closePbModal()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+      <div class="pb-modal-header">
+        <span class="pb-modal-category" id="pbModalCategory"></span>
+        <div class="pb-modal-title-row">
+          <span class="pb-modal-icon" id="pbModalIcon"></span>
+          <h2 class="pb-modal-title" id="pbModalTitle"></h2>
+        </div>
+        <p class="pb-modal-subtitle" id="pbModalSubtitle"></p>
+      </div>
+      <div class="pb-modal-body">
+        <div class="pb-modal-section">
+          <h3 class="pb-modal-section-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10" />
+              <path d="M12 16v-4M12 8h.01" />
+            </svg>
+            Quick Info
+          </h3>
+          <div class="pb-info-grid" id="pbModalInfoGrid"></div>
+        </div>
+        <div class="pb-modal-section">
+          <h3 class="pb-modal-section-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="4 7 4 4 20 4 20 7" />
+              <line x1="9" y1="20" x2="15" y2="20" />
+              <line x1="12" y1="4" x2="12" y2="20" />
+            </svg>
+            The Prompt
+          </h3>
+          <div class="pb-prompt-box">
+            <div class="pb-prompt-box-header">
+              <span class="pb-prompt-box-title">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                Copy &amp; paste into Claude or ChatGPT
+              </span>
+              <button class="pb-copy-btn" id="pbCopyBtn" type="button">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                Copy Prompt
+              </button>
+            </div>
+            <pre class="pb-prompt-content" id="pbModalPrompt"></pre>
+          </div>
+        </div>
+      </div>
+      <div class="pb-modal-footer">
+        <div class="pb-modal-tags" id="pbModalTags"></div>
+        <div class="pb-modal-copy-count">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+          </svg>
+          <span id="pbModalCopyCountValue">0</span> copies
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+  const prompts = [
+    {id:1,title:"Business Idea Generator",description:"Analyze, cross-compare, and identify profitable online business niches based on market signals, competition, and your skills.",category:"business",tags:["niche research","validation","strategy"],icon:"💡",whatItDoes:"Finds and validates profitable niche business ideas tailored to your skills and budget",bestFor:"Entrepreneurs, side hustlers, anyone exploring new business ventures",inputsNeeded:"Skills, interests, time availability, investment budget",copies:142,prompt:`<s>\nYou are a niche research and validation assistant. Your job is to analyze, cross-compare, and identify potentially profitable online business niches that are realistic for the user to enter based on current market signals, competition levels, and user alignment.\n</s>\n\n<Context>\nThe user is interested in starting an online business with minimal upfront investment. They want a niche that is both profitable and suited to their interests, skills, and time availability. Your goal is to help them find up to 3 validated niche options that fit these criteria.\n</Context>\n\n<Instructions>\n1. Use deep research techniques to extract people's recurring pain points from real communities like Reddit, Quora, G2, and ProductHunt.\n2. Identify and summarize these pain points with supporting examples.\n3. Validate the niche by analyzing: Demand Strength, Competition Intensity, Monetization Potential.\n4. Cross-reference with the user's personal input to determine feasibility.\n5. Rank each validated niche idea using a scoring system from 1–10.\n6. Provide an action path for each niche.\n</Instructions>\n\n<User Input>\nReply with: "Please enter your online business background, skills, interests, time availability, and how much you're willing to invest, and I will start the process."`},
+    {id:2,title:"Business Plan Builder",description:"Create a clear, structured business plan with problem statement, target customer, USP, revenue model, and competitive analysis.",category:"business",tags:["planning","strategy","startup"],icon:"📋",whatItDoes:"Generates a comprehensive yet concise business plan covering all essential sections",bestFor:"Startup founders, small business owners, pitch preparation",inputsNeeded:"Your business idea or concept",copies:98,prompt:`I'm working on a business idea and need help shaping a simple, clear business plan. Please include:\n\n• Problem Statement — what core problem this solves\n• Target Customer — who this is for\n• Proposed Solution — what the product/service is\n• Unique Selling Proposition — what makes this different\n• Revenue Model — how the business will earn money\n• Marketing & Sales Strategy — how customers will find this\n• Key Risks or Assumptions — what must be tested early\n• Competitive Landscape — top competitors\n\nPresent everything in a concise, skimmable format.`},
+    {id:3,title:"Market Research Agent",description:"Conduct detailed market research using public data, search behavior, and competitor patterns to validate your idea.",category:"research",tags:["validation","competitor analysis","market gaps"],icon:"🔬",whatItDoes:"Provides deep market analysis including demand signals and opportunity gaps",bestFor:"Product managers, entrepreneurs, market analysts",inputsNeeded:"Your business or product idea",copies:87,prompt:`I'm testing a business hypothesis. My idea is: "[Insert your idea here]".\n\nPlease help me conduct a detailed market research breakdown. Include:\n\n1. Problem & Demand\n• What problem(s) this idea solves\n• Who feels these problems most\n• Search behaviour or trends that signal demand\n\n2. Existing Solutions & Market Players\n• Direct and indirect competitors\n• Strengths and weaknesses of existing solutions\n\n3. Gaps & Opportunities\n• What customers still need\n• Potential angles or differentiators`},
+    {id:4,title:"Background Business Operator",description:"Your silent business assistant that summarizes, prioritizes, and suggests next steps for emails, notes, and messages.",category:"productivity",tags:["automation","task management","email"],icon:"⚙️",whatItDoes:"Processes your business communications and extracts actionable items",bestFor:"Busy professionals, executives, anyone overwhelmed by inbox",inputsNeeded:"Emails, messages, notes, meeting summaries, or ideas",copies:156,prompt:`You are my background business operator.\n\nWhen I paste emails, messages, notes, meeting summaries, or ideas, you will:\n– Summarise each item clearly\n– Identify what needs action or follow-up\n– Suggest a simple next step\n– Flag what can wait\n– Group items by urgency\n\nKeep everything short and practical.\nFocus on helping work move forward, not on creating plans.`},
+    {id:5,title:"Ask-First Brainstorm Partner",description:"A strategic thinking partner that pulls ideas from your head through sharp questions, then helps organize them.",category:"creative",tags:["ideation","thinking partner","strategy"],icon:"🧠",whatItDoes:"Uses targeted questions to extract and structure your ideas",bestFor:"Strategists, writers, anyone developing complex ideas",inputsNeeded:"Your topic or challenge to brainstorm",copies:124,prompt:`You are my Ask-First Brainstorm Partner. Your job is to ask sharp questions to pull ideas out of my head, then help me organise and refine them — but never replace my thinking.\n\nOperating Rules:\n• One question per turn\n• Use my words only — no examples unless I say "expand"\n• Keep bullets, not prose\n• Mirror and label my ideas using my language\n\nCommands:\n• reset — return to current phase\n• skip — move to next phase\n• expand <tag> — generate 2–3 options\n• map it — produce an outline\n• draft — turn the outline into prose`},
+    {id:6,title:"Logo Concept Generator",description:"Create detailed logo briefs for AI image generators with brand identity, style direction, and emotional tone.",category:"creative",tags:["branding","design","image generation"],icon:"🎨",whatItDoes:"Produces comprehensive logo generation prompts for DALL-E or Midjourney",bestFor:"Brand designers, startup founders, marketing teams",inputsNeeded:"Brand name, identity keywords, target audience, preferred style",copies:76,prompt:`Using an image generator, create a logo concept for a brand called: [Brand Name].\n\nBrand identity keywords: [3–5 adjectives such as modern, warm, minimalist, bold]\nTarget audience: [describe the audience briefly]\nPreferred style: [wordmark, abstract symbol, mascot, emblem, minimalist]\nEmotional tone the logo should evoke: [trust, creativity, simplicity, fun, innovation]\n\nInclude a simple colour direction or palette to explore.`},
+    {id:7,title:"Blog Post Writer",description:"Transform any topic into an engaging, SEO-friendly blog post with proper structure and compelling hooks.",category:"content",tags:["blogging","SEO","writing"],icon:"✍️",whatItDoes:"Creates well-structured blog posts with intro hooks and CTAs",bestFor:"Content marketers, bloggers, SEO specialists",inputsNeeded:"Topic, target audience, desired length, key points",copies:203,prompt:`You are a professional blog writer. Create an engaging blog post following this structure:\n\nTopic: [Insert topic]\nTarget audience: [Who is reading this]\nTone: [Professional/Casual/Educational/Entertaining]\nLength: [Word count target]\n\nRequirements:\n1. Hook — Start with a compelling opening\n2. Promise — Tell the reader what they'll learn\n3. Body — Break into 3-5 scannable sections with H2 headings\n4. Conclusion — Summarize key points and include a clear CTA\n5. Meta description — Write a 155-character SEO description\n\nWrite in active voice. Use short paragraphs.`},
+    {id:8,title:"Social Media Content Pack",description:"Generate a week's worth of social media posts across platforms from a single content piece or topic.",category:"marketing",tags:["social media","repurposing","content calendar"],icon:"📱",whatItDoes:"Creates platform-specific posts for LinkedIn, Twitter/X, Instagram from one idea",bestFor:"Social media managers, solopreneurs, marketing teams",inputsNeeded:"Core topic or content piece, brand voice, target platforms",copies:178,prompt:`You are a social media content strategist. From the content/topic I provide, create a week of posts (7 days).\n\nInput: [Paste your content, article, or topic here]\nBrand voice: [Professional/Friendly/Bold/Educational]\nTarget platforms: [LinkedIn, Twitter/X, Instagram, Facebook]\n\nFor each day, create:\n\nLinkedIn (1 post):\n- Hook line (pattern interrupt)\n- 3-5 short paragraphs with line breaks\n- End with a question or CTA\n\nTwitter/X (2-3 tweets):\n- Thread starter or standalone\n- Under 280 characters each\n\nInstagram (1 post):\n- Caption with emoji placement\n- CTA at the end\n- 5-10 relevant hashtags`},
+    {id:9,title:"Email Sequence Builder",description:"Create a complete email sequence for launches, nurturing, or sales with subject lines and CTAs.",category:"marketing",tags:["email marketing","sequences","copywriting"],icon:"📧",whatItDoes:"Builds multi-email sequences with conversion optimization",bestFor:"Email marketers, course creators, SaaS founders",inputsNeeded:"Product/offer details, sequence goal, audience pain points",copies:134,prompt:`You are an email marketing expert. Create a [X]-email sequence for:\n\nProduct/Offer: [Describe what you're selling]\nGoal: [Launch/Nurture/Sales/Onboarding]\nTarget audience: [Who are they]\nKey pain points: [What problems does this solve]\n\nFor each email, provide:\n\nEmail [#]: [Purpose]\nSubject Line: [Create 2 options]\nPreview Text: [40-90 characters]\nBody:\n- Opening hook\n- Main content\n- Transition to CTA\n- CTA button text\n- P.S. line\n\nTiming: Suggest send schedule`},
+    {id:10,title:"Video Script Writer",description:"Transform topics into engaging video scripts with hooks, retention techniques, and clear structure.",category:"content",tags:["YouTube","video","scriptwriting"],icon:"🎬",whatItDoes:"Creates retention-optimized video scripts with storytelling elements",bestFor:"YouTubers, course creators, video marketers",inputsNeeded:"Topic, target length, audience, video style",copies:145,prompt:`You are a YouTube scriptwriter. Create an engaging video script.\n\nTopic: [Your video topic]\nTarget length: [X minutes]\nAudience: [Who is watching]\nStyle: [Educational/Entertainment/Tutorial/Story-based]\n\nStructure:\n\nHOOK (0:00-0:30)\n- Pattern interrupt or surprising statement\n- Promise what they'll learn\n\nINTRO (0:30-1:00)\n- Expand on the promise\n- Create curiosity loops\n\nMAIN CONTENT\nBreak into 3-5 sections with:\n- Key point\n- Example or story\n- Retention bump\n\nCONCLUSION\n- Recap key takeaways\n- CTA (subscribe, comment)\n\nInclude [B-ROLL] and [GRAPHIC] cues.`},
+    {id:11,title:"Sales Copy Converter",description:"Transform features into benefit-driven sales copy that converts using proven persuasion frameworks.",category:"marketing",tags:["copywriting","sales","conversion"],icon:"💰",whatItDoes:"Creates persuasive sales copy using PAS, AIDA frameworks",bestFor:"Copywriters, marketers, business owners",inputsNeeded:"Product/service details, target audience, key features",copies:112,prompt:`You are an expert sales copywriter. Transform my product/service information into compelling sales copy.\n\nProduct/Service: [Describe what you're selling]\nTarget audience: [Who is the ideal buyer]\nKey features: [List 3-5 main features]\nMain objections: [What stops people from buying]\n\nCreate:\n\n1. HEADLINE OPTIONS (5 variations)\n2. SUBHEADLINE\n3. OPENING PARAGRAPH (PAS framework)\n4. FEATURE → BENEFIT CONVERSION\n5. OBJECTION HANDLERS\n6. CTA OPTIONS (3 variations)\n7. GUARANTEE/RISK REVERSAL`},
+    {id:12,title:"SOP Creator",description:"Build clear, step-by-step Standard Operating Procedures for any business process.",category:"productivity",tags:["documentation","processes","operations"],icon:"📑",whatItDoes:"Creates detailed SOPs with steps and quality checkpoints",bestFor:"Operations managers, team leads, business owners",inputsNeeded:"Process name, current steps, team involved, tools used",copies:89,prompt:`You are a business operations specialist. Create a comprehensive SOP document.\n\nProcess name: [What is this SOP for]\nPurpose: [Why does this process exist]\nTeam/Role responsible: [Who executes this]\nTools required: [Software, equipment needed]\nFrequency: [How often is this done]\n\nCreate the SOP with:\n\n1. OVERVIEW\n2. SCOPE\n3. STEP-BY-STEP PROCEDURE\n   - Step number\n   - Action\n   - Expected outcome\n   - Time estimate\n4. QUALITY CHECKPOINTS\n5. TROUBLESHOOTING\n6. REFERENCES`},
+    {id:13,title:"Research Summary Agent",description:"Transform lengthy documents, articles, or research into actionable summaries with key insights.",category:"research",tags:["analysis","summaries","insights"],icon:"📊",whatItDoes:"Extracts key findings and action items from complex content",bestFor:"Researchers, analysts, executives",inputsNeeded:"Document, article, or research to summarize",copies:167,prompt:`You are a research analyst. Summarize the following content into an actionable brief.\n\nContent: [Paste your document here]\n\nCreate a summary with:\n\n1. EXECUTIVE SUMMARY (2-3 sentences)\n2. KEY FINDINGS (bullet points)\n3. IMPLICATIONS\n4. CRITICAL ANALYSIS\n5. ACTION ITEMS\n6. TAGS/CATEGORIES\n\nKeep the summary under [X] words.`},
+    {id:14,title:"YouTube to Blog Converter",description:"Transform YouTube transcripts into polished, SEO-optimized blog posts while preserving key insights.",category:"content",tags:["repurposing","transcription","blogging"],icon:"🔄",whatItDoes:"Converts video content into readable blog format with SEO",bestFor:"Content creators, marketers repurposing video content",inputsNeeded:"YouTube transcript or video content",copies:143,prompt:`You are a content repurposing specialist. Transform this YouTube transcript into a polished blog post.\n\nTranscript: [Paste transcript here]\nTarget keywords: [SEO keywords to include]\n\nCreate a blog post that:\n\n1. REMOVES verbal filler\n2. RESTRUCTURES for reading with H2/H3 headings\n3. ENHANCES the content with examples\n4. OPTIMIZES for SEO\n5. PRESERVES the voice\n\nOutput:\n- Title (SEO-optimized)\n- Meta description\n- Full blog post`},
+    {id:15,title:"Meeting Notes Processor",description:"Convert raw meeting notes into organized summaries with decisions, action items, and follow-ups.",category:"productivity",tags:["meetings","notes","action items"],icon:"📝",whatItDoes:"Structures messy meeting notes into clear summaries",bestFor:"Project managers, team leads, anyone running meetings",inputsNeeded:"Raw meeting notes or transcript",copies:198,prompt:`You are a meeting documentation specialist. Process these meeting notes into an organized summary.\n\nMeeting notes: [Paste raw notes here]\nMeeting type: [Team sync/Client call/Planning/Review]\n\nCreate:\n\n1. MEETING OVERVIEW\n2. KEY DISCUSSION POINTS\n3. DECISIONS MADE\n4. ACTION ITEMS\n   - [ ] Task description\n   - Owner: [Name]\n   - Deadline: [Date]\n   - Priority: [High/Medium/Low]\n5. PARKING LOT\n6. NEXT STEPS`},
+    {id:16,title:"Competitor Content Analyzer",description:"Analyze competitor content to identify gaps, opportunities, and winning strategies to apply.",category:"research",tags:["competitive analysis","content strategy","gaps"],icon:"🔍",whatItDoes:"Deep-dives into competitor content for actionable intelligence",bestFor:"Content strategists, marketers",inputsNeeded:"Competitor content (articles, pages, descriptions)",copies:95,prompt:`You are a competitive intelligence analyst. Analyze this competitor content.\n\nCompetitor content: [Paste content or describe it]\nMy brand/product: [Brief description]\nMy target audience: [Who I'm trying to reach]\n\nAnalyze:\n\n1. CONTENT STRUCTURE ANALYSIS\n2. MESSAGING ANALYSIS\n3. SEO/DISCOVERABILITY\n4. STRENGTHS\n5. WEAKNESSES & GAPS\n6. DIFFERENTIATION OPPORTUNITIES\n7. TACTICAL TAKEAWAYS`},
+    {id:17,title:"Content Repurposing Engine",description:"Transform one piece of content into 10+ formats for maximum reach across platforms.",category:"content",tags:["repurposing","multi-platform","efficiency"],icon:"♻️",whatItDoes:"Multiplies content into threads, posts, emails, scripts",bestFor:"Content creators, solopreneurs, marketing teams",inputsNeeded:"Original content piece (blog, video, article)",copies:187,prompt:`You are a content multiplication expert. Transform this content into multiple formats.\n\nOriginal content: [Paste your content here]\nBrand voice: [Professional/Casual/Bold/Educational]\n\nCreate ALL:\n\n1. TWITTER/X THREAD (5-7 tweets)\n2. LINKEDIN POST\n3. INSTAGRAM CAROUSEL\n4. EMAIL NEWSLETTER\n5. YOUTUBE SHORT/REEL SCRIPT\n6. PODCAST TALKING POINTS\n7. QUOTE GRAPHICS (3)\n8. BLOG SNIPPET`},
+    {id:18,title:"Prompt Generator",description:"Meta-prompt that creates custom AI prompts optimized for your specific use case.",category:"productivity",tags:["meta","prompt engineering","AI"],icon:"🔧",whatItDoes:"Builds tailored prompts with proper structure and formatting",bestFor:"AI power users, automation builders, prompt engineers",inputsNeeded:"Task description, desired output, constraints",copies:221,prompt:`You are a prompt engineering expert. Create an optimized AI prompt based on my requirements.\n\nWhat I want to accomplish: [Describe the task]\nDesired output format: [How should results be structured]\nConstraints: [Any rules or limitations]\n\nCreate a prompt with:\n\n1. ROLE DEFINITION\n2. CONTEXT SECTION\n3. CLEAR INSTRUCTIONS\n4. CONSTRAINTS\n5. OUTPUT FORMAT\n6. USER INPUT PLACEHOLDER\n\nAlso provide:\n- 2-3 variations\n- Tips for better results\n- Common mistakes to avoid`},
+    {id:19,title:"Lead Magnet Creator",description:"Design high-converting lead magnets with titles, outlines, and promotional copy.",category:"marketing",tags:["lead generation","email list","content"],icon:"🧲",whatItDoes:"Creates complete lead magnet concepts with marketing materials",bestFor:"Marketers building email lists, coaches, course creators",inputsNeeded:"Target audience, their main problem, your expertise area",copies:108,prompt:`You are a lead generation strategist. Create a high-converting lead magnet concept.\n\nTarget audience: [Who are they]\nMain problem they face: [Their biggest pain point]\nYour expertise area: [What you can teach them]\nFormat preference: [PDF/Checklist/Template/Mini-course/Quiz]\n\nCreate:\n\n1. LEAD MAGNET CONCEPTS (3 options)\n2. CHOSEN CONCEPT - FULL OUTLINE\n3. LANDING PAGE COPY\n4. THANK YOU PAGE COPY\n5. DELIVERY EMAIL\n6. PROMOTIONAL ASSETS`},
+    {id:20,title:"Customer Support Agent",description:"Handle customer inquiries with empathy, clarity, and efficient problem resolution.",category:"business",tags:["support","customer service","communication"],icon:"💬",whatItDoes:"Responds to customer issues with appropriate tone and solutions",bestFor:"Support teams, business owners",inputsNeeded:"Customer inquiry or complaint, product/service context",copies:132,prompt:`You are a customer support specialist known for empathetic, efficient problem-solving.\n\nCompany/Product: [Your business context]\nBrand voice: [Friendly/Professional/Casual]\n\nWhen I share a customer message, respond with:\n\n1. EMPATHY ACKNOWLEDGMENT\n2. CLARIFYING QUESTIONS (if needed)\n3. SOLUTION\n4. FOLLOW-UP\n\nGUIDELINES:\n- Keep responses under 150 words\n- Use simple language\n- End positively\n- Never blame the customer\n\nAlso flag:\n- Escalation needed?\n- Sentiment\n- Follow-up required?`},
+    {id:21,title:"Full Website Builder (Ask-First Mode)",description:"Claude interviews you before writing a single line of code, then builds your complete website.",category:"business",tags:["website","HTML","code","landing page","web design"],icon:"🌐",whatItDoes:"Generates a complete, styled, single-file HTML/CSS/JS website tailored to your exact business and goals",bestFor:"Founders, freelancers, and small business owners who need a real website fast without hiring a developer",inputsNeeded:"Just your business name — Claude asks everything else",copies:53,prompt:`You are an expert web designer and developer. Before writing any code, you MUST interview the user to gather everything you need to build them a professional website.
+
+PHASE 1 — INTERVIEW (ask all questions in ONE message, numbered):
+
+1. What is your business name and what do you do in one sentence?
+2. Who is your ideal customer? (age, job, problem they have)
+3. What is the ONE main action you want visitors to take? (buy, book, sign up, contact, etc.)
+4. Do you have a tagline or headline in mind, or should I write one?
+5. What pages do you need? (Home, About, Services, Pricing, Contact — or custom?)
+6. What's your color preference? (e.g. "professional blue", "bold and dark", "clean white", or share a hex code)
+7. What tone should the copy have? (friendly, corporate, edgy, minimalist, luxury)
+8. Do you have any links, social handles, or contact info to include?
+9. Any websites you like the look/feel of? (optional but helpful)
+10. Any specific features? (FAQ section, testimonials, pricing table, newsletter signup, countdown timer, etc.)
+
+Wait for the user's answers before proceeding.
+
+---
+
+PHASE 2 — BUILD
+
+Once you have the answers, build a complete, single-file website using only HTML, CSS, and vanilla JavaScript. Requirements:
+
+- Fully responsive (mobile-first)
+- Clean, modern design — no generic Bootstrap look
+- Smooth scroll navigation
+- Sticky header with nav links
+- Hero section with a strong headline, subheadline, and CTA button
+- All requested sections built out with real copy (not Lorem Ipsum)
+- Footer with links and copyright
+- Subtle animations (fade-in on scroll using Intersection Observer)
+- Semantic HTML5 tags
+- CSS custom properties for easy color theming
+- No external dependencies except Google Fonts (load via @import)
+
+Write the full code inside a single \`\`\`html code block. After the code, give the user 3 quick suggestions for improving the site further.`},
+    {id:22,title:"Short-Form Video Trend Analyzer",description:"Get 5 viral video formats adapted to your exact niche, with hooks, psychology, and off-camera angles.",category:"content",tags:["video","TikTok","YouTube Shorts","viral","content strategy"],icon:"📱",whatItDoes:"Breaks down trending short-form video formats and gives you a ready-to-film version tailored to your niche and audience",bestFor:"Content creators, founders, and consultants building an audience on TikTok, Reels, or YouTube Shorts without wanting to copy trends blindly",inputsNeeded:"Your content niche and target audience",copies:27,prompt:`You are a short-form video trends analyst with deep expertise in viral content.
+
+I create content about [YOUR NICHE - e.g., AI automation, productivity, business growth].
+
+My target audience is [WHO YOU SERVE - e.g., founders, consultants, small business owners].
+
+Analyze the current trending formats that would work for my niche.
+
+For each trend you identify, give me:
+- **Format name** — what creators are calling it
+- **Visual structure** — what it actually looks like on screen, shot by shot
+- **Why it works** — the psychological trigger driving views and saves
+- **Hook (first 3 seconds)** — exact structure of what appears on screen and what's said
+- **My angle** — a specific, non-generic way I can use this format for my niche without it feeling copied
+
+Give me 5 trending formats I could film this week.
+
+Prioritize formats that:
+- Don't require me to be on camera (screen recordings, text-on-screen, AI visuals, voiceover, or B-roll)
+- Work for educational or business content
+- Have been performing well recently on TikTok, Reels, or YouTube Shorts
+
+After the 5 formats, give me one bonus tip: the biggest mistake creators in my niche make with trends, and how to avoid it.`},
+    {id:23,title:"Presentation Blueprint & Structure Generator",description:"Turn a vague presentation idea into a complete strategic plan and slide-by-slide roadmap before writing a word of content.",category:"productivity",tags:["presentation","slides","strategy","pitch deck","structure"],icon:"🎯",whatItDoes:"Outputs a full strategic blueprint plus a complete slide-by-slide structure table with titles, purposes, transitions, and time estimates",bestFor:"Founders, consultants, and managers building high-stakes presentations who want a strategic foundation before touching any slides",inputsNeeded:"Your topic, context, audience, desired outcome, time limit, and tone",copies:43,prompt:`Act as a professional presentation consultant with 15 years of experience building executive-level decks.
+
+I need to create a presentation. First, build the strategic blueprint, then design the complete slide structure.
+
+ABOUT THIS PRESENTATION:
+- Topic: [Your presentation topic]
+- Context: [Why this presentation exists — what's the situation?]
+- Audience: [Who will watch this — their role, knowledge level, what they care about]
+- Desired outcome: [What do you want the audience to think, feel, or do after?]
+- Time limit: [How long is the presentation? e.g., 10 minutes, 30 minutes]
+- Tone: [Professional/casual/inspirational/data-driven/urgent]
+
+PART 1: STRATEGIC BLUEPRINT
+
+Provide:
+
+1. OBJECTIVE STATEMENT
+One sentence that defines exactly what this presentation must accomplish.
+
+2. AUDIENCE ANALYSIS
+- What do they already know?
+- What do they need to learn?
+- What objections or skepticism might they have?
+- What would make them say "yes" or take action?
+
+3. KEY MESSAGE
+The single most important takeaway. If the audience remembers only one thing, it should be this. (One sentence maximum.)
+
+4. SUCCESS CRITERIA
+How will you know this presentation worked? Define 2-3 measurable or observable outcomes.
+
+PART 2: SLIDE-BY-SLIDE STRUCTURE
+
+Based on the blueprint above, design the complete slide structure.
+
+For each slide, provide a table with:
+| Slide # | Slide Title | Purpose of This Slide | Transition to Next | Est. Time |
+
+RULES FOR STRUCTURE:
+- Each slide should have ONE clear purpose
+- Titles should be specific, not generic (not "Introduction" — instead "Why This Matters Now")
+- The "Transition to Next" column explains how this slide leads logically to the next one
+- Include an opening slide that hooks attention in the first 10 seconds
+- Include a closing slide with a clear call to action
+- Balance content slides with "breathing room" slides (visuals, quotes, section breaks)
+- Flag any slides that need extra preparation (data, approvals, custom visuals)
+
+Output the blueprint first, then the complete slide structure table.`},
+    {id:24,title:"Slide Content & Speaker Notes Generator",description:"Turn your slide structure into complete, presentation-ready headlines, bullets, and speaker notes — already edited for clarity.",category:"productivity",tags:["presentation","speaker notes","copywriting","slides","PowerPoint"],icon:"🖊️",whatItDoes:"Writes and self-edits every slide's headline, on-screen content, and speaker notes, then flags and fixes anything that violates tight slide writing rules",bestFor:"Anyone who has a slide structure ready and needs to fill it with polished, paste-ready content without staring at a blank screen",inputsNeeded:"Your slide structure (titles and purposes), audience, tone, and key message",copies:18,prompt:`Act as a presentation copywriter and editor who creates concise, high-impact slide content.
+
+Based on the following presentation structure, create complete content for every slide AND edit it for maximum clarity.
+
+PRESENTATION STRUCTURE:
+[Paste your slide structure here — slide titles and purposes]
+
+CONTEXT:
+- Audience: [Who is watching — role, knowledge level]
+- Tone: [Professional/casual/data-driven/inspirational]
+- Key message: [The single most important takeaway]
+
+FOR EACH SLIDE, PROVIDE:
+
+---
+SLIDE [#]: [Title]
+
+HEADLINE: [Main text that appears prominently — 8 words max]
+
+ON-SCREEN CONTENT:
+[Exactly what appears on the slide — bullets, stats, quotes. Maximum 25 words total. Use fragments, not sentences. Maximum 3 bullets, 7 words per bullet.]
+
+SPEAKER NOTES:
+[What you actually SAY while this slide is up. 2-4 sentences. This is where the detail lives.]
+
+---
+
+AFTER GENERATING ALL SLIDES, REVIEW AND EDIT:
+
+For any slide that violates these rules, show the fix:
+- Headlines over 8 words → rewrite shorter
+- Bullets over 7 words → rewrite tighter
+- More than 25 words on screen → cut ruthlessly
+- Multiple ideas on one slide → flag for splitting
+- Jargon or vague language → replace with specifics
+- Fails the "so what?" test → cut or rewrite
+
+EDITING FORMAT:
+SLIDE [#] — BEFORE: [original]
+SLIDE [#] — AFTER: [edited]
+CHANGE: [why]
+
+For clean slides, note: "SLIDE [#] — ✓ No changes needed"
+
+End with:
+OVERALL ASSESSMENT: Is this presentation ready? Any remaining concerns?
+
+OUTPUT RULES:
+- Headlines should be assertions, not labels ("Revenue Grew 40%" not "Revenue Update")
+- Every bullet must pass the "so what?" test — it matters to THIS audience
+- Write for speaking rhythm — content should sound natural read aloud
+- Speaker notes are your actual script — this is where the substance lives`},
+    {id:25,title:"LinkedIn DM Response System",description:"Pre-written response templates for the 6 most common LinkedIn DM scenarios — personalize in 30 seconds and send.",category:"marketing",tags:["LinkedIn","networking","DMs","outreach","personal brand"],icon:"💬",whatItDoes:"Generates copy-paste DM templates for recruiters, brain-pick requests, cold pitches, connection follow-ups, advice requests, and inbound opportunities",bestFor:"Founders, consultants, and professionals who get LinkedIn DMs regularly and want to respond fast without sounding generic",inputsNeeded:"What you do, what you offer, what you're looking for, and your preferred tone",copies:14,prompt:`Act as a networking strategist who helps professionals turn LinkedIn messages into relationships and opportunities.
+
+Based on my context:
+
+WHAT I DO: [Your role/expertise]
+WHAT I OFFER: [Products, services, or expertise you can provide]
+WHAT I'M LOOKING FOR: [Job opportunities, clients, collaborators, mentorship?]
+MY TONE: [Professional, casual, warm, direct?]
+
+Create DM response templates for 6 common scenarios:
+
+1. RECRUITER REACHES OUT
+- Interested version (want to explore)
+- Not interested but polite version
+- "Keep me in mind" version
+
+2. SOMEONE WANTS TO "PICK YOUR BRAIN"
+- Yes, I'll help (with boundaries)
+- Redirect to paid offering (if applicable)
+- Polite decline
+
+3. COLD SALES PITCH
+- Actually interested
+- Not interested but professional
+- Not interested and need them to stop
+
+4. GENUINE CONNECTION REQUEST
+- Someone you'd like to know
+- Someone you're neutral on
+- Following up after initial connection
+
+5. SOMEONE ASKS FOR ADVICE
+- Quick answer you can give immediately
+- Longer conversation needed
+- Redirect to resources
+
+6. OPPORTUNITY PRESENTED (collaboration, speaking, writing)
+- Interested, want more info
+- Interested, negotiating terms
+- Declining gracefully
+
+For each template:
+- Write the actual message (not just an outline)
+- Include 1-2 personalization slots [marked like this]
+- Keep under 100 words (people don't read long DMs)
+- Sound human, not automated`},
+    {id:26,title:"LinkedIn Profile Audit",description:"Get an honest score across 5 dimensions with specific fixes — before you write a single word of new content.",category:"marketing",tags:["LinkedIn","personal brand","profile","SEO","copywriting"],icon:"🔍",whatItDoes:"Scores your LinkedIn profile on clarity, credibility, searchability, personality, and call-to-action — then gives you the 3 highest-impact fixes",bestFor:"Founders, consultants, and job seekers who want an honest assessment of why their LinkedIn profile isn't converting views into opportunities",inputsNeeded:"Your current headline, about section, current role, experience summary, and target audience",copies:17,prompt:`Act as a personal branding strategist who has audited 500+ LinkedIn profiles for executives, founders, and professionals.
+
+Audit the following LinkedIn profile:
+
+HEADLINE: [Paste your current LinkedIn headline]
+ABOUT SECTION: [Paste your current about section]
+CURRENT ROLE: [Your job title and company]
+EXPERIENCE SUMMARY: [2-3 sentences on your background]
+TARGET AUDIENCE: [Who do you want to reach — recruiters, clients, collaborators, specific industry?]
+
+Score this profile from 1-10 on each dimension:
+
+1. CLARITY
+- Can a stranger understand what you do in 5 seconds?
+- Is your value proposition obvious?
+- Score + specific weakness
+
+2. CREDIBILITY
+- Do you include proof (numbers, outcomes, recognizable names)?
+- Would someone trust you based on this alone?
+- Score + specific weakness
+
+3. SEARCHABILITY
+- Does your headline include keywords your target audience would search?
+- Would you appear in LinkedIn searches for your expertise?
+- Score + specific weakness
+
+4. PERSONALITY
+- Does this sound like a human or a corporate template?
+- Would someone remember you after reading this?
+- Score + specific weakness
+
+5. CALL-TO-ACTION
+- Is it clear what someone should do after reading your profile?
+- Do you invite connection, conversation, or collaboration?
+- Score + specific weakness
+
+OVERALL SCORE: Average of all 5 dimensions
+
+PRIORITY FIXES: The 3 changes that would make the biggest immediate impact
+
+Be direct. This should feel like useful feedback, not flattery.`},
+    {id:27,title:"Research Scoper",description:"Transform a vague question into a precise, researchable brief before you waste time gathering the wrong information.",category:"research",tags:["research","decision making","strategy","planning","critical thinking"],icon:"🔭",whatItDoes:"Clarifies your rough question into a scoped research brief with sub-questions, source types, and rabbit holes to avoid",bestFor:"Anyone about to research a big decision who wants to define the problem properly before diving into sources",inputsNeeded:"Your rough question or topic you need to research",copies:11,prompt:`I need to research a topic and make a decision. Help me scope this properly before I start gathering information.
+
+My rough question: [paste your question here]
+
+Walk me through:
+
+1. CLARIFIED QUESTION
+Rewrite my question to be specific and answerable. Include:
+- The exact decision I need to make
+- The timeframe for the decision
+- Any constraints I should consider
+- What "success" looks like
+
+2. KEY SUB-QUESTIONS
+Break my main question into 3-5 specific sub-questions that, if answered, would give me what I need.
+
+3. INFORMATION GAPS
+What do you need to know about my situation to give better research direction? Ask me 3-5 clarifying questions.
+
+4. SOURCE TYPES
+What kinds of sources would be most valuable? (Academic research, industry reports, expert opinions, data sets, case studies, etc.)
+
+5. ANTI-GOALS
+What would make this research useless? What rabbit holes should I avoid?
+
+After I answer your clarifying questions, refine the research brief.`},
+    {id:28,title:"Synthesis Engine",description:"Turn scattered research findings and contradictions into a coherent picture with confidence levels and scenarios.",category:"research",tags:["research","analysis","synthesis","decision making","critical thinking"],icon:"🧩",whatItDoes:"Synthesizes your research into a confidence map, key variables, and 3 plausible scenarios without smoothing over uncertainty",bestFor:"Anyone who has gathered research and needs to make sense of conflicting information before making a call",inputsNeeded:"Your research brief, analyzed findings, and any contradictions or tensions you've identified",copies:8,prompt:`Synthesize my research into a coherent picture.
+
+Research brief: [paste]
+
+Analyzed findings: [paste key points from your research]
+
+Contradictions and tensions: [paste any conflicting findings]
+
+Create a synthesis that:
+
+1. THE OVERALL PICTURE
+In 2-3 paragraphs, what's the answer to my research question? Write this as if explaining to someone who has 5 minutes and needs to understand the situation.
+
+2. CONFIDENCE MAP
+- What am I confident about? (high evidence, expert agreement)
+- What's my best guess? (reasonable evidence, some disagreement)
+- What's still uncertain? (limited evidence, major disagreements)
+
+3. KEY VARIABLES
+What 2-3 factors would most change the answer if they were different?
+
+4. SCENARIOS
+Given the uncertainties, what are 2-3 plausible ways this could play out?
+- Scenario A (optimistic): What would need to be true?
+- Scenario B (base case): Most likely path
+- Scenario C (pessimistic): What would need to be true?
+
+5. WHAT I'D WANT TO KNOW
+If I had unlimited time and resources, what additional information would most improve this analysis?
+
+Don't smooth over uncertainty. Flag it clearly.`},
+    {id:29,title:"Decision Brief",description:"Force a conclusion from your research — a one-page brief with a recommendation, confidence level, and next steps.",category:"research",tags:["decision making","research","strategy","executive summary","planning"],icon:"📋",whatItDoes:"Converts your research synthesis into an actionable one-page brief with a clear recommendation and contingency plan",bestFor:"Anyone who has done the research and needs to commit to a position and next steps rather than stay in analysis mode",inputsNeeded:"Your synthesis and original research question",copies:13,prompt:`Create a one-page decision brief from my research.
+
+Synthesis: [paste your synthesis here]
+
+Original question: [paste]
+
+Format as:
+
+EXECUTIVE SUMMARY (3 sentences max)
+What was the question? What's the answer? How confident am I?
+
+KEY FINDINGS (bullet points, 5 max)
+The most important things I learned, in order of importance.
+
+RECOMMENDATION
+What should I do? Be specific and actionable.
+
+CONFIDENCE LEVEL
+How confident am I in this recommendation? What would change it?
+
+NEXT STEPS
+Immediate action (do this week):
+Short-term action (do this month):
+Contingency (if X happens, reconsider):
+
+WHAT I'M NOT SURE ABOUT
+Key uncertainties that could affect the recommendation.
+
+ONE-LINE SUMMARY
+If I could only remember one thing from this research, what should it be?
+
+Make this something I can actually use to make a decision. No hedging for the sake of hedging. Take a position.`},
+    {id:30,title:"AI Job Exposure Audit",description:"Get a personalised breakdown of which parts of your specific job are most at risk from AI automation — and where to skill up first.",category:"productivity",tags:["AI","career","automation","future of work","upskilling"],icon:"⚡",whatItDoes:"Scores each of your daily tasks on a 1-5 automation risk scale and tells you exactly which skills to develop with AI first",bestFor:"Professionals who want an honest, role-specific picture of their AI exposure rather than a generic industry report",inputsNeeded:"Your job title, 5-8 daily tasks, and your industry",copies:19,prompt:`I want to understand how exposed my role is to AI automation.
+
+My job title is: [your job title]
+My main daily tasks are: [describe 5-8 things you actually do most days]
+My industry is: [your industry]
+
+Using what you know about current AI capabilities and recent labor market research, do the following:
+
+1. Score each of my tasks on an automation risk scale of 1-5 (1 = very hard to automate, 5 = already being automated)
+
+2. For each task, explain in one sentence why it scored that way
+
+3. Give me an overall exposure score for my role out of 10
+
+4. Tell me which 2-3 tasks I should focus on learning to do with AI first — the ones where the skill gap between me and someone who uses AI well is widest
+
+Be direct and honest. I want a realistic picture, not reassurance.`}, 
+{
+    id: 31,
+    title: "Computer Use Task Scoper",
+    description: "Turn a vague computer task into a precise specification before Claude touches anything on your machine.",
+    category: "productivity",
+    tags: ["computer use", "automation", "Dispatch", "Claude", "task management"],
+    icon: "🖥️",
+    whatItDoes: "Transforms a rough task idea into a clean specification with success criteria, inputs, error handling, and verification steps",
+    bestFor: "Anyone setting up Claude computer use or Dispatch workflows who wants reliable execution instead of vague instructions",
+    inputsNeeded: "Your rough idea of what you want Claude to do on your computer",
+    copies: 14,
+    prompt: `I want to set up a task for Claude to run on my computer while I'm away. Help me define it precisely.
+
+Rough idea of what I want done:
+[Describe the task in plain language]
+
+Answer these questions to scope the task:
+
+1. TASK DEFINITION
+- What exactly should be done? (Be specific about actions, not outcomes)
+- What files or folders are involved? (Exact paths if possible)
+- What apps need to be used?
+
+2. SUCCESS CRITERIA
+- How will I know it worked?
+- What should exist when it's done? (Files created, emails drafted, etc.)
+- What should NOT happen? (Files deleted, emails sent without review, etc.)
+
+3. INPUTS NEEDED
+- What information does Claude need to complete this?
+- Are there templates, examples, or reference files?
+- Any specific formatting or naming conventions?
+
+4. ERROR HANDLING
+- What should Claude do if something goes wrong?
+- Should it stop and wait, or try alternatives?
+- What's the worst case if this fails?
+
+5. VERIFICATION
+- How can I quickly check the results?
+- What would a successful output look like?
+- What red flags should I look for?
+
+Give me a clean task specification I can use with Dispatch.`
+},
+
+{
+    id: 32,
+    title: "Computer Use Permission Mapper",
+    description: "Map the exact apps, folders, and permissions Claude needs before you let it loose — and define what stays off-limits.",
+    category: "productivity",
+    tags: ["computer use", "permissions", "security", "Dispatch", "automation"],
+    icon: "🔐",
+    whatItDoes: "Creates a permission checklist covering required apps, file access, screen control vs connectors, off-limits zones, and security notes",
+    bestFor: "Anyone running Claude computer use who wants to give minimum necessary access and limit risk before starting a workflow",
+    inputsNeeded: "Your task specification from the Task Scoper prompt",
+    copies: 9,
+    prompt: `I'm setting up computer use for a specific workflow. Help me map the permissions Claude should have.
+
+Task specification:
+[Paste from Task Scoper prompt]
+
+For this task, identify:
+
+1. REQUIRED APPS
+- Which applications must Claude access?
+- What specific actions within each app?
+- Are there alternatives if an app isn't available?
+
+2. FILE ACCESS
+- Which folders should Claude read from?
+- Which folders should Claude write to?
+- What file types will it handle?
+
+3. CONNECTORS VS SCREEN CONTROL
+- Which apps have native Claude connectors? (Google Workspace, Slack, etc.)
+- Which will require screen control?
+- What's the reliability tradeoff?
+
+4. OFF-LIMITS
+- What apps should Claude never touch for this workflow?
+- What folders contain sensitive data?
+- What actions should require my explicit approval?
+
+5. PERMISSION CHECKLIST
+Create a simple yes/no checklist I can use when Claude asks for access:
+- [App/folder] → Allow / Deny / Ask me
+- Include the reason for each decision
+
+6. SECURITY NOTES
+- What's the risk if Claude makes a mistake in each app?
+- How can I limit blast radius?
+- What should I back up before running this?`
+},
+
+{
+    id: 33,
+    title: "Dispatch Workflow Builder",
+    description: "Structure your task for reliable phone-to-desktop handoff — exact trigger message, duration estimate, checkpoints, and completion signal.",
+    category: "productivity",
+    tags: ["Dispatch", "computer use", "automation", "Claude", "workflow"],
+    icon: "📱",
+    whatItDoes: "Builds a ready-to-send Dispatch workflow with the exact phone message, expected runtime, checkpoints, and optional skill conversion",
+    bestFor: "Anyone using Claude's Dispatch feature to send tasks from their phone to their Mac and wanting reliable, repeatable execution",
+    inputsNeeded: "Your task specification and permission map from the previous prompts",
+    copies: 7,
+    prompt: `I want to run this task via Dispatch (phone to Mac). Help me structure it for reliable execution.
+
+Task specification:
+[Paste from Task Scoper prompt]
+
+Permission map:
+[Paste from Permission Mapper prompt]
+
+Create a Dispatch workflow:
+
+1. TRIGGER MESSAGE
+Write the exact message I should send from my phone to start this task.
+- Be specific enough that Claude knows exactly what to do
+- Include file paths, naming conventions, any variables
+- Keep it under 200 words (phone typing)
+
+2. EXPECTED DURATION
+- How long should this take Claude to complete?
+- Should I check in partway through or wait until done?
+- What indicates it's still running vs stuck?
+
+3. CHECKPOINTS
+If this is a multi-step task:
+- What are the natural breakpoints?
+- Should Claude pause for confirmation at any point?
+- What partial success looks like?
+
+4. COMPLETION SIGNAL
+- How will I know it's done?
+- What message should Claude send when finished?
+- Where will the output be?
+
+5. SKILL CONVERSION (Optional)
+If I want to save this as a reusable Dispatch skill:
+- What should the skill be named?
+- What variables should be customizable each time?
+- What should be hardcoded?
+
+Give me the workflow I can copy directly into the Claude app.`
+},
+
+{
+    id: 34,
+    title: "Computer Use Results Validator",
+    description: "Verify what Claude actually did after a computer use task — catch errors fast and track which workflows are reliable.",
+    category: "productivity",
+    tags: ["computer use", "Dispatch", "verification", "automation", "quality control"],
+    icon: "✅",
+    whatItDoes: "Generates a verification checklist to confirm success, spot side effects, assess output quality, log errors, and rate workflow reliability",
+    bestFor: "Anyone who just ran a Claude computer use or Dispatch task and wants to check the results before trusting the workflow at scale",
+    inputsNeeded: "Your original task specification and Claude's completion message or summary",
+    copies: 11,
+    prompt: `Claude just completed a task on my computer via Dispatch. Help me verify the results.
+
+Original task specification:
+[Paste from Task Scoper prompt]
+
+What Claude reported doing:
+[Paste Claude's completion message or summary]
+
+Create a verification checklist:
+
+1. SUCCESS CHECK
+For each success criteria from the task specification:
+- [ ] Expected outcome: [what should exist]
+- [ ] How to verify: [where to look, what to check]
+- [ ] Status: Pass / Fail / Partial
+
+2. SIDE EFFECTS
+- Did Claude touch anything outside the specified scope?
+- Are there any unexpected files, changes, or actions?
+- Check the folders/apps that were supposed to be off-limits
+
+3. OUTPUT QUALITY
+- Does the output match the expected format?
+- Is the content accurate? (Spot check 2-3 items)
+- Would you need to redo any of this manually?
+
+4. ERROR LOG
+If anything went wrong:
+- What failed?
+- Why? (Permissions, unclear instructions, app issue, etc.)
+- How to prevent this next time?
+
+5. RELIABILITY TRACKING
+Rate this workflow execution:
+- Task clarity: 1-5 (was the task well-defined?)
+- Execution accuracy: 1-5 (did Claude do what was asked?)
+- Output quality: 1-5 (is the result usable?)
+- Overall: Would you run this workflow again? Yes / With modifications / No
+
+Use this to decide whether to save as a skill or refine the workflow.`
+},
+{
+    id: 35,
+    title: "SEO Content Gap Finder",
+    description: "Find your best content opportunities using Search Console data — striking distance keywords, low CTR headlines, and gaps your competitors are missing.",
+    category: "marketing",
+    tags: ["SEO", "content strategy", "Search Console", "keywords", "traffic"],
+    icon: "📈",
+    whatItDoes: "Pulls striking distance keywords from Search Console, cross-references with trends, and outputs ranked quick wins, new content opportunities, and headlines to fix",
+    bestFor: "Bloggers, content marketers, and site owners who want to replace their $99/month SEO tool with their own search data",
+    inputsNeeded: "Access to your Google Search Console data and a description of your site or niche",
+    copies: 16,
+    prompt: `I want to find content opportunities using my actual search data. Use Google Search Console and web search.
+
+Step 1: Pull my Search Console data for the last 90 days. Find queries where:
+- I'm ranking positions 5-15 (striking distance - one good post could hit page 1)
+- I'm getting impressions but low clicks (people see me but don't click)
+- CTR is below 3% (headline/meta probably needs work)
+
+Step 2: For the top 10 striking distance keywords, search the web to check:
+- Is this topic trending up or down? (search for trends, recent articles)
+- What's currently ranking #1-3? (so I know what to beat)
+- What angle are they missing that I could take?
+
+Step 3: Cross-reference with what I've already published
+- Do I have existing content I should update instead of writing new?
+- Are there obvious gaps where I have nothing?
+
+Output format:
+
+QUICK WINS (update existing content):
+[Keyword] - Currently rank #[X], existing post: [title]
+Recommendation: [specific change]
+Potential traffic gain: [estimate based on current impressions]
+
+NEW CONTENT OPPORTUNITIES:
+[Keyword] - Currently rank #[X], no existing content
+Search intent: [what people actually want]
+Angle to take: [how to differentiate from current top results]
+Trending: [up/down/stable]
+
+HEADLINES TO FIX (high impressions, low CTR):
+[Keyword] - [impressions] impressions, [CTR]% CTR
+Current title: [what's showing in search]
+Suggested title: [better option]
+
+Give me the top 5 opportunities ranked by potential impact.`
+},
+
+{
+    id: 36,
+    title: "Buying Signal Lead Finder",
+    description: "Find warm leads using three buying signals — companies hiring for your skills, companies that just raised money, and people complaining about competitors.",
+    category: "business",
+    tags: ["lead generation", "sales", "prospecting", "outreach", "business development"],
+    icon: "🎯",
+    whatItDoes: "Searches for hiring signals, funding announcements, and competitor complaints to surface 10 prioritised leads with a specific contact angle for each",
+    bestFor: "Freelancers, consultants, and agency owners who want actionable leads without paying for Sales Navigator",
+    inputsNeeded: "What your business does, who your ideal client is, and relevant competitor names",
+    copies: 13,
+    prompt: `Help me find potential clients for my business. I'll describe what I do, and you search for buying signals.
+
+My business:
+[Describe your service - e.g., "I build Webflow websites for B2B SaaS companies" or "I do fractional CFO work for startups"]
+
+My ideal client:
+[Describe who you work with - e.g., "Series A startups, 20-100 employees, US-based"]
+
+Search for these buying signals:
+
+1. HIRING SIGNALS (they need help)
+Search for job postings that match what I do. If they're hiring full-time for my skill, they might also need a contractor/consultant now.
+Look for: [your skills] + "hiring" or job board searches
+
+2. MONEY SIGNALS (they have budget)
+Search for recent funding announcements, new contracts, or expansion news for companies in my target market.
+Look for: [your target market] + "raises" or "funding" or "series A" in last 90 days
+
+3. PAIN SIGNALS (they're unhappy)
+Search for complaints about competitors in my space. People publicly frustrated with current solutions are ready to switch.
+Look for: [competitor names or category] + "frustrated" or "looking for alternative" or "switching from"
+
+For each lead, give me:
+
+COMPANY: [Name]
+SIGNAL TYPE: [Hiring/Money/Pain]
+EVIDENCE: [What you found and where]
+CONTACT ANGLE: [Specific reason to reach out based on the signal]
+URGENCY: [High/Medium/Low based on signal strength]
+
+Find me 10 leads. Prioritize by urgency.`
+},
+
+{
+    id: 37,
+    title: "Pre-Call Deal Closer",
+    description: "60-second sales call prep — email history, company news, competitor intel, likely objections, and a closing angle, all in one brief.",
+    category: "business",
+    tags: ["sales", "CRM", "deal closing", "prospecting", "Gmail"],
+    icon: "🤝",
+    whatItDoes: "Searches your Gmail history and the web to build a one-page pre-call brief covering the deal situation, recent company news, top objections, and the strongest closing angle",
+    bestFor: "Freelancers, consultants, and sales professionals who want to walk into a call knowing exactly what to say to close",
+    inputsNeeded: "Prospect name and company, what you're selling, deal size, and access to your Gmail",
+    copies: 18,
+    prompt: `I have a sales call coming up. Help me prepare to close this deal.
+
+Prospect: [Name and company]
+What I'm selling: [Your service/product]
+Deal size: [Approximate value]
+
+Do this research:
+
+1. EMAIL HISTORY (search Gmail)
+- Find all emails with this person or their company domain
+- What have we discussed before?
+- Any objections they raised? Concerns mentioned?
+- Any commitments I made that I should follow up on?
+- What's their communication style? (formal/casual, fast/slow responder)
+
+2. COMPANY RESEARCH (web search)
+- Recent news about their company (funding, launches, leadership changes)
+- What does their current website/product look like?
+- Who are their main competitors?
+- Any public info on challenges they're facing?
+
+3. COMPETITIVE INTELLIGENCE (web search)
+- Are they using a competitor of mine? Which one?
+- Any public complaints about their current solution?
+- What would switching cost them?
+
+4. OBJECTION PREP
+Based on all the above, what objections should I expect?
+- Price concerns?
+- Timing issues?
+- Need to involve other stakeholders?
+- Comparison to competitors?
+
+Output a one-page pre-call brief:
+
+THE SITUATION:
+[2-3 sentences on where this deal stands based on email history]
+
+THEIR WORLD RIGHT NOW:
+[Recent news, challenges, what they're dealing with]
+
+LIKELY OBJECTIONS:
+[Top 3 objections and how to handle each]
+
+CLOSING ANGLE:
+[Based on everything, what's the most compelling reason for them to buy NOW?]
+
+THINGS TO MENTION:
+[Specific references from email history or research that show you've done homework]
+
+THINGS TO AVOID:
+[Any sensitive topics based on research]`
+},
+{
+    id: 38,
+    title: "Claude Identity Builder",
+    description: "Creates two files that teach Claude your voice: about-me.md and anti-ai-style.md. Claude reads these before any task and matches your style automatically.",
+    category: "productivity",
+    tags: ["Cowork", "voice", "style", "AI writing", "personalization"],
+    icon: "🪪",
+    whatItDoes: "Interviews you with targeted questions then generates two ready-to-use markdown files — one defining who you are, one defining what AI writing patterns to avoid",
+    bestFor: "Writers, consultants, founders, and freelancers tired of Claude sounding generic who want outputs that sound like them without rewriting everything",
+    inputsNeeded: "Your profession, who you work with, communication style preferences, and examples of AI writing that annoy you",
+    copies: 12,
+    prompt: `Help me create my identity files for Claude Cowork.
+
+I need two files:
+
+FILE 1: about-me.md
+Interview me to build this file. Ask me 5-7 questions, one at a time, about:
+- What I do professionally
+- Who I work with (clients, team, audience)
+- How I prefer to communicate (formal/casual, brief/detailed)
+- What my typical work week looks like
+- What my biggest time wasters are (things I'd love to automate)
+
+After I answer each question, ask the next one. When done, generate the full about-me.md file.
+
+FILE 2: anti-ai-style.md
+Ask me 3-4 questions about:
+- Words or phrases that make me cringe in AI writing
+- Formatting I hate (bullet points everywhere, excessive headers, etc.)
+- Tone problems I see in AI output (too enthusiastic, too corporate, etc.)
+- Examples of AI writing that annoy me
+
+After I answer, generate the full anti-ai-style.md file.
+
+Format both files as markdown. Each should be readable by Claude at the start of any task to match my voice.`
+},
+
+{
+    id: 39,
+    title: "Cowork Workspace Architect",
+    description: "Creates a clean folder structure for Claude Cowork with subfolders for identity files, projects, templates, and outputs — plus a README so you remember what goes where.",
+    category: "productivity",
+    tags: ["Cowork", "file management", "organisation", "setup", "automation"],
+    icon: "🗂️",
+    whatItDoes: "Generates exact folder paths to create, explains what file types belong in each, and writes a README.md for your main Cowork directory",
+    bestFor: "Cowork users setting up for the first time who want Claude to navigate their files without confusion",
+    inputsNeeded: "Your operating system (Mac/Windows), type of work you do, and what your typical deliverables are",
+    copies: 8,
+    prompt: `I'm setting up Claude Cowork for the first time. Help me create a clean folder structure.
+
+My operating system is [Mac/Windows].
+My primary work involves [describe: consulting, freelance writing, small business, etc.].
+My typical deliverables are [describe: reports, proposals, blog posts, spreadsheets, etc.].
+
+Create a folder structure for me that includes:
+
+1. A main "CLAUDE COWORK" folder in my Documents
+2. An "Identity" subfolder for files that tell Claude who I am
+3. A "Projects" subfolder for ongoing work with separate folders per project
+4. A "Templates" subfolder for reusable formats and structures
+5. An "Outputs" subfolder where Claude saves finished work
+
+For each folder, tell me:
+- Exactly what goes in it
+- What file format to use
+- One example file name
+
+Also create a README.md file for the main folder that explains the structure so I remember it later.
+
+Output the exact folder paths I should create, then the content for the README.md file.`
+},
+
+{
+    id: 40,
+    title: "Cowork Scheduled Task Builder",
+    description: "Creates your first automated recurring task in Cowork — exact task description, schedule settings, templates needed, and what to expect when you check the output.",
+    category: "productivity",
+    tags: ["Cowork", "automation", "scheduling", "recurring tasks", "computer use"],
+    icon: "⏰",
+    whatItDoes: "Generates a complete Cowork scheduled task setup including the task description, schedule settings, any templates needed, expected output, and honest limitations",
+    bestFor: "Cowork users who have the basics set up and want Claude to run recurring work automatically while they're away — weekly briefings, folder organisation, report summaries",
+    inputsNeeded: "What you want automated, how often it should run, what the output should be, and where Claude can find the inputs",
+    copies: 9,
+    prompt: `Help me create my first Scheduled Task in Cowork.
+
+I want Claude to automatically [describe what you want done, e.g., "generate a weekly briefing every Monday at 7am," "organize my downloads folder every Sunday night," "create a summary of my week every Friday"].
+
+The output should be [describe: a document, an organized folder, an email draft, etc.].
+
+The inputs Claude needs are [describe where to find them or "none, just use the current date"].
+
+Generate:
+
+1. The exact task description to enter in Cowork
+2. The schedule settings (which day, what time)
+3. Any files or templates this task needs
+4. What I should expect to see when I check the output
+
+Also tell me: what are the limitations? What could go wrong?`
+},
+{
+    id: 41,
+    title: "Voice Capture",
+    description: "Analyze 3-5 samples of your own writing to generate a detailed voice-profile.md Claude can reference before any writing task.",
+    category: "content",
+    tags: ["voice", "writing style", "AI writing", "personal brand", "copywriting"],
+    icon: "🎙️",
+    whatItDoes: "Breaks down your sentence patterns, structure, word choices, and tone markers then outputs a reusable voice-profile.md file",
+    bestFor: "Anyone who wants Claude to match their writing style instead of sounding generic",
+    inputsNeeded: "3-5 samples of your own writing — emails, posts, reports, or any content you've written",
+    copies: 17,
+    prompt: `I'm going to give you 3-5 samples of my writing. Analyze them to create a detailed voice profile.
+
+For each sample, identify:
+- Average sentence length
+- Paragraph structure patterns
+- Transition words I use (and don't use)
+- How I start pieces (do I use questions? statements? anecdotes?)
+- How I end pieces
+- Vocabulary level (simple, technical, mixed)
+- Punctuation habits (em dashes, semicolons, etc.)
+- What I seem to emphasize (data, stories, opinions, instructions)
+
+After analyzing all samples, create a voice-profile.md file with:
+
+1. OVERVIEW: 2-3 sentences describing my overall voice
+2. SENTENCE PATTERNS: How I construct sentences
+3. STRUCTURE: How I organize information
+4. WORD CHOICES: Words I favor, words I avoid
+5. TONE MARKERS: What makes my writing sound like me
+6. EXAMPLES: 3 sentences that exemplify my style
+
+Here are my writing samples:
+
+[PASTE SAMPLE 1]
+
+---
+
+[PASTE SAMPLE 2]
+
+---
+
+[PASTE SAMPLE 3]`
+},
+
+{
+    id: 42,
+    title: "Anti-AI Rules Builder",
+    description: "Interview-style prompt that asks about your AI writing pet peeves then generates an anti-ai-rules.md file Claude can follow on every task.",
+    category: "content",
+    tags: ["voice", "AI writing", "style guide", "writing rules", "editing"],
+    icon: "🚫",
+    whatItDoes: "Asks 6 targeted questions about your AI writing pet peeves one at a time, then generates a clear anti-ai-rules.md file with actionable instructions",
+    bestFor: "Anyone who wants to eliminate AI tells from their writing — banned phrases, formatting rules, tone fixes",
+    inputsNeeded: "Your pet peeves about AI-generated content — no prep needed, the prompt asks everything",
+    copies: 14,
+    prompt: `Help me create an anti-AI rules file that prevents Claude from using patterns I hate.
+
+Ask me these questions one at a time. After I answer each one, ask the next. When we're done, generate the full anti-ai-rules.md file.
+
+Questions to ask me:
+
+1. What phrases make you immediately recognize AI writing? (Give me examples if you can)
+
+2. What formatting habits annoy you? (Excessive bullet points, too many headers, numbered lists for everything, etc.)
+
+3. What tone problems do you notice in AI output? (Too enthusiastic, too formal, too hedgy, etc.)
+
+4. What transitions or connectors feel robotic to you?
+
+5. Are there any specific words AI overuses that you'd ban entirely?
+
+6. What's an example of AI writing that made you cringe recently?
+
+After I answer, create an anti-ai-rules.md file formatted as clear instructions Claude can follow.`
+},
+
+{
+    id: 43,
+    title: "Style Card Generator",
+    description: "Condense your voice profile and anti-AI rules into a 150-word style-card.md you can paste at the top of any writing prompt.",
+    category: "content",
+    tags: ["voice", "style guide", "writing", "AI writing", "quick reference"],
+    icon: "🃏",
+    whatItDoes: "Distills your full voice profile and anti-AI rules into a quick-reference card with 3 voice words, 3 key rules, 5 banned phrases, and example sentences",
+    bestFor: "Anyone who has a voice profile and anti-AI rules file and wants a faster way to apply them without pasting two long documents every time",
+    inputsNeeded: "Your voice-profile.md and anti-ai-rules.md files from the other prompts in this set",
+    copies: 11,
+    prompt: `I have a voice profile and an anti-AI rules file. Create a condensed style-card.md that captures the essentials in under 150 words.
+
+The style card should include:
+- 3 words that describe my voice
+- My 3 most important writing rules
+- 5 phrases to never use
+- 1 example sentence that sounds like me
+- 1 example sentence that doesn't sound like me
+
+Here's my voice profile:
+[PASTE voice-profile.md]
+
+Here's my anti-AI rules:
+[PASTE anti-ai-rules.md]
+
+Generate a style-card.md I can paste at the top of any writing prompt for quick reference.`
+},
+
+{
+    id: 44,
+    title: "AI-Tell Detector",
+    description: "Review any draft for AI patterns before publishing — flags problematic phrases, structural issues, and tone problems with specific fixes for each.",
+    category: "content",
+    tags: ["editing", "AI writing", "proofreading", "voice", "content quality"],
+    icon: "🔎",
+    whatItDoes: "Scans your draft against a checklist of AI tells — suspicious phrases, structural problems, and tone issues — then quotes each problem and suggests a specific fix",
+    bestFor: "Anyone who uses AI to help write and wants to catch AI patterns before hitting publish",
+    inputsNeeded: "Any draft you want to check — blog post, email, report, social post",
+    copies: 19,
+    prompt: `Review this draft for AI tells. Check against these criteria:
+
+PHRASES TO FLAG:
+- Any phrase that sounds like marketing copy
+- Hedging language ("might," "could potentially," "it's worth considering")
+- Generic transitions ("Furthermore," "Additionally," "Moreover")
+- Hyperbole ("incredible," "amazing," "revolutionary")
+- Vague claims without specifics
+
+STRUCTURAL ISSUES:
+- Paragraphs over 5 sentences
+- Sentences over 25 words
+- More than 2 consecutive sentences starting with the same word
+- Lists where prose would work better
+- Headers that aren't necessary
+
+TONE PROBLEMS:
+- Excessive enthusiasm
+- Over-hedging opinions
+- Addressing the reader in ways that feel robotic
+- Conclusions that just summarize what was already said
+
+For each issue found:
+1. Quote the problematic text
+2. Explain why it sounds like AI
+3. Suggest a specific fix
+
+Here's the draft to review:
+
+[PASTE YOUR DRAFT]`
+},
+{
+    id: 45,
+    title: "Pitch Deck Builder",
+    description: "Build a structured 10-slide pitch deck in Claude — fill in the context, Claude builds the deck ready to export to PPTX or PDF.",
+    category: "business",
+    tags: ["pitch deck", "presentations", "fundraising", "sales", "design"],
+    icon: "📊",
+    whatItDoes: "Generates a complete 10-slide pitch deck with consistent structure covering problem, solution, traction, business model, team, and ask",
+    bestFor: "Founders raising money, consultants pitching services, freelancers pitching retainers, and business owners presenting growth plans",
+    inputsNeeded: "Business name, problem, solution, target customer, traction numbers, competition, business model, team, and what you're asking for",
+    copies: 16,
+    prompt: `Build me a 10-slide pitch deck.
+
+Business: [Name and one-sentence description]
+Problem: [What specific pain point your business solves]
+Solution: [How you solve it]
+Target customer: [Who you serve]
+Traction: [Any numbers: users, revenue, growth, testimonials]
+Why now: [Why this matters today]
+Competition: [Who else does this, how you're different]
+Business model: [How you make money]
+Team: [Key people and why they're qualified]
+The ask: [What you want from the audience: investment, partnership, customers]
+
+Deck structure:
+1. Title slide with company name, tagline, and date
+2. The problem (one sentence headline, 3 supporting points)
+3. The solution (product description with visual)
+4. How it works (3-step flow)
+5. Market size and opportunity
+6. Traction (numbers only, no adjectives)
+7. Business model (pricing tiers or revenue flow)
+8. Competitive landscape (positioning map or comparison table)
+9. Team (photos and one-line credentials)
+10. The ask (specific, with next steps)
+
+Design style: Clean, modern, professional. Minimum text per slide. One core idea per slide.
+
+Output: A complete deck ready to export to PPTX.`
+},
+
+{
+    id: 46,
+    title: "Landing Page Prototype Builder",
+    description: "Build a working HTML landing page prototype you can share, test, and hand off to a developer before paying anyone to build it.",
+    category: "business",
+    tags: ["landing page", "prototype", "web design", "HTML", "conversion"],
+    icon: "🖥️",
+    whatItDoes: "Generates a complete working HTML landing page with hero, features, social proof, pricing table, FAQ, and footer. Mobile-responsive and ready to share.",
+    bestFor: "Founders testing product ideas, freelancers pitching website redesigns, and anyone who needs a working prototype before hiring a developer",
+    inputsNeeded: "Product name and description, target audience, main benefit, pricing, social proof, and desired CTA",
+    copies: 13,
+    prompt: `Build me a landing page prototype.
+
+Product: [Name and what it does in one sentence]
+Audience: [Who it's for]
+Main benefit: [The #1 reason someone would use this]
+Secondary benefits: [2-3 supporting benefits]
+Pricing: [Free, paid tiers, one-time, subscription]
+Social proof: [Testimonials, customer logos, numbers, press mentions - whatever you have]
+CTA: [What action you want visitors to take]
+
+Page structure:
+- Navigation bar (simple, 3-4 links max)
+- Hero section: Headline (max 10 words), subhead (max 20 words), primary CTA button, hero image or mockup
+- Feature section: 3 feature cards with icon, title, and one-sentence description each
+- Social proof: Testimonials or logo bar
+- Pricing section: Clean comparison table, max 3 tiers
+- FAQ section: 5 common questions with short answers
+- Footer: Copyright, links, contact
+
+Design style: Modern SaaS landing page. Lots of whitespace. Clear hierarchy. One primary color plus neutrals. Mobile-responsive.
+
+Output: A working HTML prototype I can export and share.`
+},
+
+{
+    id: 47,
+    title: "Live Dashboard Builder",
+    description: "Build a live dashboard in Cowork that connects to your actual apps and refreshes automatically. No manual updates, no extra tools.",
+    category: "productivity",
+    tags: ["dashboard", "Cowork", "analytics", "automation", "reporting"],
+    icon: "📡",
+    whatItDoes: "Creates a live Cowork artifact dashboard with KPI tiles, a main chart or table, and an activity feed pulling from your connected tools on a set refresh schedule",
+    bestFor: "Founders, sales teams, consultants, and small business owners who currently check multiple tools to get one view of their numbers",
+    inputsNeeded: "What you're tracking, which tools you have connected (Slack, Gmail, Drive, Calendar, etc.), and the specific metrics you want to see",
+    copies: 11,
+    prompt: `Build me a live dashboard in Cowork.
+
+Dashboard purpose: [What you're tracking]
+Data sources I have access to: [List your connected tools: Slack, Google Drive, Gmail, Google Calendar, Salesforce, Jira, Asana, etc.]
+Metrics I want to see:
+- [Metric 1, e.g., "This week's sales calls scheduled"]
+- [Metric 2, e.g., "Revenue closed this month vs last month"]
+- [Metric 3, e.g., "Open deals by stage"]
+- [Metric 4, e.g., "Recent wins - last 5"]
+- [Metric 5, e.g., "At-risk accounts"]
+
+Layout:
+- Top row: 3-4 big-number KPIs with trend indicators
+- Middle: One main chart or table
+- Bottom: Recent activity feed
+
+Refresh frequency: [How often should this pull new data - live, hourly, daily]
+
+Design: Clean, easy to scan. Red for problems, green for wins. Minimum decoration.
+
+Save this as a Live Artifact so it refreshes whenever I open it.`
+},
+
+{
+    id: 48,
+    title: "One-Pager Creator",
+    description: "Build a professional one-pager in minutes. Service overview, case study, proposal, or capability statement, ready to email or attach to any pitch.",
+    category: "business",
+    tags: ["one-pager", "proposals", "case study", "sales", "design"],
+    icon: "📄",
+    whatItDoes: "Generates a clean, print-ready one-pager in your chosen format: service overview, case study, proposal, or capability statement, with professional layout",
+    bestFor: "Consultants, agencies, freelancers, and contractors who need a leave-behind document that sells without a full deck",
+    inputsNeeded: "Choose your format (service overview, case study, proposal, or capability statement) then fill in the relevant details",
+    copies: 15,
+    prompt: `Build me a one-pager.
+
+Type: [Choose one: Service overview / Case study / Proposal / Capability statement]
+
+If service overview:
+- Service name: [What it's called]
+- What it includes: [3-5 deliverables]
+- Who it's for: [Target customer]
+- Investment: [Price or pricing model]
+- Timeline: [How long it takes]
+- Outcomes: [What the customer gets]
+- CTA: [How to get started]
+
+If case study:
+- Client: [Name or anonymized description]
+- Challenge: [What they were struggling with]
+- Solution: [What you did, in 3 steps]
+- Results: [Specific numbers, not adjectives]
+- Quote: [Testimonial if you have one]
+- CTA: [How to work with you]
+
+If proposal:
+- Project name
+- Scope of work: [3-5 main deliverables]
+- Timeline: [Weeks or milestones]
+- Investment: [Price, payment terms]
+- Next steps: [How to proceed]
+
+If capability statement:
+- Company name and description
+- Core services: [3-5 service areas]
+- Differentiators: [3 things that set you apart]
+- Past clients or projects: [Logos or names]
+- Contact info
+
+Design: Professional, clean, minimal. Readable on screen and in print.
+Output: PDF-ready one-pager I can email or attach to proposals.`
+},
+
+{
+    id: 49,
+    title: "Brand Design System Extractor",
+    description: "Upload your logo and website and Claude builds a complete design system covering colors, fonts, components, and voice, applied automatically to every future project.",
+    category: "creative",
+    tags: ["branding", "design system", "visual identity", "Claude Design", "consistency"],
+    icon: "🎨",
+    whatItDoes: "Extracts your full brand design system from uploaded materials including hex codes, typography, button styles, spacing, and voice rules, then saves it to apply to all future projects",
+    bestFor: "Anyone who wants every deck, landing page, and one-pager Claude creates to automatically match their brand without repeating instructions every time",
+    inputsNeeded: "Your logo, a screenshot of your website, any existing marketing materials, and 2-3 reference brands you want to match in style",
+    copies: 9,
+    prompt: `I want you to build a design system for my brand that you'll apply to every project I create going forward.
+
+I'm uploading:
+- My logo: [attach]
+- Screenshot of my website: [attach]
+- Any existing marketing materials I've made: [attach]
+- Reference brands I want to match in style: [list 2-3 brand names]
+
+Extract and save a design system with:
+
+1. Color palette
+- Primary color (hex code)
+- Secondary color (hex code)
+- Accent color (hex code)
+- Neutral colors for backgrounds and text
+- Success/error/warning colors
+
+2. Typography
+- Headline font (with fallbacks)
+- Body font
+- Font sizes for H1, H2, H3, body, caption
+- Line heights and letter spacing
+
+3. Components
+- Button styles (primary, secondary, ghost)
+- Card styles
+- Form input styles
+- Navigation style
+- Spacing and padding standards
+
+4. Voice and tone
+- Formal or casual
+- Technical or simple
+- 3 adjectives that describe my brand voice
+
+5. Brand rules
+- What to always include (e.g., logo placement)
+- What to never include (e.g., stock photos, specific phrases)
+
+Save this design system and apply it automatically to every project I create from now on.`
+},
+{
+    id: 50,
+    title: "Revenue Leak Finder",
+    description: "Audit any small business across 6 leak categories and calculate the exact dollar amount being lost each year with a prioritised fix list.",
+    category: "business",
+    tags: ["revenue", "business audit", "small business", "operations", "ROI"],
+    icon: "🔍",
+    whatItDoes: "Audits response time, quote-to-close, no-shows, upsells, retention, and manual tasks then outputs a professional audit document with total leak amount, fix cost, and ROI",
+    bestFor: "Small business owners and consultants who want to find specific revenue losses with dollar figures attached, not generic advice",
+    inputsNeeded: "Business type, location, revenue, headcount, services, customer channels, average transaction value, and owner pain points",
+    copies: 14,
+    prompt: `You are a business operations consultant who has audited 200+ small businesses and identified an average of $47K in annual revenue leaks per business. Today you're auditing [BUSINESS TYPE] in [LOCATION].
+
+Business profile:
+- Industry: [INDUSTRY]
+- Annual revenue: [REVENUE OR ESTIMATE]
+- Number of employees: [HEADCOUNT]
+- Primary services: [LIST 2-4]
+- Customer acquisition channels: [HOW THEY GET CUSTOMERS]
+- Average transaction value: [PRICE]
+- Pain points the owner mentioned: [LIST 2-3]
+
+Audit the business across these 6 leak categories:
+
+1. RESPONSE TIME LEAKS: How fast do they respond to inbound inquiries? What's lost when they don't respond within 5 minutes?
+
+2. QUOTE-TO-CLOSE LEAKS: How long between quote and close? What percentage of quotes never get sent?
+
+3. NO-SHOW AND CANCELLATION LEAKS: What's their no-show rate? What does each no-show cost?
+
+4. UPSELL LEAKS: Are they offering complementary services? What's the average ticket size if they did?
+
+5. RETENTION LEAKS: What's their customer return rate? What does each lost customer cost over their lifetime?
+
+6. MANUAL TASK LEAKS: How many hours per week is the owner doing tasks AI could handle? What's their effective hourly rate?
+
+For each leak category:
+- Identify the specific leak
+- Calculate the dollar amount per month or year
+- Recommend the AI solution
+- Estimate implementation cost
+- Calculate ROI in months
+
+End with a one-page summary: total annual leak amount, total fix cost, total annual ROI, and which 3 leaks to fix first.
+
+Format as a professional audit document I can email to the business owner.`
+},
+
+{
+    id: 51,
+    title: "Customer Email Auto-Responder",
+    description: "Draft personalised email responses in the business owner's voice with their rules, tone, and next steps baked in.",
+    category: "business",
+    tags: ["email", "customer service", "automation", "small business", "copywriting"],
+    icon: "📧",
+    whatItDoes: "Takes an incoming customer email and drafts a reply that matches the owner's voice, answers the actual question, sets a next step, and flags anything to verify before sending",
+    bestFor: "Small business owners who want AI to handle email drafts without sounding generic or robotic",
+    inputsNeeded: "Business name and type, owner voice profile, business rules, and the incoming email to respond to",
+    copies: 17,
+    prompt: `You are responding to customer emails on behalf of [BUSINESS NAME], a [BUSINESS TYPE] in [LOCATION].
+
+Owner's voice profile:
+- Tone: [casual/professional/warm/direct]
+- Style: [conversational/formal/friendly]
+- Things they always include: [signature, pricing transparency, timeline expectations, etc.]
+- Things they never include: [marketing speak, hard sells, generic phrases]
+- Example phrases they use: [3-5 actual phrases the owner uses]
+- Common signoff: [their typical email signature]
+
+Business rules:
+- Standard response time promise: [e.g., "within 2 hours"]
+- Pricing approach: [transparent/quote-based/tiered]
+- Booking process: [phone/email/calendar link]
+- Service area: [zip codes or radius]
+- What we don't do: [explicit exclusions]
+
+For the incoming email below, draft a response that:
+1. Acknowledges their specific request (not generic)
+2. Answers their actual question if you have the info
+3. Asks for any missing details needed to quote
+4. Sets a clear next step
+5. Sounds like the owner wrote it
+6. Stays under 100 words unless the question requires more
+
+Incoming email:
+[PASTE EMAIL]
+
+Draft the response. Then in a separate section, flag anything I should verify before sending.`
+},
+
+{
+    id: 52,
+    title: "Quote Generator",
+    description: "Turn a customer inquiry into a professional quote with two pricing options, a covering email, and internal notes on assumptions made.",
+    category: "business",
+    tags: ["quotes", "pricing", "sales", "small business", "proposals"],
+    icon: "💵",
+    whatItDoes: "Generates a formatted quote document with scope, timeline, line items, payment terms, a better-tier option, a covering email, and internal notes to verify before sending",
+    bestFor: "Service businesses with quote-based pricing who lose time drafting quotes manually or send inconsistent proposals",
+    inputsNeeded: "Business name and type, pricing structure with line items, quote rules, and the customer inquiry",
+    copies: 12,
+    prompt: `You generate quotes for [BUSINESS NAME], a [BUSINESS TYPE].
+
+Pricing structure:
+- Base service: [SERVICE 1] at $[PRICE]
+- Base service: [SERVICE 2] at $[PRICE]
+- Base service: [SERVICE 3] at $[PRICE]
+- Add-ons: [LIST WITH PRICES]
+- Travel fees: [DISTANCE-BASED OR FLAT]
+- Rush fees: [PERCENTAGE OR FLAT]
+- Payment terms: [DEPOSIT %, BALANCE TIMING]
+
+Quote rules:
+- Always include: scope, timeline, total, payment terms
+- Never include: hourly rates (we charge fixed prices)
+- Always offer: 2 options (good and better) when possible
+- Quote validity: 14 days
+
+For the customer inquiry below, produce:
+
+1. The quote document (formatted for email)
+   - Customer name and project
+   - Scope of work (specific deliverables)
+   - Timeline (start date, completion date)
+   - Investment breakdown (line items)
+   - Total amount
+   - Payment terms
+   - Next steps to accept
+
+2. A second option (the "better" tier) with what's included and the price difference
+
+3. A 2-sentence email to send with the quote
+
+4. Internal notes: any assumptions you made, any details to verify before sending
+
+Customer inquiry:
+[PASTE INQUIRY]`
+},
+
+{
+    id: 53,
+    title: "Lead Qualifier",
+    description: "Score any incoming lead A through D with a reason, red flags, exact next action, and a suggested opening for your response.",
+    category: "business",
+    tags: ["lead generation", "sales", "CRM", "small business", "qualification"],
+    icon: "🏷️",
+    whatItDoes: "Scores a lead A to D against your ideal customer profile and disqualifiers, explains the reasoning, flags risks, and tells you exactly what to do next",
+    bestFor: "Service business owners who waste time on bad leads or let good ones go cold while responding to everyone in the same order",
+    inputsNeeded: "Business name and type, ideal customer profile, disqualifiers, qualification factors, and the lead details",
+    copies: 16,
+    prompt: `You qualify incoming leads for [BUSINESS NAME], a [BUSINESS TYPE].
+
+Ideal customer profile:
+- Best customers spend: $[AMOUNT] per engagement
+- Best customer characteristics: [3-5 TRAITS]
+- Best customer source: [WHERE THEY USUALLY COME FROM]
+- Best customer timeline: [URGENT, FLEXIBLE, FUTURE]
+
+Disqualifiers (immediate "no"):
+- [LIST 3-5 DEAL-BREAKERS]
+
+Qualification factors:
+- Budget signals: [WHAT INDICATES THEY CAN PAY]
+- Urgency signals: [WHAT INDICATES THEY'LL DECIDE QUICKLY]
+- Fit signals: [WHAT INDICATES THE WORK MATCHES OUR EXPERTISE]
+- Risk signals: [WHAT INDICATES THIS WILL BE A PROBLEM CLIENT]
+
+For the lead below, provide:
+
+1. SCORE: A through D
+   - A: Drop everything. Call within 30 minutes.
+   - B: Respond within 2 hours. High potential.
+   - C: Respond within 24 hours. Standard process.
+   - D: Send polite decline or refer out.
+
+2. REASONING: 2-3 sentences explaining the score
+
+3. RED FLAGS: Any concerns or risk signals
+
+4. NEXT ACTION: Exactly what to do (call, email template, send to calendar, decline)
+
+5. SUGGESTED OPENING: First 2 sentences of the response
+
+Lead source: [WHERE IT CAME FROM]
+Lead details:
+[PASTE LEAD INFO]`
+},
+
+{
+    id: 54,
+    title: "Weekly Business Snapshot",
+    description: "Monday morning briefing that pulls from your connected data sources and delivers one page of numbers, wins, problems, and flags in 5 minutes.",
+    category: "productivity",
+    tags: ["reporting", "small business", "automation", "analytics", "weekly review"],
+    icon: "📋",
+    whatItDoes: "Pulls last week's data from your connected tools and generates a 5-minute Monday morning snapshot covering revenue, leads, wins, problems, the week ahead, and any flags",
+    bestFor: "Small business owners who want a clear weekly picture without spending an hour pulling numbers from different tools",
+    inputsNeeded: "Business name and the tools you use for calendar, email, CRM, accounting, and project management",
+    copies: 13,
+    prompt: `Generate the Monday morning business snapshot for [BUSINESS NAME].
+
+Data sources to pull from:
+- Calendar: [TOOL]
+- Email: [TOOL]
+- Customer database: [TOOL]
+- Accounting/invoicing: [TOOL]
+- Project management: [TOOL]
+
+Time period: Previous Monday through Sunday
+
+Generate a one-page snapshot with these sections:
+
+1. THE NUMBERS (5 lines max):
+   - Revenue this week vs last week (with % change)
+   - New leads this week
+   - Conversion rate (leads to paying customers)
+   - Jobs completed
+   - Outstanding invoices
+
+2. THE WINS (3 bullets):
+   - Best customer interaction
+   - Biggest deal closed
+   - Operational improvement
+
+3. THE PROBLEMS (3 bullets):
+   - Lost deals (and likely reason)
+   - Customer complaints or issues
+   - Operational friction points
+
+4. THE WEEK AHEAD (5 lines):
+   - Critical meetings or deadlines
+   - Quotes that need follow-up
+   - Inventory or supply issues to address
+   - One thing the owner should focus on most
+
+5. THE FLAGS (only include if real):
+   - Anything that needs immediate attention
+   - Patterns that look concerning
+   - Opportunities that might disappear if ignored
+
+Format for a 5-minute read while drinking coffee. No fluff. Specific numbers only.
+
+Run this every Monday at 7 AM.`
+},
+{
+    id: 55,
+    title: "Brand Voice GPT Instructions",
+    description: "Paste-ready instructions for building a Custom GPT that produces all your content in your exact brand voice with banned phrases and style rules baked in.",
+    category: "content",
+    tags: ["Custom GPT", "brand voice", "ChatGPT", "style guide", "content"],
+    icon: "🗣️",
+    whatItDoes: "Generates a complete system prompt for a Custom GPT covering voice principles, banned phrases, formatting rules, and how to handle rewrites and content reviews",
+    bestFor: "Brand owners, marketers, and content teams who want a Custom GPT that sounds like them every time without re-explaining their style in every prompt",
+    inputsNeeded: "Your brand name, 2-3 sentences about the brand and audience, your core voice principles, and any phrases you want banned",
+    copies: 15,
+    prompt: `You produce content in the voice of [BRAND NAME].
+
+ABOUT THE BRAND:
+[2-3 sentences describing who you are and what you do]
+
+WHO WE TALK TO:
+[2-3 sentences describing your customer or audience]
+
+VOICE PRINCIPLES:
+1. [Core voice trait 1, e.g., "Direct. We don't hedge."]
+2. [Core voice trait 2, e.g., "Specific. We use real numbers and examples."]
+3. [Core voice trait 3, e.g., "Confident. We make claims, not suggestions."]
+
+NEVER USE:
+- "Dive into" / "dive deep"
+- "Let's explore"
+- "In today's [anything]"
+- "It's important to note"
+- "Game-changing" or "revolutionary"
+- "Leverage" (use "use")
+- Em dashes (use commas or parentheses)
+- Generic transitions ("Furthermore," "Additionally," "Moreover")
+- Hyperbole and excessive enthusiasm
+
+ALWAYS:
+- Use short sentences (under 25 words)
+- Use paragraphs, not bullet points (unless asked)
+- State opinions directly without "I think" or "we believe"
+- Include a specific number, example, or proof point
+- End with a clear next step or implication
+
+WHEN ASKED TO PRODUCE CONTENT:
+1. First read the relevant knowledge files for context
+2. Match the format the user requested
+3. Apply voice principles throughout
+4. Check the output against the "never use" list before delivering
+5. If the request is ambiguous, ask one clarifying question before producing
+
+WHEN ASKED TO REWRITE CONTENT:
+1. Identify what's making it not sound like us
+2. Rewrite preserving the meaning but applying voice principles
+3. Show the rewritten version
+4. Flag the 2 biggest changes you made
+
+If the user pastes content for review, run the AI-tell check from the anti-AI rules file.`
+},
+
+{
+    id: 56,
+    title: "Company Knowledge GPT Instructions",
+    description: "Paste-ready instructions for a Custom GPT that answers internal questions from your actual SOPs and policy documents without inventing anything.",
+    category: "productivity",
+    tags: ["Custom GPT", "ChatGPT", "SOPs", "internal tools", "knowledge base"],
+    icon: "🏢",
+    whatItDoes: "Creates a Custom GPT that answers company questions strictly from uploaded documents, cites its sources, flags conflicts between docs, and admits when it does not know",
+    bestFor: "Teams and business owners who want staff to get instant answers from SOPs and policies without asking the same questions over and over",
+    inputsNeeded: "Your company name and your operational documents uploaded as knowledge files in the Custom GPT",
+    copies: 11,
+    prompt: `You answer questions about how [COMPANY NAME] operates, based on the documentation uploaded to this GPT.
+
+CRITICAL RULES:
+1. Only answer based on information in the uploaded files
+2. If the answer is not in the files, say "I don't have that info in my knowledge base. Try asking [Slack channel or person]."
+3. Never invent procedures, policies, or facts about the company
+4. Always cite which document the answer came from
+5. If the user asks something that should be documented but isn't, suggest adding it to the docs
+
+HOW TO ANSWER:
+1. Search all uploaded files for relevant information
+2. Synthesize the answer in clear, direct language
+3. Cite the source document at the end (e.g., "Source: refund-policy.pdf")
+4. If information appears in multiple docs and conflicts, flag the conflict
+5. Keep answers under 200 words unless the question requires more depth
+
+FORMAT:
+- Lead with the direct answer
+- Add necessary context after
+- Use bullet points only when listing steps
+- Bold any specific numbers, deadlines, or policy thresholds
+- End with the source citation
+
+WHEN UNSURE:
+- Better to say "I don't have that info" than to guess
+- If the question is ambiguous, ask one clarifying question
+- If the answer requires multiple docs, walk through what each one says
+
+DO NOT:
+- Make up policies or procedures
+- Pretend to know something you don't
+- Say "generally" or "typically" when the docs are specific
+- Refer the user to external sources unless explicitly listed in the docs`
+},
+
+{
+    id: 57,
+    title: "Competitor Intelligence GPT Instructions",
+    description: "Paste-ready instructions for a Custom GPT that analyzes competitor signals, separates facts from inferences, and outputs structured strategic recommendations.",
+    category: "research",
+    tags: ["Custom GPT", "competitive intelligence", "strategy", "ChatGPT", "market research"],
+    icon: "🕵️",
+    whatItDoes: "Builds a Custom GPT that spots competitor signals from job postings, pricing, launches, and leadership changes, then outputs a structured brief with situation, signals, inference, implications, and recommended action",
+    bestFor: "Founders, strategists, and marketing teams who want a repeatable system for tracking competitors without hiring an analyst",
+    inputsNeeded: "Your company name, industry, competitor names, and any competitor history or analysis framework documents uploaded as knowledge files",
+    copies: 9,
+    prompt: `You analyze competitor activity for [COMPANY NAME] in the [INDUSTRY] space.
+
+YOUR JOB:
+Spot signals that indicate what competitors are doing or about to do. Distinguish facts from inferences. Provide specific recommendations.
+
+OUTPUT FORMAT (use this every time):
+
+SITUATION
+[1-2 sentences describing what's happening]
+
+SIGNALS
+- [Specific observable fact 1]
+- [Specific observable fact 2]
+- [Specific observable fact 3]
+
+INFERENCE
+[What these signals likely mean, with confidence level: HIGH / MEDIUM / LOW]
+
+WHY IT MATTERS FOR US
+[2-3 sentences on implications for our business]
+
+RECOMMENDED ACTION
+[1-2 specific actions, with timing]
+
+RULES:
+1. Only state as fact what you can verify from the input or knowledge files
+2. Label inferences clearly (use words like "likely," "suggests," "could indicate")
+3. If you're guessing, say so and assign LOW confidence
+4. Never invent numbers, names, or specific facts about competitors
+5. Use the framework in competitor-analysis-framework.md
+6. Reference past competitor moves from competitor-history.md when relevant
+
+WHEN ANALYZING:
+- Job postings: look for role types, levels, geographic concentration
+- Pricing changes: identify direction, magnitude, and likely rationale
+- Product launches: assess threat level and customer overlap
+- Leadership changes: note role and likely strategic implications
+- Marketing changes: spot shifts in positioning, target audience, or channel mix
+
+ASK CLARIFYING QUESTIONS WHEN:
+- The competitor is one not in your knowledge base
+- The signal is ambiguous (e.g., a vague tweet)
+- You need more context to assess threat level`
+},
+{
+    id: 58,
+    title: "Researcher Sub-Agent",
+    description: "A sub-agent that pulls primary sources, cites everything inline, flags contradictions, and returns a structured brief with a confidence rating.",
+    category: "research",
+    tags: ["sub-agent", "Claude Code", "research", "primary sources", "briefing"],
+    icon: "📰",
+    whatItDoes: "Restates your research question, identifies the 5 best primary sources, returns findings, contradictions, and open questions, and rates its own confidence",
+    bestFor: "Anyone who needs a sourced research brief before a meeting, pitch, article, or major decision and wants zero invented citations",
+    inputsNeeded: "A research question or topic",
+    copies: 14,
+    prompt: `---
+name: researcher
+description: Use when the user needs deep research on a topic, company, person, or trend. Pulls primary sources only and flags contradictions.
+---
+
+You are a research analyst. You go deep, not wide.
+
+When invoked:
+1. Restate the research question in one sentence.
+2. List the 5 best primary sources you would consult. Skip blogs and SEO content.
+3. Pull facts, dates, numbers, and direct quotes. Always cite the source inline.
+4. Flag any contradictions between sources. Name both sides.
+5. Return three sections: Findings (3 bullets), Contradictions (3 bullets), Open Questions (3 bullets).
+
+Rules:
+- Never invent a citation. If you cannot find it, say so.
+- Prefer SEC filings, court documents, peer-reviewed papers, official statements, and direct interviews.
+- One brief per request. No filler. No "as an AI."
+
+End every brief with: "Confidence: High / Medium / Low" and one sentence on why.`
+},
+
+{
+    id: 59,
+    title: "Editor Sub-Agent",
+    description: "A sub-agent that cuts drafts by 30%, rewrites weak hooks, flags unsourced claims, and sharpens any piece of writing before it ships.",
+    category: "content",
+    tags: ["sub-agent", "Claude Code", "editing", "writing", "copywriting"],
+    icon: "✂️",
+    whatItDoes: "Finds the thesis, cuts everything that does not serve it, rewrites the opening and closing, flags claims needing sources, and returns a 5-bullet edit log",
+    bestFor: "Writers, marketers, and founders who want a ruthless edit pass on any draft before it goes out",
+    inputsNeeded: "A draft of any length",
+    copies: 11,
+    prompt: `---
+name: editor
+description: Use when the user has a draft and wants it edited for clarity, punch, and brevity. Cuts ruthlessly.
+---
+
+You are a senior editor. Your only job is to make the writing tighter and truer.
+
+When invoked:
+1. Read the full draft once. Do not edit yet.
+2. Identify the single thesis sentence. If there is no thesis, say so and stop.
+3. Cut every sentence that does not serve the thesis. Aim for 30% shorter.
+4. Flag every claim that needs a source or a number.
+5. Rewrite the opening so it lands in one line.
+6. Rewrite the closing so the last line is the line people quote.
+
+Rules:
+- Never add adjectives. Remove them.
+- Never use the words "leverage," "robust," "seamless," "delve," "unleash," or "in today's fast-paced world."
+- Never use em dashes or en dashes. Use periods.
+- Return the edited draft, then a 5-bullet "What I cut and why."
+
+End with one sentence: "The strongest line in this draft is: ___."`
+},
+
+{
+    id: 60,
+    title: "Analyst Sub-Agent",
+    description: "A sub-agent that reads any data and returns the headline finding, the two outliers, a recommended action, and the one chart to build.",
+    category: "research",
+    tags: ["sub-agent", "Claude Code", "data analysis", "analytics", "reporting"],
+    icon: "📊",
+    whatItDoes: "Takes your data and business question, identifies the 3 most important numbers and 2 outliers, returns a headline finding, and tells you exactly what chart to build",
+    bestFor: "Anyone walking into a meeting with numbers but no story who needs the so-what in under a minute",
+    inputsNeeded: "Your data (pasted as a table or attached file) and the business question you are trying to answer",
+    copies: 9,
+    prompt: `---
+name: analyst
+description: Use when the user has data and wants the story, outliers, and the one chart that matters. Not a spreadsheet dump.
+---
+
+You are a data analyst. You answer the question "so what?" Always.
+
+When invoked:
+1. Ask for the data and the business question if not provided.
+2. State the question in one line.
+3. Identify the 3 most important numbers in the data. Not the biggest. The most important.
+4. Identify the 2 outliers. Say whether they are signal or noise.
+5. Return: Headline finding (1 line), Why it matters (3 bullets), Recommended action (1 line), Suggested chart (type and what goes on each axis).
+
+Rules:
+- Never return raw tables. The user can already see those.
+- Never say "the data shows." Say what it shows.
+- If the data cannot answer the question, say so and name what data would.
+
+End with one sentence: "If you do nothing else, do ___."`
+},
+
+{
+    id: 61,
+    title: "Pre-Install Business Audit",
+    description: "Audit your business before installing any agentic AI system so you know which workflows to start with, which to hold, and what data to clean up first.",
+    category: "business",
+    tags: ["AI setup", "small business", "automation", "workflow", "operations"],
+    icon: "🔦",
+    whatItDoes: "Identifies the 3 workflows to enable first, 2 to hold, 1 to skip, flags data hygiene risks, and gives a 30-day measurement plan with specific metrics",
+    bestFor: "Small business owners about to set up Claude for Small Business, Cowork, or any agentic AI system who want to start in the right place instead of guessing",
+    inputsNeeded: "Your industry, team size, revenue range, current tools, weekly hours by work category, and your top 2-3 pain points",
+    copies: 12,
+    prompt: `You are a small business operations consultant. I'm about to install an agentic AI system that handles bookkeeping, invoicing, sales operations, content marketing, and customer support tasks.
+
+Before I install it, audit my business to identify where I should focus the AI first.
+
+MY BUSINESS:
+- Industry: [INDUSTRY]
+- Team size: [SOLO / 2-5 / 5-20 / 20-50]
+- Annual revenue range: [REVENUE]
+- Primary services or products: [LIST]
+- Customer type: [B2B / B2C / BOTH]
+
+CURRENT TOOLS:
+- Accounting: [QUICKBOOKS / XERO / OTHER / NONE]
+- Payment processing: [STRIPE / PAYPAL / OTHER]
+- CRM: [HUBSPOT / SALESFORCE / OTHER / NONE]
+- Email and docs: [GOOGLE WORKSPACE / MICROSOFT 365 / OTHER]
+- Design: [CANVA / OTHER]
+
+WEEKLY TIME SPENT (approximate hours):
+- Bookkeeping and finance: [HOURS]
+- Invoice management and AR: [HOURS]
+- Sales follow-ups and CRM cleanup: [HOURS]
+- Content and marketing: [HOURS]
+- Customer support: [HOURS]
+- Internal admin and reporting: [HOURS]
+
+CURRENT PAIN POINTS (be specific):
+[LIST 2-3 things that consistently slow you down or fall off your plate]
+
+Audit my business and produce:
+
+1. THE 3 WORKFLOWS TO ENABLE FIRST
+For each, explain: which task it replaces, estimated hours saved per week, why it's the right starting point for my specific business.
+
+2. THE 2 WORKFLOWS TO HOLD ON
+For each, explain: why it would be valuable but should wait until the first 3 are working, what prerequisite needs to be in place first.
+
+3. THE 1 WORKFLOW TO SKIP
+Identify one workflow that won't apply to my business yet and explain why.
+
+4. THE DATA HYGIENE WARNING
+Honest assessment: where is my data messy enough that running AI workflows on it will create more problems than it solves? What should I clean up first?
+
+5. THE 30-DAY MEASUREMENT PLAN
+3 specific metrics I should track to know whether the AI is actually saving me time and money. Format: metric name, baseline to capture this week, target to hit by day 30.
+
+Be honest. If my business is too small or too early for some of this, say so. If my data hygiene is the real issue, name it.`
+},
+
+{
+    id: 62,
+    title: "Workflow Output Reviewer",
+    description: "Review any AI-generated output before approving it. Catches tone mismatches, unverified facts, legal risks, and the one edit that matters.",
+    category: "productivity",
+    tags: ["AI review", "quality control", "automation", "approval", "risk management"],
+    icon: "👁️",
+    whatItDoes: "Runs a tone check, fact check, and risk flag on any AI-generated output then gives a single recommended edit and a final APPROVE or HOLD verdict",
+    bestFor: "Anyone using AI agents to draft emails, summaries, invoices, or content who wants a fast critical review before hitting send",
+    inputsNeeded: "What the AI produced, who it is going to, and the AI-generated output to review",
+    copies: 16,
+    prompt: `You are a senior operator reviewing AI-generated work before I approve it for action. Your job is to catch what I might miss because I'm scanning quickly.
+
+CONTEXT FOR WHAT I'M ABOUT TO APPROVE:
+[Describe what the AI produced: an email, a financial summary, a content plan, an invoice reminder, etc.]
+
+WHO IT'S GOING TO (if applicable):
+[Recipient name, relationship, history, sensitivity level]
+
+THE OUTPUT TO REVIEW:
+[Paste the AI-generated output]
+
+WHAT I NEED FROM YOU:
+
+1. TONE CHECK
+Read it as if you were the recipient. Does the tone match the relationship? Flag any phrases that sound too formal, too casual, too aggressive, or too cold for this specific recipient.
+
+2. FACT CHECK
+Identify any specific claims (numbers, dates, commitments, names) that I should verify against my actual records before approving.
+
+3. RISK FLAG
+Is there anything in this output that could create a problem if it goes out unedited? Examples: implicit commitments, pricing mentions, references to internal information, anything that exposes me legally.
+
+4. THE ONE EDIT
+If you had to recommend one specific edit before I send this, what would it be? Be specific about what to change and why.
+
+5. APPROVE OR HOLD
+Final recommendation: APPROVE AS-IS, APPROVE WITH EDIT, or HOLD FOR REVIEW. Give one sentence on why.
+
+Be willing to say APPROVE AS-IS if it actually is good. Don't invent problems. But don't be polite either. If something is off, name it.`
+},
+
+{
+    id: 63,
+    title: "Connector Decision Tree",
+    description: "Decide which tools to connect to your AI agent system and in what order so you don't create a tangled setup by connecting everything at once.",
+    category: "productivity",
+    tags: ["AI setup", "integrations", "Cowork", "automation", "tools"],
+    icon: "🔌",
+    whatItDoes: "Produces a prioritised connection order with core tools first, month-2 additions, tools to leave disconnected, integration risks to watch, and the first workflow to test",
+    bestFor: "Business owners setting up Claude Cowork or any agentic AI who want a logical integration sequence instead of connecting everything and hoping for the best",
+    inputsNeeded: "Every tool you currently use for business, how many hours per week you spend in each, and the 1-2 tasks you do most in each",
+    copies: 10,
+    prompt: `You are an integration consultant helping me decide which of my business tools to connect to my AI agent system, and in what order.
+
+THE PROBLEM:
+I want to connect my tools to Claude (or another agentic AI) so it can take action on my behalf. But connecting too many tools at once creates a tangled setup where workflows get confused about which tool to use.
+
+I need a connection strategy.
+
+MY CURRENT TOOLS:
+[LIST EVERY TOOL YOU USE FOR BUSINESS, INCLUDING:]
+- Accounting and bookkeeping
+- Payment processing
+- CRM or sales tools
+- Email and calendar
+- Documents and file storage
+- Project management
+- Design and creative
+- Customer support and helpdesk
+- Marketing and analytics
+- Any industry-specific tools
+
+For each tool, tell me:
+- Tool name
+- How many hours per week I spend in it
+- What 1-2 tasks I do most in it
+
+[FILL THIS OUT BEFORE RUNNING THE PROMPT]
+
+Based on the tools I listed, produce:
+
+1. THE CORE 3 TO CONNECT FIRST
+The 3 tools that should be connected immediately. For each: which workflows it unlocks, why it's a core dependency, what value I'll see in the first 7 days.
+
+2. THE NEXT 3 TO ADD IN MONTH 2
+The 3 tools to connect once the first 3 are stable. For each: what new workflows it enables, what prerequisite needs to be in place first.
+
+3. THE TOOLS TO LEAVE DISCONNECTED FOR NOW
+Tools that aren't worth connecting yet. For each: why it's better to keep separate, what would need to change for it to be worth connecting later.
+
+4. THE INTEGRATION RISKS
+2-3 specific risks I should be aware of when these tools start sharing data through the AI. Examples: privacy exposure, action conflicts, data duplication, billing implications.
+
+5. THE FIRST WORKFLOW TO TEST
+Once the core 3 are connected, what's the single workflow I should run first to confirm everything is working? Give me the exact prompt or command to test.
+
+Be specific. Don't tell me "connect everything." Tell me the right order based on what I actually use.`
+},
+{
+    id: 64,
+    title: "Morning Ad Audit",
+    description: "Pull live campaign data every morning, flag fatiguing creatives, surface top performers, and get the one action to take today.",
+    category: "marketing",
+    tags: ["Meta ads", "Facebook ads", "paid advertising", "ROAS", "creative fatigue"],
+    icon: "📣",
+    whatItDoes: "Compares last 7 days vs prior 7 days across ad sets, flags creatives hitting fatigue thresholds, identifies patterns in your top performers, and gives one specific action to take",
+    bestFor: "Media buyers and business owners running Meta ads who spend 45-60 minutes reviewing dashboards every morning and want it done in 60 seconds",
+    inputsNeeded: "Access to your Meta Ads account data via MCP or connected integration",
+    copies: 13,
+    prompt: `Run my morning ad audit.
+
+Pull the following data for the last 7 days vs the previous 7 days:
+
+1. TOP PERFORMERS
+Show me my top 5 ad sets by ROAS with: name, spend, ROAS, CTR, frequency, and trend (improving/stable/declining).
+
+2. FATIGUE ALERTS
+Flag any active creative meeting any of these conditions:
+- Frequency above 3.5
+- CTR dropped 20%+ vs previous 7 days
+- ROAS dropped 25%+ vs previous 7 days
+- Spend over $500 with ROAS below 1.5
+
+For each flagged creative, recommend: pause, refresh, or test variant.
+
+3. THE WINNING PATTERN
+Look at my top 5 ROAS ads and identify what they have in common:
+- Hook style (question, statement, problem, social proof)
+- Visual format (UGC, product shot, lifestyle, text overlay)
+- Copy length and structure
+- Specific phrases or claims that repeat
+- Audience targeting overlap
+
+Output as a structured brief I can use to generate new creatives.
+
+4. THE ONE ACTION
+Based on everything above, what's the single most important action I should take today? Be specific. Name the creative, the budget, or the test.`
+},
+
+{
+    id: 65,
+    title: "Ad Creative Brief Generator",
+    description: "Turn the winning pattern from your morning audit into 3 structured creative briefs with exact copy, hooks, visual treatments, and targeting ready to hand off.",
+    category: "marketing",
+    tags: ["Meta ads", "creative briefs", "Facebook ads", "copywriting", "paid advertising"],
+    icon: "🎬",
+    whatItDoes: "Generates 3 substantially different ad briefs based on your top-performing patterns, each with hook, visual treatment, exact copy, headline, CTA, and target audience",
+    bestFor: "Media buyers and advertisers who know what is working but spend hours writing briefs for designers and video editors",
+    inputsNeeded: "The winning pattern output from the Morning Ad Audit prompt",
+    copies: 11,
+    prompt: `Based on the winning pattern from the morning audit, generate 3 new creative briefs for ads I should test next.
+
+Each brief must include:
+
+CONCEPT NAME
+[Short descriptive name]
+
+HOOK (first 3 seconds)
+[Exact text or visual description that opens the ad]
+
+VISUAL TREATMENT
+[Specific format: UGC selfie style, product on white, lifestyle scene, text-on-screen, etc. Include lighting and pacing if video.]
+
+COPY (90 characters max for primary text)
+[Exact copy ready to paste into Ads Manager]
+
+HEADLINE (40 characters max)
+[Exact headline ready to paste]
+
+CTA BUTTON
+[Which Meta CTA to use: Shop Now, Learn More, Sign Up, etc.]
+
+TARGET AUDIENCE
+[Based on what's converting in my top ads, who should I target with this new creative? Reference existing audiences in my account.]
+
+WHY THIS WORKS
+[2 sentences on why this specific brief follows the winning pattern]
+
+Make each brief substantially different from the others. Don't just swap one element. Three different angles, three different hooks, three different visual treatments.`
+},
+
+{
+    id: 66,
+    title: "Ad Launch Loop",
+    description: "Create 3 new ad sets in your Meta account in paused state with targeting, budget, and copy applied from the briefs, ready for your manual review and activation.",
+    category: "marketing",
+    tags: ["Meta ads", "Facebook ads", "ad launch", "automation", "paid advertising"],
+    icon: "🚀",
+    whatItDoes: "Creates 3 new paused ad sets in a specified campaign with targeting, budget, copy, and CTA from your creative briefs, then returns ad set names, IDs, and links for review",
+    bestFor: "Media buyers who spend 30-45 minutes manually building ad sets in Ads Manager after creative is ready",
+    inputsNeeded: "The 3 creative briefs from the brief generator, your campaign name, and the creative file paths or URLs",
+    copies: 9,
+    prompt: `Launch the 3 new ads from the briefs above.
+
+For each ad:
+- Create a new ad set in my campaign: [INSERT CAMPAIGN NAME]
+- Use the targeting specified in the brief
+- Set initial daily budget at $25/day
+- Use Lowest Cost bid strategy
+- Set status to PAUSED (do not activate)
+- Upload the creative file: [INSERT FILE PATH OR URL]
+- Apply the copy and headline exactly as written in the brief
+- Use the CTA button specified
+
+After creating all 3 ad sets, give me a summary:
+- Ad set names and IDs
+- Daily budget per ad set ($75 total across the 3)
+- Confirmation that all are paused
+- Link to each ad set in Ads Manager for review
+
+After I review and approve, I will activate them manually from Ads Manager. Do not change any status without my explicit instruction.`
+},
+{
+    id: 67,
+    title: "Hook Video Creator",
+    description: "Turn one hook line into a scroll-stopping 15-second vertical video with kinetic text, brand colours, and a CTA. Built for Reels, TikTok, and Shorts.",
+    category: "content",
+    tags: ["video", "Reels", "TikTok", "Shorts", "Claude Design"],
+    icon: "🎥",
+    whatItDoes: "Creates a 15-second vertical MP4 with a bold opening hook, kinetic text message, and branded CTA using your saved brand colours and fonts",
+    bestFor: "Creators and marketers who want scroll-stopping short-form video without spending hours in a timeline editor",
+    inputsNeeded: "Your hook line, key message, CTA, and saved brand colours and fonts in Claude Design",
+    copies: 14,
+    prompt: `Create a 15-second vertical hook video (1080x1920).
+
+Hook line (first 3 seconds, large bold text on my background colour):
+[your hook, e.g. "I fired my video editor last week"]
+
+Then: fade to my primary colour and show this line in kinetic text, one phrase at a time: [your key message, e.g. "AI makes my videos now. In minutes. For free."]
+
+End on my logo and this CTA: [your CTA, e.g. "Follow for the workflow"]
+
+Use my saved brand colours and fonts. Punchy pacing, clean transitions, no clutter. Render it to MP4 when done.`
+},
+
+{
+    id: 68,
+    title: "Product Demo Video Builder",
+    description: "Build a 30-second product demo with a problem opener, product reveal, three benefits, and a closing CTA. Outputs both landscape and vertical versions.",
+    category: "content",
+    tags: ["video", "product demo", "ads", "landing page", "Claude Design"],
+    icon: "📹",
+    whatItDoes: "Generates a structured 30-second demo video in both 1920x1080 landscape and 1080x1920 vertical formats with smooth scene transitions and background music",
+    bestFor: "Founders and marketers who need a converting product demo for a landing page or paid ad without briefing and waiting on a video editor",
+    inputsNeeded: "The customer problem, product name and description, three key benefits, CTA, URL, and saved brand settings in Claude Design",
+    copies: 11,
+    prompt: `Create a 30-second product demo video (1920x1080 landscape, plus a 1080x1920 vertical version).
+
+Scene 1 (0-5s): Open with the problem my customer has, in text:
+[the problem, e.g. "Making videos takes too long and costs too much"]
+
+Scene 2 (5-12s): Reveal the product with a slow zoom and the name:
+[product name and one-line description]
+
+Scene 3 (12-24s): Three key benefits as animated points, one at a time:
+[benefit 1], [benefit 2], [benefit 3]
+
+Scene 4 (24-30s): Close on my logo, the CTA, and my URL:
+[CTA and URL]
+
+Use my saved brand. Smooth scene transitions, background music at 60% volume, no voiceover. Render both the landscape and vertical versions to MP4.`
+},
+
+{
+    id: 69,
+    title: "Video Render and Export",
+    description: "Re-render any video you have built into every platform size you need without rebuilding it. One source, three formats, ready to publish.",
+    category: "content",
+    tags: ["video", "export", "Claude Design", "Reels", "YouTube"],
+    icon: "📤",
+    whatItDoes: "Exports any existing Claude Design video composition as vertical (1080x1920), square (1080x1080), and landscape (1920x1080) MP4 files with file sizes reported",
+    bestFor: "Anyone who has built a video in Claude Design and needs every platform format without starting over",
+    inputsNeeded: "The name of the video composition you want to export",
+    copies: 9,
+    prompt: `Render the [name the video] composition in these formats:
+
+- 1080x1920 vertical for Reels and TikTok
+- 1080x1080 square for the feed
+- 1920x1080 landscape for YouTube
+
+Export all three as MP4 to an /out folder. Keep the quality high and tell me the file size of each.`
+},
+{
+    id: 70,
+    title: "App Spec Builder",
+    description: "Get interviewed one question at a time until your idea is precise enough to build on the first try. No code, just a clean spec.",
+    category: "productivity",
+    tags: ["app building", "no-code", "Claude", "web app", "planning"],
+    icon: "📐",
+    whatItDoes: "Interviews you across 8 areas covering purpose, data, screens, actions, rules, edge cases, data safety, and done criteria then writes a paste-ready build spec",
+    bestFor: "Anyone who wants to build a single-file web tool with Claude but keeps getting vague or broken results because the spec was unclear",
+    inputsNeeded: "Just show up with your rough idea. Claude asks everything else one question at a time.",
+    prompt: `You are helping me design a single-file web tool before any code is written. The goal of this conversation is to produce a build spec so clear that pasting it into a fresh chat returns a working app on the first try. A vague spec is the main reason these builds fail, so your job is to make mine precise.
+
+Interview me one question at a time. Do not move on until each answer is concrete. Ask no more than ten questions total, and skip any that I have already answered. Cover, in roughly this order:
+
+1. The one job. In a single sentence, what does this tool do, and who uses it (just me, or other people too)?
+2. The data. What information does it hold? For each field, what type is it (text, number, date, dropdown), and is it required?
+3. The screens. What does the person see when they open it? List each view or screen.
+4. The actions. For every button or interaction, what exactly happens when it is used?
+5. The rules. Any logic the tool must follow (calculations, statuses that change automatically, things that must never happen)?
+6. The edge cases. What should happen on empty states, bad or missing input, very large amounts of data, and on a phone screen?
+7. The data safety. Does the data need to survive a refresh? Be exportable? Be shared with others, or stay only on my device?
+8. Done. What does "finished and working" look like to me, concretely?
+
+Push back when an answer is vague, and offer me a sensible default I can accept or change, so I am never stuck. If I ask for something that will not work as a single self-contained file (for example, real-time syncing between many people's devices), tell me plainly and offer the closest version that will work.
+
+When you have enough, stop interviewing and write the final build spec under a clear heading. Structure it as: the one-line purpose, the data model, each screen and what it shows, each action and what it does, the rules, the edge cases to handle, the data-safety requirements, and the design direction. Write it so I can paste it straight into a new chat. Do not write any code in this conversation. Only the spec.`
+},
+
+{
+    id: 71,
+    title: "App Doctor",
+    description: "Diagnose and fix a broken single-file web app without rewriting what already works. Smallest possible change, full file returned.",
+    category: "productivity",
+    tags: ["debugging", "web app", "Claude", "no-code", "fix"],
+    icon: "🩺",
+    whatItDoes: "Diagnoses the specific cause of a bug, confirms what will and won't be touched, makes the smallest fix, checks for side effects, and returns the complete corrected file",
+    bestFor: "Non-technical users who built a single-file web app with Claude and have something broken but don't want an over-eager rewrite that loses what works",
+    inputsNeeded: "A description of what is wrong, what you expected instead, and any error message or relevant part of the file",
+    prompt: `You built me a single-file web app earlier and something is now wrong. I am not technical, so I need you to diagnose and fix carefully, not rewrite. Losing a working tool to an over-eager rewrite is the worst outcome here, so follow this exactly.
+
+The problem: [describe what is happening, what you expected instead, and paste any error message or the relevant part of the file].
+
+Work in this order:
+
+1. Diagnose first, do not touch the code yet. Tell me in plain language what you think is causing this specific problem. If you are not sure, tell me exactly what to click, type, or check to narrow it down, and wait for my answer rather than guessing.
+
+2. Confirm the scope. Tell me which part of the app the fix will touch and, importantly, what it will NOT touch. I want to know the rest of my working tool is safe.
+
+3. Make the smallest possible change that fixes the actual cause, not the symptom. Do not refactor, do not rename things, do not "improve" anything I did not ask about, and do not remove any existing feature. If fixing this properly genuinely requires a bigger change, stop and explain why before doing it, and let me decide.
+
+4. After the fix, check for side effects. Walk through the other main features and confirm they still work. Tell me what you verified.
+
+5. Report back simply: what was wrong, what you changed, and one thing I can do to check the fix worked myself.
+
+Give me back the complete corrected file, not a fragment, so I can just replace what I have.`
+},
+
+{
+    id: 72,
+    title: "Subscription Audit",
+    description: "Find out which subscriptions you could replace with a self-built tool, which to keep, and the order to tackle them by savings versus effort.",
+    category: "productivity",
+    tags: ["subscriptions", "software", "budgeting", "tools", "no-code"],
+    icon: "💸",
+    whatItDoes: "Assesses each subscription for rebuildability, gives an honest catch for each, and outputs a ranked action list of biggest easy wins plus a leave-alone list with reasons",
+    bestFor: "Anyone paying for multiple SaaS tools who wants an honest assessment of what they could build themselves versus what genuinely needs a real product",
+    inputsNeeded: "A list of your subscriptions and what each costs per month",
+    prompt: `Help me work out which of my software subscriptions I could replace with a simple tool I build myself, which I should keep paying for, and what order to tackle them in. Be honest and practical, not optimistic. I would rather keep paying for something than waste an afternoon rebuilding a tool that genuinely needs a real backend.
+
+I will paste my subscriptions and what each costs. For each one, assess:
+
+1. Annual cost. Roughly what I pay per year for it.
+2. Core job. In one line, the main thing I actually use it for (ignore features I do not touch).
+3. Rebuildable? Whether that core job could work as a single self-contained tool:
+   - YES if it is basically data in, data stored, data viewed and exported (trackers, logs, simple CRMs, calculators, planners).
+   - MAYBE if it mostly works solo but has one sticking point.
+   - NO if its whole value is something a single file cannot do well (real-time collaboration between many people, heavy integrations, handling other people's data reliably at scale, payment processing, deliverability).
+4. The honest catch. If I rebuilt it, the real limitation I would hit (for example: data would live on one device, or I would need a free extra service to receive form responses).
+5. Verdict. Replace now / replace later / keep paying, in a few words.
+
+Then give me a ranked action list: the subscriptions to replace first, ordered by savings versus effort, so the biggest easy wins are at the top. Put anything I should keep paying for in a separate "leave these alone" list with the reason.
+
+Here is my list: [paste each subscription and its monthly cost].`
+},
+{
+    id: 73,
+    title: "Client CRM Builder",
+    description: "Build a fully working client CRM as a single HTML file with search, filters, pipeline tracking, follow-up alerts, and localStorage persistence.",
+    category: "business",
+    tags: ["CRM", "clients", "web app", "no-code", "Claude"],
+    icon: "👥",
+    whatItDoes: "Builds a production-quality single-file CRM with sortable client table, status and tag filters, deal pipeline value, 14-day follow-up alerts, and JSON/CSV export",
+    bestFor: "Freelancers and small business owners paying $15-30/month for a basic CRM they could own outright as a self-contained tool",
+    inputsNeeded: "Nothing. Paste this prompt directly into Claude and it builds the full app.",
+    copies: 16,
+    prompt: `Build a client CRM as a single self-contained HTML file. Production quality, not a demo.
+
+Data model:
+- Each client: name, company, email, phone, status (lead / active / past / lost), deal value, source, tags (multiple), notes, created date, and last-contact date
+- Validate email and phone format on entry, flag bad ones without blocking
+
+Views and interaction:
+- Sortable, searchable table of all clients
+- Live search across name, company, and tags as I type
+- Filter by status and by tag, combinable
+- Click a client to open a detail panel with full history and an editable notes field
+- A "needs follow-up" flag that auto-highlights any active client with no contact in 14+ days
+
+Dashboard strip at the top:
+- Total clients by status, total pipeline value (sum of deal value for leads and active), and count needing follow-up
+
+Data safety:
+- Persist everything in localStorage
+- Export all data to JSON and re-import it
+- Export the table to CSV
+- Never lose data on refresh; handle the case where storage is empty or corrupted gracefully
+
+Build it as one HTML file, no external dependencies, no build step. Clean, professional design with a real color palette, not a generic template. Make it work on mobile and desktop. Before you finish, walk through each feature and confirm it works.`
+},
+
+{
+    id: 74,
+    title: "Invoice and Expense Tracker Builder",
+    description: "Build a fully working invoice and expense tracker as a single HTML file with auto-totals, overdue detection, printable invoices, and a monthly income vs expense chart.",
+    category: "business",
+    tags: ["invoicing", "expenses", "bookkeeping", "web app", "no-code"],
+    icon: "🧾",
+    whatItDoes: "Builds a production-quality single-file tool covering invoices with line items, auto-increment numbers, overdue detection, PDF print view, expense tracking, and a canvas bar chart",
+    bestFor: "Freelancers and small business owners paying $20-40/month for basic bookkeeping software they could replace with a self-contained tool",
+    inputsNeeded: "Nothing. Paste this prompt directly into Claude and it builds the full app.",
+    copies: 13,
+    prompt: `Build an invoice and expense tracker as a single self-contained HTML file. Production quality.
+
+Invoices:
+- Fields: client, line items (description, quantity, rate, each line auto-calculating), tax rate, auto-calculated total, issue date, due date, status (draft / sent / paid / overdue)
+- Invoice numbers auto-increment in a format I can set (e.g. INV-0001)
+- Auto-mark an invoice overdue when the due date passes and it is not paid
+- Generate a clean printable view of any single invoice I can save as PDF via the browser print dialog
+
+Expenses:
+- Fields: vendor, amount, date, category, and an optional note
+- Let me define my own categories
+
+Reporting:
+- Summary strip: total invoiced, paid, outstanding, overdue, total expenses, and net profit
+- A month filter so I can see any single month
+- A simple bar chart of income vs expenses by month, drawn with plain canvas or inline SVG, no external library
+
+Data safety:
+- Persist in localStorage, export to JSON and CSV, import from JSON
+- Handle empty and corrupted storage without crashing
+
+One HTML file, no dependencies, no build step. Clean professional design, works on mobile and desktop. Validate that amounts are numbers and dates are valid before saving. Walk through each feature and confirm it works before finishing.`
+},
+
+{
+    id: 75,
+    title: "Booking Page Builder",
+    description: "Build a fully working booking page as a single HTML file with availability rules, slot generation, double-booking prevention, and a password-gated admin view.",
+    category: "business",
+    tags: ["booking", "scheduling", "appointments", "web app", "no-code"],
+    icon: "📅",
+    whatItDoes: "Builds a production-quality single-file booking page with weekly availability settings, 21-day slot generation, blocked dates, minimum notice, confirmation screen, and admin booking management",
+    bestFor: "Freelancers and service providers paying $12-30/month for a scheduling tool they could replace with a self-contained page they fully own",
+    inputsNeeded: "Nothing. Paste this prompt directly into Claude and it builds the full app.",
+    copies: 14,
+    prompt: `Build a booking page as a single self-contained HTML file. Production quality.
+
+Availability:
+- Let me define my weekly working hours and slot length (e.g. 30 min) in a settings panel
+- Generate bookable slots for the next 21 days from those rules
+- Let me block specific dates or times as unavailable (holidays, breaks)
+- Respect a minimum notice period I set (e.g. no bookings within 12 hours)
+
+Booking flow (the public view):
+- Show available slots grouped by day, clean and mobile-first
+- Someone picks a slot, enters name, email, phone, and a note, and confirms
+- Validate the email format before allowing confirm
+- Once booked, that slot is immediately unavailable to prevent double booking
+- Show a clear confirmation screen with the details
+
+Admin view (behind a simple password gate):
+- List of all upcoming bookings, sortable by date
+- Cancel a booking, which frees the slot again
+- Export all bookings to CSV
+
+Data safety: persist in localStorage, export and import as JSON, handle empty or corrupted storage gracefully.
+
+One HTML file, no dependencies. Warm, trustworthy design that makes someone comfortable booking. Explain in comments how I change my hours. Confirm every feature works before finishing.`
+},
+{
+    id: 76,
+    title: "Lead Machine",
+    description: "Give this to Claude Cowork and come back to a spreadsheet of 100 qualified local businesses with contact details and a specific opening angle for each one.",
+    category: "marketing",
+    tags: ["lead generation", "prospecting", "local business", "sales", "Cowork"],
+    icon: "🏭",
+    whatItDoes: "Researches and compiles 100 verified businesses matching your qualifier into a spreadsheet with name, contact details, review data, and a specific conversation opener per row",
+    bestFor: "Freelancers, agencies, and sales people who want a qualified prospect list built while they sleep, without paying for lead list subscriptions",
+    inputsNeeded: "The type of business you are targeting, the area, and your qualifier (e.g. no website, under 20 reviews, rated above 4.0)",
+    copies: 17,
+    prompt: `OBJECTIVE: A spreadsheet of 100 qualified [type of business] in [area] that I can start contacting tomorrow.
+
+SCOPE: Only businesses that [your qualifier, e.g. have no website, or have under 20 reviews, or are rated above 4.0]. Exclude franchises and national chains.
+
+SOURCES: Public listings, maps, their own websites. Do not guess contact details.
+
+OUTPUT: One spreadsheet. One row per business. Columns: name, what they do, location, phone, email if publicly listed, website (or "none"), review count, rating, and a "specific angle" column with one true, specific observation about that business I could open a conversation with.
+
+RULES: Every fact must come from a real source. If you cannot find a contact detail, write "not found" rather than guessing. Do not contact anyone.
+
+STOP CONDITION: Stop at 100 verified businesses, or when you run out of qualifying businesses in the area. Report which. If you cannot verify something, flag it. Do not invent it.`
+},
+
+{
+    id: 77,
+    title: "Competitor Teardown",
+    description: "Give this to Claude Cowork and come back to a full competitor teardown covering pricing, customer complaints, recent launches, and three specific gaps where you can win.",
+    category: "research",
+    tags: ["competitive intelligence", "strategy", "market research", "positioning", "Cowork"],
+    icon: "🔬",
+    whatItDoes: "Researches each competitor across their website, pricing, reviews, content, and job ads then outputs a comparison table and three evidenced gaps where they are all weak",
+    bestFor: "Founders, marketers, and consultants who want deep competitor research done in the background without spending a day doing it manually",
+    inputsNeeded: "A list of your main competitors and how many you want covered",
+    copies: 14,
+    prompt: `OBJECTIVE: A full teardown of my [number] main competitors that tells me where I can win.
+
+SCOPE: These competitors: [list]. Cover: what they sell, their pricing, their positioning, what customers praise, what customers complain about, what they have shipped recently, and what their job listings suggest they are building next.
+
+SOURCES: Their websites, pricing pages, public reviews, their content, their job ads.
+
+OUTPUT: One document. A section per competitor, then a comparison table, then the important part: three specific gaps where they are all weak and I could win, each with the evidence behind it.
+
+RULES: Distinguish what they claim from what customers actually say. Quote real reviews. Do not soften the parts where they beat me.
+
+STOP CONDITION: Stop when every competitor is covered. If you cannot verify something, flag it. Do not invent it.`
+},
+
+{
+    id: 78,
+    title: "Agent Brief Template",
+    description: "The six-part structure every Cowork brief needs so the session runs cleanly in the cloud without filling gaps with plausible nonsense.",
+    category: "productivity",
+    tags: ["Cowork", "agent briefs", "prompting", "AI agents", "automation"],
+    icon: "📋",
+    whatItDoes: "Gives you the exact six-section brief format (objective, scope, sources, output, rules, stop condition) that keeps a cloud session on track when you are not watching",
+    bestFor: "Anyone writing briefs for Claude Cowork sessions or scheduled tasks who wants reliable output without babysitting the run",
+    inputsNeeded: "Your own task details to fill into each section",
+    copies: 19,
+    prompt: `OBJECTIVE
+What finished looks like, in one sentence. Not the steps. The result.
+
+SCOPE
+What is in. What is explicitly out. Name the boundaries so it does not wander.
+
+SOURCES
+Where to get the information. What counts as a good source. What to ignore.
+
+OUTPUT
+The exact deliverable. File type, structure, how many, named how. Be specific: "a spreadsheet, one row per business, these columns" beats "a summary."
+
+RULES
+What to do when stuck. What to never do. What needs my approval.
+
+STOP CONDITION
+When to stop and report instead of guessing. Always include this line:
+"If you cannot verify something, flag it. Do not invent it."`
+}
+  ];
+
+  let currentFilter = 'all', currentSort = 'newest', searchQuery = '', copyCounts = {};
+
+  function initCopyCounts() {
+    const stored = localStorage.getItem('promptWireCopyCounts');
+    if (stored) copyCounts = JSON.parse(stored);
+    prompts.forEach(p => { if (copyCounts[p.id] === undefined) copyCounts[p.id] = p.copies; });
+    localStorage.setItem('promptWireCopyCounts', JSON.stringify(copyCounts));
+  }
+
+  function getFilteredPrompts() {
+    let filtered = prompts.filter(p => {
+      const matchesTag = currentFilter === 'all' || p.category === currentFilter;
+      const matchesSearch = searchQuery === '' ||
+        p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        p.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        p.tags.some(t => t.toLowerCase().includes(searchQuery.toLowerCase()));
+      return matchesTag && matchesSearch;
+    });
+    if (currentSort === 'popular') filtered.sort((a,b) => (copyCounts[b.id]||0) - (copyCounts[a.id]||0));
+    else if (currentSort === 'alphabetical') filtered.sort((a,b) => a.title.localeCompare(b.title));
+    else if (currentSort === 'newest') filtered.sort((a,b) => b.id - a.id);
+    return filtered;
+  }
+
+  function renderCards() {
+    const grid = document.getElementById('pbPromptGrid');
+    const noResults = document.getElementById('pbNoResults');
+    const resultsCount = document.getElementById('pbResultsCount');
+    const filtered = getFilteredPrompts();
+    if (filtered.length === 0) {
+      grid.style.display = 'none';
+      noResults.style.display = 'block';
+      resultsCount.innerHTML = 'No prompts found';
+      return;
+    }
+    grid.style.display = 'grid';
+    noResults.style.display = 'none';
+    resultsCount.innerHTML = `Showing <strong>${filtered.length}</strong> prompt${filtered.length !== 1 ? 's' : ''}`;
+    grid.innerHTML = filtered.map(p => `
+      <div class="pb-prompt-card" onclick="openPbModal(${p.id})">
+        <div class="pb-card-header">
+          <span class="pb-card-category">${p.category}</span>
+          <div class="pb-copy-count">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            ${copyCounts[p.id]||0}
+          </div>
+        </div>
+        <div class="pb-card-icon">${p.icon}</div>
+        <h3 class="pb-card-title">${p.title}</h3>
+        <p class="pb-card-description">${p.description}</p>
+        <div class="pb-card-tags">${p.tags.map(t => `<span class="pb-card-tag">${t}</span>`).join('')}</div>
+      </div>
+    `).join('');
+  }
+
+  window.openPbModal = function(id) {
+    const p = prompts.find(x => x.id === id);
+    if (!p) return;
+    document.getElementById('pbModalCategory').textContent = p.category;
+    document.getElementById('pbModalIcon').textContent = p.icon;
+    document.getElementById('pbModalTitle').textContent = p.title;
+    document.getElementById('pbModalSubtitle').textContent = p.description;
+    document.getElementById('pbModalInfoGrid').innerHTML = `
+      <div class="pb-info-item"><div class="pb-info-item-label">What it does</div><div class="pb-info-item-value">${p.whatItDoes}</div></div>
+      <div class="pb-info-item"><div class="pb-info-item-label">Best for</div><div class="pb-info-item-value">${p.bestFor}</div></div>
+      <div class="pb-info-item"><div class="pb-info-item-label">Inputs needed</div><div class="pb-info-item-value">${p.inputsNeeded}</div></div>
+    `;
+    document.getElementById('pbModalPrompt').textContent = p.prompt;
+    document.getElementById('pbModalTags').innerHTML = p.tags.map(t => `<span class="pb-card-tag">${t}</span>`).join('');
+    document.getElementById('pbModalCopyCountValue').textContent = copyCounts[id]||0;
+    const btn = document.getElementById('pbCopyBtn');
+    btn.onclick = function() { copyPbPrompt(id, p.prompt); };
+    btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copy Prompt`;
+    btn.classList.remove('copied');
+    document.getElementById('pbModalOverlay').classList.add('active');
+    const section = document.getElementById('promptBankSection');
+    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  window.closePbModal = function() {
+    document.getElementById('pbModalOverlay').classList.remove('active');
+  };
+
+  window.copyPbPrompt = async function(id, text) {
+    try {
+      await navigator.clipboard.writeText(text);
+      copyCounts[id] = (copyCounts[id]||0) + 1;
+      localStorage.setItem('promptWireCopyCounts', JSON.stringify(copyCounts));
+      renderCards();
+      document.getElementById('pbModalCopyCountValue').textContent = copyCounts[id];
+      const btn = document.getElementById('pbCopyBtn');
+      btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Copied!`;
+      btn.classList.add('copied');
+      setTimeout(function() {
+        btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copy Prompt`;
+        btn.classList.remove('copied');
+      }, 2000);
+    } catch(err) { console.error('Failed to copy:', err); }
+  };
+
+  document.getElementById('pbSearchInput').addEventListener('input', function(e) { searchQuery = e.target.value; renderCards(); });
+  document.getElementById('pbTagFilter').addEventListener('click', function(e) {
+    if (e.target.classList.contains('pb-tag-btn')) {
+      document.querySelectorAll('.pb-tag-btn').forEach(b => b.classList.remove('active'));
+      e.target.classList.add('active');
+      currentFilter = e.target.dataset.tag;
+      renderCards();
+    }
+  });
+  document.getElementById('pbSortSelect').addEventListener('change', function(e) { currentSort = e.target.value; renderCards(); });
+  document.getElementById('pbModalOverlay').addEventListener('click', function(e) { if (e.target.id === 'pbModalOverlay') closePbModal(); });
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closePbModal(); });
+
+  initCopyCounts();
+  renderCards();
+})();
+</script>
