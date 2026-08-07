@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PromptWire Pro Upgrade</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,800;1,700;1,800&family=DM+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!--
+    =========================================================================
+    CHANGE LOG. Your original page. Structure, hero, headline, CTA and the
+    #pricing scroll all untouched. No pricing and no trial mentioned anywhere,
+    since the offer varies by link.
+
+    REMOVED  the three .eyebrow labels above the section titles
+    REMOVED  the "⚡ How it works" pill above the dark box heading
+    REMOVED  emoji from the three hero stat pills
+    REMOVED  emoji from the four workflow card tags
+    REMOVED  the ⏱ stopwatch and the green pill around the saving line.
+             Same words, now plain bold green text. Reads as a fact, not a
+             badge.
+    REMOVED  the six emoji .benefit-icon glyphs
+
+    CHANGED  workflow card tags from blue pills to the plain uppercase blue
+             labels used on the home page and the thank-you page, so the three
+             pages share one card component
+    CHANGED  card hover: the blue bar now wipes in from the left, matching the
+             other two pages
+
+    ADDED    --blue-text (#0C6BAF) for small blue text. #1292eb on white is
+             about 3.1:1 and fails WCAG AA at body sizes. Fills, buttons and
+             large type still use #1292eb.
+    ADDED    prefers-reduced-motion
+
+    KEPT     the empty #pricing div and the scroll script. scrollIntoView from
+             inside the iframe propagates to the parent, which lands the reader
+             on the real CTA built into the Beehiiv page below this embed.
+    =========================================================================
+    VERIFY BEFORE PUBLISHING: search for data-check
+      data-check="library-count"  "70+ in the library"
+      data-check="time-saved"     "6+ hours saved per week"
+      data-check="tool-cost"      "replaces $200+ per month"
+      data-check="testimonials"   SEE THE NOTE ABOVE THAT SECTION
+    =========================================================================
+  -->
+
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --blue: #1292eb;
+      --blue-text: #0C6BAF;
+      --blue-dim: rgba(18, 146, 235, 0.1);
+      --blue-mid: rgba(18, 146, 235, 0.2);
+      --blue-hover: #0d7fd4;
+      --white: #ffffff;
+      --gray-50: #f8f9fa;
+      --gray-200: #e9ecef;
+      --gray-300: #dee2e6;
+      --gray-400: #adb5bd;
+      --gray-500: #6c757d;
+      --gray-700: #343a40;
+      --gray-900: #0d1117;
+      --green: #0d8f63;
+      --radius: 14px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--white);
+      color: var(--gray-900);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: clip;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    a:focus-visible,
+    button:focus-visible {
+      outline: 3px solid var(--blue);
+      outline-offset: 3px;
+    }
+
+    /* ---- HERO ---- */
+    .hero {
+      background: linear-gradient(135deg, #171717 0%, #1292eb 100%);
+      position: relative;
+      overflow: hidden;
+      padding: 72px 24px 80px;
+      text-align: center;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+      background-size: 56px 56px;
+      -webkit-mask-image: radial-gradient(ellipse at 50% 50%, black 20%, transparent 70%);
+      mask-image: radial-gradient(ellipse at 50% 50%, black 20%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .hero h1 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(44px, 7vw, 76px);
+      font-weight: 800;
+      line-height: 0.96;
+      letter-spacing: -1.5px;
+      color: #ffffff;
+      margin-bottom: 20px;
+      animation: fadeUp 0.5s ease both;
+    }
+
+    .hero h1 .dim {
+      color: rgba(255, 255, 255, 0.28);
+      font-style: italic;
+    }
+
+    .hero-sub {
+      font-size: 17px;
+      color: rgba(255, 255, 255, 0.65);
+      max-width: 520px;
+      margin: 0 auto 32px;
+      line-height: 1.65;
+      animation: fadeUp 0.5s ease 0.1s both;
+    }
+
+    .hero-sub strong {
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    /* Stat pills row. Emoji removed. */
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+      animation: fadeUp 0.5s ease 0.18s both;
+    }
+
+    .hero-stat {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 100px;
+      padding: 7px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    .hero-cta {
+      animation: fadeUp 0.5s ease 0.24s both;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #ffffff;
+      color: var(--blue-text);
+      padding: 16px 44px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      border-radius: 10px;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+    }
+
+    .btn-primary:hover {
+      background: rgba(255, 255, 255, 0.92);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 32px rgba(0, 0, 0, 0.2);
+    }
+
+    .hero-trust {
+      margin-top: 12px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.3);
+      animation: fadeUp 0.5s ease 0.28s both;
+    }
+
+    .hero-arrow {
+      margin-top: 28px;
+      font-size: 20px;
+      color: rgba(255, 255, 255, 0.3);
+      animation: bounce 2s infinite, fadeUp 0.5s ease 0.32s both;
+    }
+
+    /* ---- SECTIONS ---- */
+    .section {
+      padding: 68px 24px;
+      background: var(--white);
+    }
+
+    .section-alt {
+      padding: 68px 24px;
+      background: var(--gray-50);
+    }
+
+    .wrap {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 10px;
+      color: var(--gray-900);
+      line-height: 1.05;
+    }
+
+    .section-sub {
+      font-size: 15px;
+      text-align: center;
+      max-width: 500px;
+      margin: 0 auto 40px;
+      color: var(--gray-500);
+      line-height: 1.7;
+    }
+
+    /* ---- WORKFLOW SECTION ---- */
+    .workflow-intro {
+      background: var(--gray-900);
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .workflow-intro::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--blue), #38bdf8);
+    }
+
+    .workflow-intro-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .workflow-intro h3 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(22px, 3vw, 30px);
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.1;
+      margin-bottom: 10px;
+    }
+
+    .workflow-intro p {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.5);
+      line-height: 1.65;
+      max-width: 560px;
+    }
+
+    /* Workflow cards grid */
+    .workflow-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .workflow-card {
+      background: var(--white);
+      border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius);
+      padding: 22px;
+      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Accent bar wipes in from the left, same as the other two pages */
+    .workflow-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--blue);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+
+    .workflow-card:hover {
+      border-color: rgba(18, 146, 235, 0.35);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 26px rgba(18, 146, 235, 0.1);
+    }
+
+    .workflow-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    /* Plain uppercase label, not a pill. Matches the home and thank-you pages. */
+    .wf-tag {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--blue-text);
+    }
+
+    .workflow-card h4 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--gray-900);
+      margin: 10px 0 7px;
+      line-height: 1.3;
+    }
+
+    .workflow-card p {
+      font-size: 13px;
+      color: var(--gray-500);
+      line-height: 1.6;
+    }
+
+    /* Plain text, not a green pill with a stopwatch. */
+    .wf-saving {
+      display: block;
+      margin-top: 13px;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--green);
+    }
+
+    /* ---- TESTIMONIALS ---- */
+    .proof-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .proof-card {
+      background: var(--white);
+      border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius);
+      padding: 24px;
+      transition: all 0.2s;
+    }
+
+    .proof-card:hover {
+      border-color: rgba(18, 146, 235, 0.25);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(18, 146, 235, 0.07);
+    }
+
+    .stars {
+      display: flex;
+      gap: 3px;
+      margin-bottom: 12px;
+    }
+
+    .star {
+      width: 13px;
+      height: 13px;
+      background: var(--blue);
+      clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    }
+
+    .proof-quote {
+      font-size: 14px;
+      color: var(--gray-700);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    .proof-author {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .proof-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--blue-dim);
+      border: 1px solid var(--blue-mid);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--blue-text);
+      flex-shrink: 0;
+    }
+
+    .proof-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--gray-900);
+    }
+
+    .proof-role {
+      font-size: 11px;
+      color: var(--gray-400);
+    }
+
+    /* ---- BENEFITS ---- */
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    /* Emoji icons removed. A blue rule down the left carries the same
+       structure without the AI-generated look. */
+    .benefit-card {
+      background: var(--white);
+      border: 1.5px solid var(--gray-200);
+      border-left: 3px solid var(--gray-300);
+      border-radius: var(--radius);
+      padding: 24px 22px;
+      transition: border-color 0.25s, border-left-color 0.25s, transform 0.25s, box-shadow 0.25s;
+    }
+
+    .benefit-card:hover {
+      border-color: rgba(18, 146, 235, 0.25);
+      border-left-color: var(--blue);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 24px rgba(18, 146, 235, 0.08);
+    }
+
+    .benefit-card h3 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--gray-900);
+      line-height: 1.3;
+    }
+
+    .benefit-card p {
+      font-size: 13px;
+      color: var(--gray-500);
+      line-height: 1.6;
+    }
+
+    /* ---- ANIMATIONS ---- */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes bounce {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(7px);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+
+    /* ---- RESPONSIVE ---- */
+    @media (max-width: 720px) {
+      .proof-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .workflow-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .benefits-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .hero-stats {
+        gap: 8px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .hero {
+        padding: 56px 20px 64px;
+      }
+
+      .hero h1 {
+        font-size: 44px;
+        letter-spacing: -1px;
+      }
+
+      .hero-sub {
+        font-size: 15px;
+      }
+
+      .btn-primary {
+        padding: 15px 28px;
+        font-size: 15px;
+        width: 100%;
+        justify-content: center;
+      }
+
+      .section,
+      .section-alt {
+        padding: 52px 20px;
+      }
+
+      .benefits-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .workflow-intro {
+        padding: 24px 20px;
+      }
+
+      .hero-stat {
+        font-size: 12px;
+        padding: 6px 12px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+
+      <h1>The people moving fast<br><span class="dim">already have</span><br>the system.</h1>
+
+      <p class="hero-sub">Pro members get <strong>one tested AI workflow every Thursday</strong> built around what AI
+        can actually do right now. Copy it, run it, and start replacing manual work that day.</p>
+
+      <div class="hero-stats">
+        <div class="hero-stat">1 new workflow every Thursday</div>
+        <div class="hero-stat" data-check="library-count">70+ in the library</div>
+        <div class="hero-stat" data-check="time-saved">6+ hours saved per week</div>
+      </div>
+
+      <div class="hero-cta">
+        <a href="#pricing" class="btn-primary" id="scrollBtn">Get Access Now</a>
+      </div>
+      <div class="hero-arrow">↓</div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 1: WORKFLOWS -->
+  <section class="section">
+    <div class="wrap">
+      <h2 class="section-title">A new workflow every week,<br>before most people know it exists.</h2>
+      <p class="section-sub">Each week you get a ready-to-use workflow built around what AI can do right now. Copy it
+        into your tools and start replacing repetitive work that day.</p>
+
+      <div class="workflow-intro">
+        <div class="workflow-intro-inner">
+          <h3>Free subscribers find out what exists.<br>Pro members get the system to use it.</h3>
+          <p>Every Thursday the full workflow, step-by-step setup, and implementation guide lands in your inbox. Not an
+            overview of what is possible. The actual system you run that day.</p>
+        </div>
+      </div>
+
+      <div class="workflow-grid">
+        <div class="workflow-card">
+          <span class="wf-tag">Video Production</span>
+          <h4>A finished video in 34 minutes without opening an editor</h4>
+          <p>Codex plus Remotion turns a sentence into a finished MP4. No After Effects. No timeline. No $400 editor.
+          </p>
+          <span class="wf-saving">Saves 3+ hours per video</span>
+        </div>
+        <div class="workflow-card">
+          <span class="wf-tag">Paid Ads</span>
+          <h4>Claude runs your entire Meta ad operation from one conversation</h4>
+          <p>Meta opened its ad system to Claude. Audit campaigns, generate creatives, and launch ads without leaving
+            the chat.</p>
+          <span class="wf-saving">Replaces 2 hours of manual work</span>
+        </div>
+        <div class="workflow-card">
+          <span class="wf-tag">AI Agents</span>
+          <h4>3 Claude sub-agents that replace what a $200K hire would do</h4>
+          <p>Set up once. They handle research, outreach, and reporting automatically in the background while you focus
+            on real work.</p>
+          <span class="wf-saving">20 minutes to set up</span>
+        </div>
+        <div class="workflow-card">
+          <span class="wf-tag">Small Business</span>
+          <h4>15 prebuilt workflows from Anthropic, free with your existing plan</h4>
+          <p>Claude for Small Business launched with 7 connectors and 15 ready-to-run workflows. Setup takes 10 minutes.
+          </p>
+          <span class="wf-saving">Live same day</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 2: TESTIMONIALS -->
+  <!--
+    data-check="testimonials"  READ BEFORE PUBLISHING.
+
+    These same four people, with the same initials and the same roles, appear
+    on your home page saying completely different and much shorter things. If
+    they are real, keep both sets and be able to point at the source. If they
+    are not, the same four people saying two different things on two pages is
+    exactly how a reader notices, and under Australian Consumer Law a
+    fabricated testimonial is a misleading representation. Delete the section
+    rather than run it.
+  -->
+  <section class="section-alt">
+    <div class="wrap">
+      <h2 class="section-title">Real people. Real results.</h2>
+      <p class="section-sub">From founders, consultants, and operators already using it every week.</p>
+
+      <div class="proof-grid">
+        <div class="proof-card">
+          <div class="stars">
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+          </div>
+          <p class="proof-quote">I ran the video workflow on a Tuesday and had a finished MP4 before lunch. That used to
+            take me a full afternoon with editing. The workflow was in my inbox that morning and I had it running within
+            20 minutes.</p>
+          <div class="proof-author">
+            <div class="proof-avatar">S</div>
+            <div>
+              <div class="proof-name">Sarah P.</div>
+              <div class="proof-role">Marketing Manager</div>
+            </div>
+          </div>
+        </div>
+        <div class="proof-card">
+          <div class="stars">
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+          </div>
+          <p class="proof-quote">The Meta ads workflow alone justified the subscription. I was spending two hours a week
+            manually reviewing campaigns. Now Claude pulls the data, flags what is underperforming, and drafts new
+            creative. I just review and approve.</p>
+          <div class="proof-author">
+            <div class="proof-avatar">J</div>
+            <div>
+              <div class="proof-name">James R.</div>
+              <div class="proof-role">Consultant</div>
+            </div>
+          </div>
+        </div>
+        <div class="proof-card">
+          <div class="stars">
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+          </div>
+          <p class="proof-quote">I set up the sub-agent workflow over a weekend and by Monday it was handling research
+            and first-draft outreach. I did not hire anyone. I just followed the guide.</p>
+          <div class="proof-author">
+            <div class="proof-avatar">E</div>
+            <div>
+              <div class="proof-name">Elena M.</div>
+              <div class="proof-role">DTC Founder</div>
+            </div>
+          </div>
+        </div>
+        <div class="proof-card">
+          <div class="stars">
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+          </div>
+          <p class="proof-quote">I had been reading about AI for months but could not figure out what to actually do
+            with it. This gave me a specific system every week. I stopped reading about AI and started using it. That
+            shift happened in the first two issues.</p>
+          <div class="proof-author">
+            <div class="proof-avatar">P</div>
+            <div>
+              <div class="proof-name">Priya S.</div>
+              <div class="proof-role">Small Business Owner</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: WHAT YOU GET -->
+  <section class="section">
+    <div class="wrap">
+      <h2 class="section-title">What Pro members get every week.</h2>
+      <p class="section-sub">Not a list of features. The actual things that land in your inbox and save hours before the
+        weekend.</p>
+
+      <div class="benefits-grid">
+        <div class="benefit-card">
+          <h3>One new tested workflow every Thursday</h3>
+          <p>The complete setup to run it the same day. Built around what AI can do right now, before most people know
+            it exists.</p>
+        </div>
+        <div class="benefit-card">
+          <h3 data-check="library-count">80+ workflow library</h3>
+          <p data-check="tool-cost">Replaces $200+ per month in single-job tools. Content, sales, research, video,
+            agents, and more. All unlocked from day one.</p>
+        </div>
+        <div class="benefit-card">
+          <h3>Plain-English AI briefings</h3>
+          <p>When something shifts in AI you get a clear explanation of what changed and the concrete steps to act on
+            it.</p>
+        </div>
+        <div class="benefit-card">
+          <h3>Full back catalog from day one</h3>
+          <p>Every issue, every prompt, every resource from the beginning. All available the moment you join.</p>
+        </div>
+        <div class="benefit-card">
+          <h3>Implementation steps, not just ideas</h3>
+          <p>Every issue ends with a specific action and a time estimate. You always know what to do next.</p>
+        </div>
+        <div class="benefit-card">
+          <h3>Monthly Pro resource drops</h3>
+          <p>New toolkits, template packs, and guides every month. Included in your membership, no extra charge.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="pricing"></div>
+
+  <script>
+    document.getElementById('scrollBtn').addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.getElementById('pricing');
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        try {
+          window.parent.scrollTo({ top: window.parent.document.body.scrollHeight, behavior: 'smooth' });
+        } catch(err) {
+          window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
+      }
+    });
+  </script>
+
+</body>
+
+</html>
