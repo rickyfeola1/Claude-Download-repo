@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to PromptWire Pro</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,800;1,700;1,800&family=DM+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --blue: #1292eb;
+            --blue-dim: rgba(18, 146, 235, 0.1);
+            --blue-mid: rgba(18, 146, 235, 0.2);
+            --blue-hover: #0d7fd4;
+            --white: #ffffff;
+            --gray-50: #f8f9fa;
+            --gray-100: #f1f3f5;
+            --gray-200: #e9ecef;
+            --gray-400: #adb5bd;
+            --gray-500: #6c757d;
+            --gray-700: #343a40;
+            --gray-900: #0d1117;
+            --radius: 16px;
+        }
+
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--white);
+            color: var(--gray-900);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ---- HERO ---- */
+        .hero {
+            background: linear-gradient(135deg, #171717 0%, #1292eb 100%);
+            position: relative;
+            overflow: hidden;
+            padding: 72px 24px 80px;
+            text-align: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 52px 52px;
+            -webkit-mask-image: radial-gradient(ellipse at 50% 50%, black 20%, transparent 70%);
+            mask-image: radial-gradient(ellipse at 50% 50%, black 20%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-inner {
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .pro-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 12px;
+            font-weight: 700;
+            padding: 7px 18px;
+            border-radius: 100px;
+            margin-bottom: 24px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            animation: fadeUp 0.5s ease 0.1s both;
+        }
+
+        .pro-dot {
+            width: 7px;
+            height: 7px;
+            background: var(--blue);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+            will-change: opacity, transform;
+            -webkit-transform: translateZ(0);
+            flex-shrink: 0;
+        }
+
+        .hero h1 {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: clamp(44px, 7vw, 72px);
+            font-weight: 800;
+            line-height: 0.97;
+            color: white;
+            margin-bottom: 20px;
+            animation: fadeUp 0.5s ease 0.15s both;
+            letter-spacing: -0.5px;
+        }
+
+        .hero h1 em {
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.35);
+        }
+
+        .hero-desc {
+            font-size: 17px;
+            color: rgba(255, 255, 255, 0.65);
+            line-height: 1.7;
+            max-width: 560px;
+            margin: 0 auto 36px;
+            animation: fadeUp 0.5s ease 0.2s both;
+        }
+
+        .login-note {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.4);
+            margin-bottom: 28px;
+            animation: fadeUp 0.5s ease 0.22s both;
+        }
+
+        .unlocked-row {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            animation: fadeUp 0.5s ease 0.25s both;
+        }
+
+        .unlocked-pill {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(18, 146, 235, 0.15);
+            border: 1px solid rgba(18, 146, 235, 0.3);
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 12px;
+            font-weight: 600;
+            padding: 6px 13px;
+            border-radius: 100px;
+        }
+
+        /* ---- SECTIONS ---- */
+        .section {
+            padding: 72px 24px;
+            background: var(--white);
+        }
+
+        .section-alt {
+            padding: 72px 24px;
+            background: var(--gray-50);
+        }
+
+        .wrap {
+            max-width: 1060px;
+            margin: 0 auto;
+        }
+
+        .eyebrow {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.4px;
+            text-transform: uppercase;
+            color: var(--blue);
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .section-title {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: clamp(30px, 4vw, 48px);
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 12px;
+            color: var(--gray-900);
+            line-height: 1.05;
+        }
+
+        .section-sub {
+            font-size: 16px;
+            text-align: center;
+            max-width: 540px;
+            margin: 0 auto 48px;
+            color: var(--gray-500);
+            line-height: 1.7;
+        }
+
+        .divider {
+            border: none;
+            border-top: 1px solid var(--gray-200);
+        }
+
+        /* ---- DESTINATION CARDS ---- */
+        .destinations {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .dest-card {
+            background: var(--white);
+            border: 1.5px solid var(--gray-200);
+            border-radius: var(--radius);
+            padding: 28px 24px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.25s ease;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dest-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--blue), #38bdf8);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .dest-card:hover {
+            border-color: rgba(18, 146, 235, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 14px 36px rgba(18, 146, 235, 0.1);
+        }
+
+        .dest-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .dest-icon {
+            font-size: 28px;
+            margin-bottom: 14px;
+            display: block;
+        }
+
+        .dest-tag {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--blue);
+            background: var(--blue-dim);
+            padding: 3px 10px;
+            border-radius: 100px;
+            display: inline-block;
+            margin-bottom: 10px;
+            width: fit-content;
+        }
+
+        .dest-card h3 {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--gray-900);
+            margin-bottom: 8px;
+            line-height: 1.1;
+        }
+
+        .dest-card p {
+            font-size: 13px;
+            color: var(--gray-500);
+            line-height: 1.65;
+            flex: 1;
+            margin-bottom: 20px;
+        }
+
+        .dest-btn {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 11px 16px;
+            background: var(--blue);
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            color: white;
+            transition: background 0.2s;
+        }
+
+        .dest-card:hover .dest-btn {
+            background: var(--blue-hover);
+        }
+
+        /* ---- WHAT TO EXPECT ---- */
+        .expect-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+        }
+
+        .expect-item {
+            background: var(--white);
+            border: 1.5px solid var(--gray-200);
+            border-radius: var(--radius);
+            padding: 24px;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            transition: all 0.25s ease;
+        }
+
+        .expect-item:hover {
+            border-color: rgba(18, 146, 235, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px var(--blue-dim);
+        }
+
+        .expect-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--blue-dim);
+            border: 1px solid var(--blue-mid);
+            border-radius: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .expect-item h4 {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 5px;
+            line-height: 1.3;
+        }
+
+        .expect-item p {
+            font-size: 13px;
+            color: var(--gray-500);
+            line-height: 1.6;
+        }
+
+        /* ---- BOTTOM CTA ---- */
+        .bottom-cta {
+            background: linear-gradient(135deg, #171717 0%, #1292eb 100%);
+            padding: 72px 24px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bottom-cta::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+            background-size: 44px 44px;
+        }
+
+        .bottom-inner {
+            max-width: 560px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .bottom-cta h2 {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: clamp(32px, 5vw, 52px);
+            font-weight: 800;
+            color: white;
+            line-height: 1.0;
+            margin-bottom: 14px;
+        }
+
+        .bottom-cta h2 em {
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.35);
+        }
+
+        .bottom-cta p {
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .bottom-links {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .bottom-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 12px 22px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .bottom-link:hover {
+            background: rgba(255, 255, 255, 0.18);
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        /* ---- ANIMATIONS ---- */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(14px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes popIn {
+            from {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.3;
+                transform: scale(0.85);
+            }
+        }
+
+        /* ---- RESPONSIVE ---- */
+        @media (max-width: 860px) {
+            .destinations {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .expect-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .destinations {
+                grid-template-columns: 1fr;
+            }
+
+            .expect-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding: 56px 20px 64px;
+            }
+
+            .section,
+            .section-alt {
+                padding: 56px 20px;
+            }
+
+            .bottom-cta {
+                padding: 56px 20px;
+            }
+
+            .hero h1 {
+                font-size: 44px;
+            }
+
+            .hero-desc {
+                font-size: 15px;
+            }
+
+            .login-note {
+                font-size: 13px;
+                color: rgba(255, 255, 255, 0.4);
+                margin-bottom: 28px;
+                animation: fadeUp 0.5s ease 0.22s both;
+            }
+
+            .unlocked-row {
+                gap: 6px;
+            }
+
+            .unlocked-pill {
+                font-size: 11px;
+                padding: 5px 11px;
+            }
+
+            .dest-card {
+                padding: 22px 20px;
+            }
+
+            .dest-card h3 {
+                font-size: 20px;
+            }
+
+            .dest-btn {
+                font-size: 12px;
+                padding: 10px 14px;
+            }
+
+            .expect-item {
+                padding: 18px;
+                gap: 12px;
+            }
+
+            .expect-icon {
+                width: 38px;
+                height: 38px;
+                font-size: 17px;
+            }
+
+            .expect-item h4 {
+                font-size: 14px;
+            }
+
+            .bottom-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .bottom-link {
+                width: 100%;
+                max-width: 280px;
+                justify-content: center;
+            }
+
+            .section-sub {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .pro-badge {
+                font-size: 10px;
+                padding: 6px 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-inner">
+
+            <div class="pro-badge">
+                <span class="pro-dot"></span>
+                PromptWire Pro Active
+            </div>
+
+            <h1>You're in.<br><em>Welcome to</em> Pro.</h1>
+
+            <p class="hero-desc">Your subscription is confirmed and everything is unlocked. The workflow library, every
+                past issue, and every Pro resource. Start wherever you want.</p>
+
+            <p class="login-note">Make sure you are logged in with the email you signed up with to access Pro features
+                on the site.</p>
+
+            <div class="unlocked-row">
+                <div class="unlocked-pill">⚡ Workflow Library</div>
+                <div class="unlocked-pill">🗂️ Full Issue Archive</div>
+                <div class="unlocked-pill">🎁 Pro Resources</div>
+                <div class="unlocked-pill">📡 Full AI Briefings</div>
+                <div class="unlocked-pill">🎯 Implementation Steps</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- START HERE -->
+    <section class="section">
+        <div class="wrap">
+            <div class="eyebrow">🚀 Start here</div>
+            <h2 class="section-title">Three places to go right now.</h2>
+            <p class="section-sub">Everything is unlocked. These are the best places to start as a new Pro member.</p>
+
+            <div class="destinations">
+                <a href="https://www.promptwireai.com/templates" target="_top" class="dest-card">
+                    <span class="dest-icon">⚡</span>
+                    <span class="dest-tag">Most popular first stop</span>
+                    <h3>Workflow Library</h3>
+                    <p>A growing library of complete AI workflows covering content, sales, research, video, agents, and
+                        more. Replaces $200+ per month in tools. Updated every Thursday. Start with whatever task is
+                        eating the most of your time right now.</p>
+                    <div class="dest-btn">Open Workflow Library <span>→</span></div>
+                </a>
+
+                <a href="https://www.promptwireai.com/resources" target="_top" class="dest-card">
+                    <span class="dest-icon">🎁</span>
+                    <span class="dest-tag">Pro exclusive</span>
+                    <h3>Resources</h3>
+                    <p>Every toolkit, template pack, and guide released under Pro. New resources added every month. All
+                        in one place.</p>
+                    <div class="dest-btn">Open Resources <span>→</span></div>
+                </a>
+
+                <a href="https://www.promptwireai.com/archive" target="_top" class="dest-card">
+                    <span class="dest-icon">🗂️</span>
+                    <span class="dest-tag">Full back catalogue</span>
+                    <h3>Issue Archive</h3>
+                    <p>Every issue from the beginning. Each one starts with the old way of doing something, then shows
+                        the replacement. The workflows from early issues are still used by Pro members every week.</p>
+                    <div class="dest-btn">Open Archive <span>→</span></div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- WHAT TO EXPECT -->
+    <section class="section-alt">
+        <div class="wrap">
+            <div class="eyebrow">📬 What happens next</div>
+            <h2 class="section-title">What lands in your inbox from here.</h2>
+            <p class="section-sub">Your first full Pro issue arrives this Thursday. Here is exactly what to expect going
+                forward.</p>
+
+            <div class="expect-grid">
+                <div class="expect-item">
+                    <div class="expect-icon">⚡</div>
+                    <div>
+                        <h4>One new tested workflow every Thursday</h4>
+                        <p>Built around what AI can do right now, before most people know it exists. Each issue starts
+                            with the old way, then shows the replacement. Free subscribers see the overview. You get the
+                            complete setup.</p>
+                    </div>
+                </div>
+                <div class="expect-item">
+                    <div class="expect-icon">📚</div>
+                    <div>
+                        <h4>Workflow library updated every Thursday</h4>
+                        <p>A new workflow added every Thursday. The library covers content, sales, research, video,
+                            agents, and more. Check back regularly and it keeps growing.</p>
+                    </div>
+                </div>
+                <div class="expect-item">
+                    <div class="expect-icon">🎁</div>
+                    <div>
+                        <h4>New Pro resources monthly</h4>
+                        <p>A new toolkit, template pack, or guide drops every month exclusively for Pro members. You
+                            will be notified by email when each one goes live.</p>
+                    </div>
+                </div>
+                <div class="expect-item">
+                    <div class="expect-icon">📡</div>
+                    <div>
+                        <h4>Full AI briefing every week</h4>
+                        <p>Every issue covers the biggest AI story of the week. Pro gets the full breakdown and the
+                            concrete steps to act on it. Not just the summary.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BOTTOM -->
+    <section class="bottom-cta">
+        <div class="bottom-inner">
+            <h2>Everything is unlocked.<br><em>Go explore.</em></h2>
+            <p>Start with whichever section is most useful right now. Questions? Reply to any PromptWire email.</p>
+            <div class="bottom-links">
+                <a href="https://www.promptwireai.com/templates" target="_top" class="bottom-link">⚡ Workflow
+                    Library</a>
+                <a href="https://www.promptwireai.com/resources" target="_top" class="bottom-link">🎁 Resources</a>
+                <a href="https://www.promptwireai.com/archive" target="_top" class="bottom-link">🗂️ Archive</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Facebook Pixel -->
+    <script>
+        !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)
+}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '2055998351875626');
+        fbq('track', 'PageView');
+
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('purchase') === 'true') {
+            const plan = urlParams.get('plan') || 'pro_monthly';
+            const valueMap = {
+                'pro_monthly': 17.99,
+                'pro_founding': 8.99,
+                'pro_annual': 179.99
+            };
+            const value = valueMap[plan] || 17.99;
+            fbq('track', 'Purchase', {
+                value: value,
+                currency: 'USD',
+                content_name: plan
+            });
+        }
+    </script>
+    <noscript>
+        <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2055998351875626&ev=PageView&noscript=1"/>
+    </noscript>
+
+</body>
+
+</html>
