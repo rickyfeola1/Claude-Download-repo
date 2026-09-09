@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PromptWire Pro Upgrade</title>
   <link
-    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,800;1,700;1,800&family=DM+Sans:wght@400;500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
     rel="stylesheet">
 
   <!--
@@ -72,6 +72,13 @@
       --gray-900: #0d1117;
       --green: #0d8f63;
       --radius: 14px;
+      --mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+      --display: 'Space Grotesk', 'DM Sans', -apple-system, sans-serif;
+      --paper: #fbfbfa;
+      --paper-line: rgba(13, 31, 60, 0.045);
+      --ink: #1c2430;
+      --card-border: #1c2430;
+      --band: #f4f2ec;
     }
 
     html {
@@ -79,12 +86,31 @@
     }
 
     body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--white);
-      color: var(--gray-900);
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background-color: var(--paper);
+      color: var(--ink);
       -webkit-font-smoothing: antialiased;
       overflow-x: clip;
       -webkit-overflow-scrolling: touch;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(var(--paper-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--paper-line) 1px, transparent 1px);
+      background-size: 44px 44px;
+    }
+
+    .hero,
+    .section,
+    .section-alt {
+      position: relative;
+      z-index: 1;
     }
 
     a:focus-visible,
@@ -100,6 +126,7 @@
       overflow: hidden;
       padding: 72px 24px 80px;
       text-align: center;
+      border-bottom: 2px solid var(--ink);
     }
 
     .hero::before {
@@ -123,9 +150,10 @@
     }
 
     .hero h1 {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: clamp(44px, 7vw, 76px);
-      font-weight: 800;
+      font-family: var(--display);
+      font-size: clamp(48px, 7vw, 82px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
       line-height: 0.96;
       letter-spacing: -1.5px;
       color: #ffffff;
@@ -186,7 +214,7 @@
       background: #ffffff;
       color: var(--blue-text);
       padding: 16px 44px;
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       font-size: 16px;
       font-weight: 700;
       border-radius: 10px;
@@ -219,12 +247,14 @@
     /* ---- SECTIONS ---- */
     .section {
       padding: 68px 24px;
-      background: var(--white);
+      background: transparent;
     }
 
     .section-alt {
       padding: 68px 24px;
-      background: var(--gray-50);
+      background: var(--band);
+      border-top: 2px solid var(--ink);
+      border-bottom: 2px solid var(--ink);
     }
 
     .wrap {
@@ -233,9 +263,10 @@
     }
 
     .section-title {
-      font-family: 'Barlow Condensed', sans-serif;
+      font-family: var(--display);
       font-size: clamp(28px, 4vw, 44px);
-      font-weight: 800;
+      font-weight: 700;
+      letter-spacing: -0.03em;
       text-align: center;
       margin-bottom: 10px;
       color: var(--gray-900);
@@ -277,9 +308,10 @@
     }
 
     .workflow-intro h3 {
-      font-family: 'Barlow Condensed', sans-serif;
+      font-family: var(--display);
       font-size: clamp(22px, 3vw, 30px);
-      font-weight: 800;
+      font-weight: 700;
+      letter-spacing: -0.02em;
       color: #ffffff;
       line-height: 1.1;
       margin-bottom: 10px;
@@ -301,7 +333,7 @@
 
     .workflow-card {
       background: var(--white);
-      border: 1.5px solid var(--gray-200);
+      border: 2px solid var(--card-border);
       border-radius: var(--radius);
       padding: 22px;
       transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
@@ -324,9 +356,8 @@
     }
 
     .workflow-card:hover {
-      border-color: rgba(18, 146, 235, 0.35);
-      transform: translateY(-3px);
-      box-shadow: 0 12px 26px rgba(18, 146, 235, 0.1);
+      transform: translate(-3px, -3px);
+      box-shadow: 6px 6px 0 var(--card-border);
     }
 
     .workflow-card:hover::before {
@@ -335,10 +366,11 @@
 
     /* Plain uppercase label, not a pill. Matches the home and thank-you pages. */
     .wf-tag {
+      font-family: var(--mono);
       font-size: 11px;
-      font-weight: 700;
+      font-weight: 500;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 0.12em;
       color: var(--blue-text);
     }
 
@@ -374,16 +406,15 @@
 
     .proof-card {
       background: var(--white);
-      border: 1.5px solid var(--gray-200);
+      border: 2px solid var(--card-border);
       border-radius: var(--radius);
       padding: 24px;
       transition: all 0.2s;
     }
 
     .proof-card:hover {
-      border-color: rgba(18, 146, 235, 0.25);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(18, 146, 235, 0.07);
+      transform: translate(-3px, -3px);
+      box-shadow: 6px 6px 0 var(--card-border);
     }
 
     .stars {
@@ -421,9 +452,9 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: 'Barlow Condensed', sans-serif;
+      font-family: var(--display);
       font-size: 14px;
-      font-weight: 800;
+      font-weight: 700;
       color: var(--blue-text);
       flex-shrink: 0;
     }
@@ -458,10 +489,8 @@
     }
 
     .benefit-card:hover {
-      border-color: rgba(18, 146, 235, 0.25);
-      border-left-color: var(--blue);
-      transform: translateY(-3px);
-      box-shadow: 0 10px 24px rgba(18, 146, 235, 0.08);
+      transform: translate(-3px, -3px);
+      box-shadow: 6px 6px 0 var(--card-border);
     }
 
     .benefit-card h3 {
@@ -590,7 +619,7 @@
 
       <div class="hero-stats">
         <div class="hero-stat">1 new workflow every Thursday</div>
-        <div class="hero-stat" data-check="library-count">70+ in the library</div>
+        <div class="hero-stat" data-check="library-count">80+ in the library</div>
         <div class="hero-stat" data-check="time-saved">6+ hours saved per week</div>
       </div>
 
