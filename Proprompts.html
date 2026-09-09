@@ -1,7 +1,7 @@
 <!-- Prompt Library Page - Full Rewrite -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link
-  href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap"
+  href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
   rel="stylesheet">
 <style>
   /* ── Hero ── */
@@ -15,6 +15,7 @@
     margin-left: calc(-50vw + 50%);
     margin-right: calc(-50vw + 50%);
     width: 100vw;
+    border-bottom: 2px solid var(--ink);
   }
 
   .pw-lib-grid {
@@ -111,9 +112,14 @@
     --gray-700: #374151;
     --gray-800: #1f2937;
     --gray-900: #111827;
-    font-family: 'Inter', Helvetica, Arial, sans-serif;
-    /* FIX 2 + 3: grey bg, full bleed width */
-    background: #ffffff;
+    --mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+    --display: 'Space Grotesk', 'DM Sans', -apple-system, sans-serif;
+    --paper: #fbfbfa;
+    --paper-line: rgba(13, 31, 60, 0.045);
+    --ink: #1c2430;
+    --card-border: #1c2430;
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background-color: #fbfbfa;
     color: var(--gray-900);
     line-height: 1.6;
     padding: 40px 0;
@@ -127,6 +133,23 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+  }
+
+  .prompt-bank-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(var(--paper-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--paper-line) 1px, transparent 1px);
+    background-size: 44px 44px;
+  }
+
+  .prompt-bank-section>* {
+    position: relative;
+    z-index: 1;
   }
 
   .pb-container {
@@ -151,7 +174,7 @@
     width: 100%;
     padding: 16px 20px 16px 52px;
     font-size: 16px;
-    font-family: 'Inter', Helvetica, sans-serif;
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     background: var(--white);
     border: 2px solid var(--gray-200);
     border-radius: 12px;
@@ -186,21 +209,23 @@
   }
 
   .pb-tag-btn {
-    padding: 10px 20px;
-    font-size: 14px;
-    font-family: 'Inter', Helvetica, sans-serif;
-    font-weight: 600;
+    padding: 9px 16px;
+    font-size: 12px;
+    font-family: var(--mono);
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
     background: var(--white);
-    border: 2px solid var(--gray-200);
-    border-radius: 100px;
+    border: 1.5px solid var(--ink);
+    border-radius: 7px;
     color: var(--gray-600);
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, color 0.15s ease;
   }
 
   .pb-tag-btn:hover {
-    border-color: var(--blue);
-    color: var(--blue);
+    transform: translate(-2px, -2px);
+    box-shadow: 3px 3px 0 var(--ink);
   }
 
   .pb-tag-btn.active {
@@ -243,7 +268,7 @@
   .pb-sort-select {
     padding: 10px 40px 10px 16px;
     font-size: 14px;
-    font-family: 'Inter', Helvetica, sans-serif;
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     font-weight: 500;
     background: var(--white);
     border: 2px solid var(--gray-200);
@@ -270,17 +295,16 @@
 
   .pb-prompt-card {
     background: var(--white);
-    border: 2px solid var(--gray-200);
+    border: 2px solid var(--card-border);
     border-radius: 16px;
     padding: 24px;
     cursor: pointer;
-    transition: all 0.25s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
 
   .pb-prompt-card:hover {
-    border-color: var(--blue);
-    box-shadow: 0 8px 30px rgba(18, 146, 235, 0.12);
-    transform: translateY(-2px);
+    transform: translate(-3px, -3px);
+    box-shadow: 6px 6px 0 var(--card-border);
   }
 
   .pb-card-header {
@@ -291,14 +315,14 @@
   }
 
   .pb-card-category {
+    font-family: var(--mono);
     font-size: 11px;
-    font-weight: 700;
+    font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--blue);
-    background: var(--blue-light);
-    padding: 6px 12px;
-    border-radius: 100px;
+    letter-spacing: 0.12em;
+    color: var(--blue-text, #0C6BAF);
+    background: none;
+    padding: 0;
   }
 
   .pb-copy-count {
@@ -452,7 +476,7 @@
 
   .pb-modal-title {
     font-size: 28px;
-    font-weight: 800;
+    font-weight: 700;
     color: var(--gray-900);
   }
 
@@ -555,7 +579,7 @@
     padding: 12px 24px;
     font-size: 14px;
     font-weight: 700;
-    font-family: 'Inter', Helvetica, sans-serif;
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     background: var(--blue);
     border: none;
     border-radius: 10px;
@@ -576,7 +600,7 @@
 
   .pb-prompt-content {
     padding: 20px;
-    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-family: var(--mono);
     font-size: 13px;
     line-height: 1.7;
     color: var(--gray-300);
@@ -706,19 +730,20 @@
     font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   }
 
-  /* Headings in Barlow Condensed, same as every other page */
+  /* Headings in Space Grotesk, same as every other page */
   .pw-lib-title {
-    font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
-    font-weight: 800;
+    font-family: var(--display);
+    font-weight: 700;
     font-style: normal;
-    font-size: clamp(46px, 6.5vw, 72px);
-    line-height: 1.0;
-    letter-spacing: -0.01em;
+    font-size: clamp(50px, 7vw, 82px);
+    line-height: 0.98;
+    letter-spacing: -0.03em;
   }
 
   .pb-modal-title {
-    font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
-    font-weight: 800;
+    font-family: var(--display);
+    font-weight: 700;
+    letter-spacing: -0.02em;
   }
 
   /* Card titles: DM Sans, matching the free workflow library exactly. */
@@ -778,7 +803,7 @@
   .pb-prompt-card {
     position: relative;
     overflow: hidden;
-    border-width: 1.5px;
+    border-width: 2px;
   }
 
   .pb-prompt-card::before {
@@ -815,8 +840,8 @@
   }
 
   .pb-tag-btn.active {
-    background: #111827;
-    border-color: #111827;
+    background: var(--ink);
+    border-color: var(--ink);
     color: #fff;
   }
 
@@ -3354,6 +3379,229 @@ Rules:
 - Specific and true beats clever and vague.
 
 If I just ask "why aren't people buying this", diagnose it through a psychological lens before suggesting fixes.`
+},
+{
+    id: 82,
+    title: "Quote Calculator",
+    description: "Paste this into Google Opal to build a quoting tool that prices any job the way you would, with your rules, surcharges, and minimums baked in so anyone on your team can quote without asking you.",
+    category: "business",
+    tags: ["pricing", "quotes", "sales", "Google Opal", "freelance"],
+    icon: "🧮",
+    whatItDoes: "Takes a plain-language job description, client name, and deadline then returns a quoted price, what is included, what is not, the assumptions, and a ready-to-send quote email",
+    bestFor: "Service businesses, freelancers, agencies, and trades where pricing depends on judgment that has never been written down. Paste into Google Opal once and anyone on your team can quote a job.",
+    inputsNeeded: "Your base rates, rush premium threshold, vagueness surcharge, minimum engagement, and any other pricing rules you apply by instinct",
+    copies: 13,
+    prompt: `Build me a quote calculator for my business.
+    
+    WHAT THE USER PROVIDES: a description of the job in plain language, the client name, and the deadline. Nothing else. They may be vague.
+
+MY PRICING RULES (apply these every time):
+- Base rates: [list your services and base prices]
+- If the client describes the job as "simple," "quick," or "small," add [X]% because it never is
+- If the deadline is under [X] days, add a [X]% rush premium
+- If the job description is vague or missing key detail, price the higher end of the range and say why
+- Minimum engagement is [amount]. Never quote below it
+- [Add any other rule you apply by instinct]
+
+RETURN, EVERY TIME, IN THIS ORDER:
+1. The quoted price, as a single number
+2. What that includes, as a list
+3. What is explicitly NOT included
+4. The assumptions the price depends on
+5. A short, ready-to-send quote email
+
+If the job description is too vague to price, do not guess. Return the three questions that need answering first.`
+},
+
+{
+    id: 83,
+    title: "Payment Chaser",
+    description: "Paste this into Google Opal to build an invoice follow-up tool that writes the right message for how overdue it is, escalating properly instead of sending the same polite note four times.",
+    category: "business",
+    tags: ["invoicing", "cash flow", "collections", "Google Opal", "freelance"],
+    icon: "💰",
+    whatItDoes: "Takes the client name, invoice amount, days overdue, and whether they have been late before, then returns a single calibrated message and one line on what to do if it is ignored",
+    bestFor: "Freelancers, agencies, and anyone who invoices and finds chasing payment unpleasant enough to postpone it. Paste into Google Opal once and remove the emotional labour from collections.",
+    inputsNeeded: "Client name, invoice amount, how many days overdue, and whether this client has been late before",
+    copies: 16,
+    prompt: `Build me a tool that writes invoice follow-up messages.
+
+WHAT THE USER PROVIDES: client name, invoice amount, how many days overdue, and whether this client has been late before.
+
+RETURN a single message, with the tone set by how overdue it is:
+- Under 7 days: warm, assume it is an oversight, no pressure
+- 7 to 14 days: friendly but direct, ask for a specific payment date
+- 14 to 30 days: formal, restate the terms, ask for a date in writing, mention that work pauses if needed
+- Over 30 days: firm, reference the agreed terms and late fees, state the next step plainly
+
+If the client has been late before, move one level firmer than the day count suggests.
+
+ALWAYS: ask for a specific date rather than "when you can." Never apologise for asking. Never offer a discount or new terms.
+
+Also return one line telling the user what to do if this one is ignored.`
+},
+
+{
+    id: 84,
+    title: "Voice-Locked Repurposer",
+    description: "Paste this into Google Opal to build a repurposing tool that learns your voice from real writing samples and turns any long piece into LinkedIn, X posts, an email, and five headlines.",
+    category: "content",
+    tags: ["content repurposing", "voice", "Google Opal", "LinkedIn", "writing"],
+    icon: "🔁",
+    whatItDoes: "Loads your voice from 3 to 5 real writing samples then turns any long piece into a LinkedIn post, three X posts, a short email with subject line, and five alternative headlines",
+    bestFor: "Anyone publishing regularly or with a team writing on their behalf. Paste into Google Opal with your real samples and a VA or junior can repurpose content that sounds like you.",
+    inputsNeeded: "3 to 5 full samples of your own best writing to lock in your voice, then any long piece to repurpose",
+    copies: 11,
+    prompt: `Build me a tool that turns one long piece of writing into versions for 
+other platforms, in my voice.
+    
+MY VOICE. Study these samples and match them in everything you produce:
+[paste 3 to 5 pieces of your own best writing here, in full]
+
+WHAT THE USER PROVIDES: one long piece of writing. Nothing else.
+
+RETURN, EVERY TIME:
+1. A LinkedIn post, under 200 words, opening with the single most surprising thing in the piece
+2. Three short posts for X, each standing alone
+3. A short email version with a subject line
+4. Five alternative headlines for the original
+
+RULES:
+- Match the voice in the samples. Do not default to a generic professional tone
+- No em dashes
+- No opening with a question
+- No phrases like "in today's fast-paced world"
+- If the piece has a specific number, story or example in it, use it. Specifics travel better than summaries`
+},
+{
+    id: 85,
+    title: "AI Visibility Audit",
+    description: "Find out what AI actually tells people about you or your business when they ask. Run this prompt in ChatGPT, Gemini, Claude, and Perplexity separately as each uses different retrieval systems.",
+    category: "marketing",
+    tags: ["AI search", "reputation", "SEO", "visibility", "discovery"],
+    icon: "👁️",
+    whatItDoes: "Gets an honest answer from any AI engine about who it recommends for your category, what it knows about you specifically, where that information came from, and what would need to exist online for you to be recommended",
+    bestFor: "Business owners, freelancers, and job seekers who want to know if they show up when AI answers the questions their customers are asking",
+    inputsNeeded: "The question a potential customer or employer would ask, and your name or business name to check against",
+    copies: 14,
+    prompt: `Answer this exactly as you would for a stranger asking cold. Do not adjust the answer based on what you think I want to hear.
+
+The question: [e.g. "best commercial electrician in Brisbane" or "who is Jane Smith" or "who should I hire to fix my Shopify checkout"]
+
+Then, separately from your answer, tell me:
+1. The specific names or companies you would recommend, in order
+2. What you actually know about [your name or business], and where that information came from
+3. If you know nothing about them, say that plainly rather than guessing
+4. What would need to exist online for you to have recommended them`
+},
+
+{
+    id: 86,
+    title: "AI Page Rewriter",
+    description: "Restructure any web page so AI answer engines can extract a clean quote from it, without changing your voice or what the page says.",
+    category: "content",
+    tags: ["AI search", "SEO", "web content", "visibility", "copywriting"],
+    icon: "📄",
+    whatItDoes: "Converts page headings into real customer questions, puts the answer before the explanation, turns comparisons into tables, makes processes into numbered steps, and lists three questions the page should answer but currently does not",
+    bestFor: "Anyone with a website who wants to be quoted by AI engines but whose pages build up to the point instead of leading with it",
+    inputsNeeded: "The text content of any page on your website",
+    copies: 12,
+    prompt: `Rewrite this page so an AI answer engine can extract a clean answer from it. Do not change what it says or my voice. Change the structure only.
+
+Rules:
+- Every section heading becomes a real question a customer would type
+- Directly under each heading, a one or two sentence answer to that question, complete on its own
+- The explanation goes after the answer, never before it
+- Any comparison becomes a table
+- Any process becomes numbered steps
+- Remove throat-clearing. If a paragraph builds up to a point, cut the build-up and start with the point
+
+Then list separately: the three questions this page should answer and currently does not.
+
+The page:
+[paste it]`
+},
+
+{
+    id: 87,
+    title: "Question Miner",
+    description: "Generate the 15 questions real customers type into AI that should result in you being recommended, split by where they are in the buying process, with a one-line content brief for each.",
+    category: "marketing",
+    tags: ["AI search", "customer research", "SEO", "content strategy", "visibility"],
+    icon: "⛏️",
+    whatItDoes: "Produces 15 real customer questions split across problem-aware, category-aware, comparison, and name-search stages, each with a one-line brief on what a good answer would need to contain for you to be named",
+    bestFor: "Anyone who sells a service and wants to know exactly what to publish online to show up when AI answers the questions their buyers are actually typing",
+    inputsNeeded: "Your role, the type of client you work with, and what you do",
+    copies: 17,
+    prompt: `I am [your role] working with [type of client] on [what you do].
+
+Generate the 15 questions someone would actually type into an AI assistant that should result in me being recommended.
+
+Split them into:
+- Questions about the problem, where they do not yet know a solution exists
+- Questions about the category, where they know what they need but not who
+- Questions comparing options
+- Questions about me by name
+
+Use the words a real person would use, not industry terms. For each question, tell me in one line what a good answer would need to contain for me to be named in it.`
+},
+{
+    id: 88,
+    title: "Drawing to 3D Model",
+    description: "Hand a 2D sketch to ChatGPT with Astra and get back a Blender file with individually editable parts, plus a list of every section it had to infer from the drawing.",
+    category: "creative",
+    tags: ["3D modelling", "Blender", "ChatGPT Astra", "prototyping", "design"],
+    icon: "🎨",
+    whatItDoes: "Builds a Blender 3D model from a 2D drawing with separate editable parts rather than one merged mesh, then reports which areas it inferred rather than saw in the drawing",
+    bestFor: "Anyone with a product idea, prototype, prop, or part they can sketch but cannot model. Requires ChatGPT on a paid plan with GPT-4o and Astra operating Blender.",
+    inputsNeeded: "A 2D drawing or sketch of the thing you want modelled",
+    copies: 11,
+    prompt: `Here is a 2D drawing of [the thing]. Build me a 3D model of it in Blender.
+
+Separate it into individually editable parts rather than one merged mesh, so I can move and adjust pieces afterwards.
+
+Where the drawing does not show a side or an angle, make a sensible choice and tell me afterwards which parts you inferred rather than saw.
+
+Save the file and tell me where it is.`
+},
+
+{
+    id: 89,
+    title: "Space Visualiser",
+    description: "See a room, renovation, or fit-out in 3D before committing to it. ChatGPT with Astra builds the model, renders it from the angles you would actually stand in, and makes it walkable if possible.",
+    category: "creative",
+    tags: ["3D modelling", "Blender", "ChatGPT Astra", "interior design", "renovation"],
+    icon: "🏠",
+    whatItDoes: "Takes a photo, floor plan, or description and builds a dimensionally accurate 3D version in Blender with renders from real viewpoints and an optional walkable version",
+    bestFor: "Anyone about to spend money on a renovation, fit-out, studio, office, or event space who wants to see it first. Requires ChatGPT with Astra operating Blender.",
+    inputsNeeded: "A photo, floor plan, measurements, or description of the space and what you are considering changing",
+    copies: 9,
+    prompt: `I want to see [the space] before I commit to it.
+
+Here is what exists: [photo, floor plan, measurements, or a description]
+Here is what I am considering changing: [describe it]
+
+Build me a 3D version in Blender, then produce renders from the two angles I would actually stand in. If it is straightforward, also make it walkable so I can move around it.
+
+Keep the proportions accurate to the measurements I gave you. If a measurement is missing, ask rather than guessing.`
+},
+
+{
+    id: 90,
+    title: "Ten-Five Improver",
+    description: "Give any project, file, site, or codebase to ChatGPT with Astra and get a ranked diagnosis of the ten best improvements, then have the top five implemented immediately.",
+    category: "productivity",
+    tags: ["ChatGPT Astra", "code", "improvement", "diagnosis", "automation"],
+    icon: "⚡",
+    whatItDoes: "Lists the ten highest-impact improvements ranked by difference they would make, implements the top five, stays within that scope, then reports what changed, what failed, and what to do next",
+    bestFor: "Anyone who knows something is not right with a project, site, document, or codebase but cannot name exactly what. Requires ChatGPT with Astra or any agent with file access.",
+    inputsNeeded: "Access to the project, file, site, or codebase you want improved",
+    copies: 13,
+    prompt: `Here is [the project, file, or site]. You have access to it.
+
+List the ten things you would improve, ranked by how much difference they would make. Then pick the top five and do them.
+
+Do not touch anything outside those five. When you are done, tell me what you changed, what you tried that did not work, and what you would do next.`
 }
   ];
 
