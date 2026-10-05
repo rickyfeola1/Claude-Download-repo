@@ -7,7 +7,7 @@
   <title>Resource Library — PromptWire Pro</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link
-    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=DM+Sans:wght@400;500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
     rel="stylesheet" />
   <style>
     :root {
@@ -23,6 +23,12 @@
       --gray-500: #6b7280;
       --gray-600: #4b5563;
       --gray-900: #111827;
+      --mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+      --display: 'Space Grotesk', 'DM Sans', -apple-system, sans-serif;
+      --paper: #fbfbfa;
+      --paper-line: rgba(13, 31, 60, 0.045);
+      --ink: #1c2430;
+      --card-border: #1c2430;
     }
 
     *,
@@ -35,18 +41,38 @@
 
     body {
       font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: var(--white);
-      color: var(--gray-900);
+      background-color: var(--paper);
+      color: var(--ink);
       line-height: 1.6;
     }
 
-    /* ── HERO ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(var(--paper-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--paper-line) 1px, transparent 1px);
+      background-size: 44px 44px;
+    }
+
+    .pw-arc,
+    .resources-section,
+    footer,
+    nav {
+      position: relative;
+      z-index: 1;
+    }
+
     .pw-arc {
       background: linear-gradient(135deg, #171717 0%, #1292eb 100%);
       padding: 96px 24px;
       text-align: center;
       position: relative;
       overflow: hidden;
+      border-bottom: 2px solid var(--ink);
     }
 
     .pw-arc-grid {
@@ -69,20 +95,21 @@
     }
 
     .pw-arc-title {
-      font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
-      font-size: clamp(46px, 6.5vw, 72px);
-      font-weight: 800;
+      font-family: var(--display);
+      font-size: clamp(50px, 7vw, 82px);
+      font-weight: 700;
       font-style: normal;
-      line-height: 1.0;
-      letter-spacing: -0.01em;
+      line-height: 0.98;
+      letter-spacing: -0.03em;
       color: #ffffff;
       margin-bottom: 14px;
     }
 
     .pw-arc-tagline {
-      font-size: 14px;
-      font-weight: 600;
-      letter-spacing: 0.1em;
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
       color: rgba(255, 255, 255, 0.55);
       margin-bottom: 16px;
@@ -96,15 +123,12 @@
       line-height: 1.6;
     }
 
-    /* ── SECTION ── */
     .resources-section {
-      background: var(--white);
       max-width: 1200px;
       margin: 0 auto;
       padding: 60px 24px 80px;
     }
 
-    /* ── SORT + FILTER BAR ── */
     .sort-bar {
       display: flex;
       align-items: center;
@@ -114,36 +138,39 @@
     }
 
     .sort-label {
-      font-size: 12px;
-      font-weight: 600;
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
       text-transform: uppercase;
-      letter-spacing: 0.8px;
+      letter-spacing: 0.12em;
       color: var(--gray-400);
       margin-right: 4px;
     }
 
     .sort-btn {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--gray-500);
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--gray-600);
       background: var(--white);
-      border: 1.5px solid var(--gray-200);
+      border: 1.5px solid var(--ink);
       padding: 8px 16px;
-      border-radius: 5px;
+      border-radius: 7px;
       cursor: pointer;
-      transition: border-color 0.18s ease, color 0.18s ease, background 0.18s ease;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, color 0.15s ease;
       white-space: nowrap;
     }
 
     .sort-btn:hover {
-      border-color: var(--blue);
-      color: var(--blue-text);
+      transform: translate(-2px, -2px);
+      box-shadow: 3px 3px 0 var(--ink);
     }
 
     .sort-btn.active {
-      background: var(--gray-900);
-      border-color: var(--gray-900);
+      background: var(--ink);
+      border-color: var(--ink);
       color: var(--white);
     }
 
@@ -154,7 +181,6 @@
       margin: 0 8px;
     }
 
-    /* ── GRID ── */
     .resources-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
@@ -165,15 +191,15 @@
     .resource-card {
       position: relative;
       background: var(--white);
-      border: 1.5px solid var(--gray-200);
-      border-radius: 16px;
+      border: 2px solid var(--card-border);
+      border-radius: 18px;
       padding: 26px;
       cursor: pointer;
       text-decoration: none;
       color: inherit;
       display: flex;
       flex-direction: column;
-      transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
       overflow: hidden;
       opacity: 0;
       transform: translateY(20px);
@@ -224,6 +250,26 @@
       animation-delay: 0.55s;
     }
 
+    .resource-card:nth-child(12) {
+      animation-delay: 0.60s;
+    }
+
+    .resource-card:nth-child(13) {
+      animation-delay: 0.65s;
+    }
+
+    .resource-card:nth-child(14) {
+      animation-delay: 0.70s;
+    }
+
+    .resource-card:nth-child(15) {
+      animation-delay: 0.75s;
+    }
+
+    .resource-card:nth-child(16) {
+      animation-delay: 0.80s;
+    }
+
     @keyframes cardIn {
       to {
         opacity: 1;
@@ -249,9 +295,8 @@
     }
 
     .resource-card:hover {
-      border-color: rgba(18, 146, 235, 0.5);
-      box-shadow: 0 12px 34px rgba(18, 146, 235, 0.12);
-      transform: translateY(-3px);
+      transform: translate(-3px, -3px);
+      box-shadow: 6px 6px 0 var(--card-border);
     }
 
     .card-top {
@@ -262,14 +307,14 @@
     }
 
     .card-category {
+      font-family: var(--mono);
       font-size: 11px;
-      font-weight: 700;
+      font-weight: 500;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.12em;
       color: var(--blue-text);
-      background: var(--blue-light);
-      padding: 5px 10px;
-      border-radius: 5px;
+      padding: 0;
+      background: none;
     }
 
     .card-icon {
@@ -285,10 +330,11 @@
     }
 
     .card-title {
-      font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
-      font-size: 24px;
-      font-weight: 800;
-      line-height: 1.15;
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
       margin-bottom: 10px;
       color: var(--gray-900);
     }
@@ -314,10 +360,10 @@
     }
 
     .stat-value {
-      font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
-      font-size: 24px;
-      font-weight: 800;
-      line-height: 1;
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.3;
       color: var(--blue-text);
     }
 
@@ -350,7 +396,6 @@
       transform: translateX(4px);
     }
 
-    /* Coming soon: solid hairline, not a dashed box */
     .card-coming-soon {
       border-style: solid;
       border-color: var(--gray-200);
@@ -379,10 +424,11 @@
     }
 
     .coming-soon-label {
+      font-family: var(--mono);
       font-size: 11px;
-      font-weight: 700;
+      font-weight: 500;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.12em;
       color: var(--gray-400);
     }
 
@@ -434,40 +480,6 @@
         grid-template-columns: 1fr;
       }
     }
-
-    /* ═══════════ FONT SYSTEM: MATCH THE WORKFLOW LIBRARY ═══════════
-   Barlow Condensed = hero + section headings ONLY.
-   Everything inside a card is DM Sans. */
-
-    .card-title {
-      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      font-size: 20px;
-      font-weight: 700;
-      line-height: 1.3;
-      letter-spacing: -0.01em;
-    }
-
-    .stat-value {
-      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      font-size: 18px;
-      font-weight: 700;
-      line-height: 1.3;
-    }
-
-    .card-price {
-      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      font-size: 22px;
-      font-weight: 700;
-      line-height: 1.2;
-    }
-
-    /* Section headings stay Barlow, same size as the workflow library's */
-    .intro-box-title {
-      font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
-      font-weight: 800;
-      font-size: 30px;
-      line-height: 1;
-    }
   </style>
 </head>
 
@@ -476,10 +488,10 @@
   <div class="pw-arc">
     <div class="pw-arc-grid"></div>
     <div class="pw-arc-inner">
-      <h1 class="pw-arc-title">Pro Resource Library</h1>
-      <p class="pw-arc-tagline">Included with your membership</p>
-      <p class="pw-arc-sub">Every guide, prompt pack and Notion workspace, unlocked. Clone them and start using them
-        today.</p>
+      <h1 class="pw-arc-title"><i>Pro Resource Library</i></h1>
+      <p class="pw-arc-tagline">Updated monthly</p>
+      <p class="pw-arc-sub">The latest ways to put AI to work, added every month and unlocked with your membership.
+        Clone them and start using them today.</p>
     </div>
   </div>
 
@@ -498,6 +510,48 @@
     </div>
 
     <div class="resources-grid" id="resources-grid">
+
+      <a href="https://www.notion.so/100-Things-You-Can-Do-With-Claude-and-ChatGPT-Right-Now-37622f5720c480aea510e1ec286803f6?source=copy_link"
+        target="_blank" rel="noopener" class="resource-card" data-date="20260610" data-type="guide">
+        <div class="card-top"><span class="card-category">Prompt Pack</span></div>
+        <div class="card-icon">⚡</div>
+        <h3 class="card-title">100 Things You Can Do With Claude and ChatGPT in 2026</h3>
+        <p class="card-desc">100 concrete things AI can do for you today, each with the prompt to run it. Skip the
+          theory and start with something useful in the next five minutes.</p>
+        <div class="card-stats">
+          <div class="stat"><span class="stat-value">100</span><span class="stat-label">Things to Do</span></div>
+          <div class="stat"><span class="stat-value">11</span><span class="stat-label">Categories</span></div>
+        </div>
+        <div class="card-cta">Open in Notion <span class="card-cta-arrow">→</span></div>
+      </a>
+
+      <a href="https://www.notion.so/The-Command-Codes-Pack-39122f5720c4801198c4f4980f2abd39?source=copy_link"
+        target="_blank" rel="noopener" class="resource-card" data-date="20260605" data-type="cheatsheet">
+        <div class="card-top"><span class="card-category">Cheatsheet</span></div>
+        <div class="card-icon">⌘</div>
+        <h3 class="card-title">The Command Codes Pack</h3>
+        <p class="card-desc">A set of short command codes that make Claude and ChatGPT do exactly what you want, faster.
+          Paste one in and skip the long explanation every time.</p>
+        <div class="card-stats">
+          <div class="stat"><span class="stat-value">50</span><span class="stat-label">Codes</span></div>
+          <div class="stat"><span class="stat-value">5</span><span class="stat-label">Categories</span></div>
+        </div>
+        <div class="card-cta">Open in Notion <span class="card-cta-arrow">→</span></div>
+      </a>
+
+      <a href="https://www.notion.so/100-AI-Business-Ideas-50-Prompts-to-Start-Them-25e22f5720c48078aa8cc95ec56ddb2d?source=copy_link"
+        target="_blank" rel="noopener" class="resource-card" data-date="20260601" data-type="guide">
+        <div class="card-top"><span class="card-category">Prompt Pack</span></div>
+        <div class="card-icon">💡</div>
+        <h3 class="card-title">100 AI Business Ideas &amp; 50 Prompts to Start Them</h3>
+        <p class="card-desc">100 business ideas you can start with AI, plus 50 prompts to research, validate and launch
+          them. A starting point for anyone who wants to build something.</p>
+        <div class="card-stats">
+          <div class="stat"><span class="stat-value">100</span><span class="stat-label">Ideas</span></div>
+          <div class="stat"><span class="stat-value">50</span><span class="stat-label">Prompts</span></div>
+        </div>
+        <div class="card-cta">Open in Notion <span class="card-cta-arrow">→</span></div>
+      </a>
 
       <a href="https://www.notion.so/AI-Business-Toolkit-Hub-2c622f5720c480f28b30c010538f509c?source=copy_link"
         target="_blank" rel="noopener" class="resource-card" data-date="20240101" data-type="workspace">
@@ -559,7 +613,7 @@
         target="_blank" rel="noopener" class="resource-card" data-date="20240501" data-type="guide">
         <div class="card-top"><span class="card-category">Guide</span></div>
         <div class="card-icon">📚</div>
-        <h3 class="card-title">The Free Guide to Claude Skills</h3>
+        <h3 class="card-title">The Guide to Claude Skills</h3>
         <p class="card-desc">Build custom Claude Skills in 10 minutes. 3 prompts to identify tasks, generate complete
           Skill files, and fix Skills that are not working. No coding required.</p>
         <div class="card-stats">
@@ -635,6 +689,80 @@
         <div class="card-stats">
           <div class="stat"><span class="stat-value">10</span><span class="stat-label">Design Systems</span></div>
           <div class="stat"><span class="stat-value">10</span><span class="stat-label">Industries</span></div>
+        </div>
+        <div class="card-cta">Open in Notion <span class="card-cta-arrow">→</span></div>
+      </a>
+
+      <a href="https://www.notion.so/100-Claude-Skills-That-Turn-Claude-Into-a-Full-Team-3af22f5720c480259517f469d60bb950?source=copy_link"
+        target="_blank" rel="noopener" class="resource-card" data-date="20260802" data-type="guide">
+        <div class="card-top"><span class="card-category">Guide</span></div>
+        <div class="card-icon">🧰</div>
+        <h3 class="card-title">100 Claude Skills That Turn Claude Into a Full Team</h3>
+        <p class="card-desc">The open-source skill library almost nobody knows about. 100 curated skills organised by
+          role: marketing, sales, finance, product, engineering, and more. Install once, works like a specialist.</p>
+        <div class="card-stats">
+          <div class="stat"><span class="stat-value">100</span><span class="stat-label">Skills</span></div>
+          <div class="stat"><span class="stat-value">10</span><span class="stat-label">Domains</span></div>
+        </div>
+        <div class="card-cta">Open in Notion <span class="card-cta-arrow">→</span></div>
+      </a>
+
+      <a href="https://www.notion.so/The-Connector-Playbook-3b822f5720c480f0adcae32936a45e61?source=copy_link"
+        target="_blank" rel="noopener" class="resource-card" data-date="20260817" data-type="cheatsheet">
+        <div class="card-top"><span class="card-category">Cheatsheet</span></div>
+        <div class="card-icon">🔌</div>
+        <h3 class="card-title">The Connector Playbook</h3>
+        <p class="card-desc">30 connectors that turn Claude and ChatGPT from something you read into something that does
+          the work. Phone calls, video generation, hiring a human, real maths. Includes a copy-paste prompt for every
+          connector.</p>
+        <div class="card-stats">
+          <div class="stat"><span class="stat-value">30</span><span class="stat-label">Connectors</span></div>
+          <div class="stat"><span class="stat-value">30</span><span class="stat-label">Prompts</span></div>
+        </div>
+        <div class="card-cta">Open in Notion <span class="card-cta-arrow">→</span></div>
+      </a>
+
+
+      <a href="https://www.notion.so/Google-s-Free-AI-Stack-3c722f5720c4808eba9adf0b69941a68?source=copy_link"
+        target="_blank" rel="noopener" class="resource-card" data-date="20260825" data-type="guide">
+        <div class="card-top"><span class="card-category">Guide</span></div>
+        <div class="card-icon">🍌</div>
+        <h3 class="card-title">Google's Free AI Stack</h3>
+        <p class="card-desc">12 free Google tools that do what you are paying agencies and subscriptions for. Marketing,
+          automations, design, video, music, research, coding. With the exact prompts to run in each one.</p>
+        <div class="card-stats">
+          <div class="stat"><span class="stat-value">12</span><span class="stat-label">Tools</span></div>
+          <div class="stat"><span class="stat-value">12</span><span class="stat-label">Prompts</span></div>
+        </div>
+        <div class="card-cta">Open in Notion <span class="card-cta-arrow">→</span></div>
+      </a>
+
+
+      <a href="https://www.notion.so/The-AI-Visibility-Audit-3d622f5720c4803ea8f0f51e69455505?source=copy_link"
+        target="_blank" rel="noopener" class="resource-card" data-date="20260901" data-type="guide">
+        <div class="card-top"><span class="card-category">Guide</span></div>
+        <div class="card-icon">🔍</div>
+        <h3 class="card-title">The AI Visibility Audit</h3>
+        <p class="card-desc">Find out what AI actually says about you or your business, who it recommends instead, and
+          where the gaps are. A repeatable audit you run yourself in an afternoon, with every prompt included.</p>
+        <div class="card-stats">
+          <div class="stat"><span class="stat-value">9</span><span class="stat-label">Parts</span></div>
+          <div class="stat"><span class="stat-value">10+</span><span class="stat-label">Prompts</span></div>
+        </div>
+        <div class="card-cta">Open in Notion <span class="card-cta-arrow">→</span></div>
+      </a>
+
+      <a href="https://www.notion.so/AI-Visibility-Improvement-and-Management-3d622f5720c480e2b116c391ff5e2a59?source=copy_link"
+        target="_blank" rel="noopener" class="resource-card" data-date="20260902" data-type="guide">
+        <div class="card-top"><span class="card-category">Guide</span></div>
+        <div class="card-icon">📈</div>
+        <h3 class="card-title">AI Visibility Improvement and Management</h3>
+        <p class="card-desc">The companion to the AI Visibility Audit. Turn your findings into a strategy, improve your
+          website, build content, earn third-party visibility, and run an ongoing system that tracks whether it is
+          working.</p>
+        <div class="card-stats">
+          <div class="stat"><span class="stat-value">15</span><span class="stat-label">Parts</span></div>
+          <div class="stat"><span class="stat-value">15+</span><span class="stat-label">Prompts</span></div>
         </div>
         <div class="card-cta">Open in Notion <span class="card-cta-arrow">→</span></div>
       </a>
