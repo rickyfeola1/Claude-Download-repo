@@ -7,7 +7,7 @@
   <title>Resource Library — PromptWire</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link
-    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=DM+Sans:wght@400;500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
     rel="stylesheet" />
   <style>
     :root {
@@ -23,6 +23,12 @@
       --gray-500: #6b7280;
       --gray-600: #4b5563;
       --gray-900: #111827;
+      --mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+      --display: 'Space Grotesk', 'DM Sans', -apple-system, sans-serif;
+      --paper: #fbfbfa;
+      --paper-line: rgba(13, 31, 60, 0.06);
+      --ink: #1c2430;
+      --card-border: #1c2430;
     }
 
     *,
@@ -35,18 +41,40 @@
 
     body {
       font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: var(--white);
-      color: var(--gray-900);
+      background-color: var(--paper);
+      color: var(--ink);
       line-height: 1.6;
     }
 
-    /* ── HERO ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(var(--paper-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--paper-line) 1px, transparent 1px);
+      background-size: 44px 44px;
+      -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, transparent 28%, #000 100%);
+      mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, transparent 28%, #000 100%);
+    }
+
+    .pw-arc,
+    .resources-section,
+    footer,
+    nav {
+      position: relative;
+      z-index: 1;
+    }
+
     .pw-arc {
       background: linear-gradient(135deg, #171717 0%, #1292eb 100%);
       padding: 96px 24px;
       text-align: center;
       position: relative;
       overflow: hidden;
+      border-bottom: 2px solid var(--ink);
     }
 
     .pw-arc-grid {
@@ -67,20 +95,21 @@
     }
 
     .pw-arc-title {
-      font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
-      font-size: clamp(46px, 6.5vw, 72px);
-      font-weight: 800;
-      font-style: normal;
-      line-height: 1.0;
-      letter-spacing: -0.01em;
+      font-family: var(--display);
+      font-size: clamp(50px, 7vw, 82px);
+      font-weight: 700;
+      font-style: italic;
+      line-height: 0.98;
+      letter-spacing: -0.03em;
       color: #fff;
       margin-bottom: 14px;
     }
 
     .pw-arc-tagline {
-      font-size: 14px;
-      font-weight: 600;
-      letter-spacing: 0.1em;
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
       color: rgba(255, 255, 255, 0.55);
       margin-bottom: 16px;
@@ -94,7 +123,6 @@
       line-height: 1.6;
     }
 
-    /* ── SECTION ── */
     .resources-section {
       max-width: 1200px;
       margin: 0 auto;
@@ -102,18 +130,19 @@
     }
 
     .intro-box {
-      background: var(--gray-50);
-      border: 1.5px solid var(--gray-200);
-      border-radius: 14px;
+      background: var(--white);
+      border: 2px solid var(--card-border);
+      border-radius: 18px;
       padding: 32px 36px;
       margin-bottom: 44px;
     }
 
     .intro-box-title {
-      font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
-      font-size: 26px;
-      font-weight: 800;
-      line-height: 1.1;
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: 30px;
+      line-height: 1;
+      letter-spacing: -0.02em;
       margin-bottom: 10px;
     }
 
@@ -132,18 +161,50 @@
     }
 
     .intro-tag {
-      font-size: 12px;
-      font-weight: 600;
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.1em;
       color: var(--gray-600);
       background: var(--white);
-      border: 1.5px solid var(--gray-200);
+      border: 1.5px solid var(--ink);
       padding: 6px 12px;
-      border-radius: 5px;
+      border-radius: 6px;
     }
 
-    /* ── SORT + FILTER BAR ── */
+    .group-head {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid var(--ink);
+      margin: 8px 0 26px;
+    }
+
+    .group-head:not(:first-of-type) {
+      margin-top: 8px;
+    }
+
+    .group-title {
+      font-family: var(--display);
+      font-size: 34px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+    }
+
+    .group-note {
+      font-size: 14px;
+      color: var(--gray-500);
+      line-height: 1.5;
+    }
+
+    .group-gap {
+      height: 64px;
+    }
+
     .sort-bar {
       display: flex;
       align-items: center;
@@ -153,36 +214,39 @@
     }
 
     .sort-label {
-      font-size: 12px;
-      font-weight: 600;
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
       text-transform: uppercase;
-      letter-spacing: 0.8px;
+      letter-spacing: 0.12em;
       color: var(--gray-400);
       margin-right: 4px;
     }
 
     .sort-btn {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--gray-500);
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--gray-600);
       background: var(--white);
-      border: 1.5px solid var(--gray-200);
+      border: 1.5px solid var(--ink);
       padding: 8px 16px;
-      border-radius: 5px;
+      border-radius: 7px;
       cursor: pointer;
-      transition: border-color 0.18s ease, color 0.18s ease, background 0.18s ease;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, color 0.15s ease;
       white-space: nowrap;
     }
 
     .sort-btn:hover {
-      border-color: var(--blue);
-      color: var(--blue-text);
+      transform: translate(-2px, -2px);
+      box-shadow: 3px 3px 0 var(--ink);
     }
 
     .sort-btn.active {
-      background: var(--gray-900);
-      border-color: var(--gray-900);
+      background: var(--ink);
+      border-color: var(--ink);
       color: var(--white);
     }
 
@@ -193,7 +257,6 @@
       margin: 0 8px;
     }
 
-    /* ── GRID ── */
     .resources-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
@@ -204,15 +267,15 @@
     .resource-card {
       position: relative;
       background: var(--white);
-      border: 1.5px solid var(--gray-200);
-      border-radius: 16px;
+      border: 2px solid var(--card-border);
+      border-radius: 18px;
       padding: 26px;
       cursor: pointer;
       text-decoration: none;
       color: inherit;
       display: flex;
       flex-direction: column;
-      transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
       overflow: hidden;
       opacity: 0;
       transform: translateY(20px);
@@ -263,6 +326,18 @@
       animation-delay: 0.55s;
     }
 
+    .resource-card:nth-child(12) {
+      animation-delay: 0.60s;
+    }
+
+    .resource-card:nth-child(13) {
+      animation-delay: 0.65s;
+    }
+
+    .resource-card:nth-child(14) {
+      animation-delay: 0.70s;
+    }
+
     @keyframes cardIn {
       to {
         opacity: 1;
@@ -270,7 +345,6 @@
       }
     }
 
-    /* Accent bar wipes in from the left, same as every other page */
     .resource-card::before {
       content: '';
       position: absolute;
@@ -289,9 +363,8 @@
     }
 
     .resource-card:hover {
-      border-color: rgba(18, 146, 235, 0.5);
-      box-shadow: 0 12px 34px rgba(18, 146, 235, 0.12);
-      transform: translateY(-3px);
+      transform: translate(-3px, -3px);
+      box-shadow: 6px 6px 0 var(--card-border);
     }
 
     .card-top {
@@ -302,17 +375,16 @@
     }
 
     .card-category {
+      font-family: var(--mono);
       font-size: 11px;
-      font-weight: 700;
+      font-weight: 500;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.12em;
       color: var(--blue-text);
-      background: var(--blue-light);
-      padding: 5px 10px;
-      border-radius: 5px;
+      padding: 0;
+      background: none;
     }
 
-    /* Flat grey square, not a blue gradient */
     .card-icon {
       width: 52px;
       height: 52px;
@@ -326,10 +398,11 @@
     }
 
     .card-title {
-      font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
-      font-size: 24px;
-      font-weight: 800;
-      line-height: 1.15;
+      font-family: var(--display);
+      font-size: 19px;
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
       margin-bottom: 10px;
     }
 
@@ -354,10 +427,10 @@
     }
 
     .stat-value {
-      font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
-      font-size: 24px;
-      font-weight: 800;
-      line-height: 1;
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.3;
       color: var(--blue-text);
     }
 
@@ -382,17 +455,18 @@
     }
 
     .card-price {
-      font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
-      font-size: 28px;
-      font-weight: 800;
-      line-height: 1;
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 1.2;
     }
 
     .card-price-label {
-      font-size: 11px;
-      font-weight: 600;
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 500;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.1em;
       color: var(--gray-500);
       margin-top: 4px;
     }
@@ -434,7 +508,31 @@
       transform: translateX(4px);
     }
 
-    /* Coming soon: solid hairline, not a dashed box */
+    /* ── PRO CARD SHADING ── */
+    #pro-grid .resource-card:not(.card-coming-soon) {
+      background: #f7f8fa;
+      position: relative;
+    }
+
+    #pro-grid .resource-card:not(.card-coming-soon) .card-title,
+    #pro-grid .resource-card:not(.card-coming-soon) .card-desc {
+      opacity: 0.7;
+    }
+
+    #pro-grid .resource-card:not(.card-coming-soon):hover {
+      background: #f0f4f8;
+    }
+
+    /* cards with a price row are purchasable — don't shade those */
+    #pro-grid .resource-card:has(.card-price-row) {
+      background: var(--white);
+    }
+
+    #pro-grid .resource-card:has(.card-price-row) .card-title,
+    #pro-grid .resource-card:has(.card-price-row) .card-desc {
+      opacity: 1;
+    }
+
     .card-coming-soon {
       border-style: solid;
       border-color: var(--gray-200);
@@ -463,10 +561,11 @@
     }
 
     .coming-soon-label {
+      font-family: var(--mono);
       font-size: 11px;
-      font-weight: 700;
+      font-weight: 500;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.12em;
       color: var(--gray-400);
     }
 
@@ -476,7 +575,6 @@
       color: var(--gray-400);
     }
 
-    /* ── PRO CTA BANNER ── */
     .pro-cta-banner {
       margin-top: 24px;
       background: var(--gray-50);
@@ -492,13 +590,13 @@
     }
 
     .pro-cta-title {
-      font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+      font-family: var(--display);
       font-size: clamp(34px, 5vw, 54px);
-      font-weight: 800;
+      font-weight: 700;
       line-height: 1.0;
       color: var(--gray-900);
       margin-bottom: 14px;
-      letter-spacing: -0.01em;
+      letter-spacing: -0.03em;
     }
 
     .pro-cta-title span {
@@ -542,7 +640,7 @@
       gap: 10px;
       background: var(--blue);
       color: var(--white);
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       font-size: 16px;
       font-weight: 700;
       padding: 17px 38px;
@@ -624,40 +722,6 @@
         text-align: left;
       }
     }
-
-    /* ═══════════ FONT SYSTEM: MATCH THE WORKFLOW LIBRARY ═══════════
-   Barlow Condensed = hero + section headings ONLY.
-   Everything inside a card is DM Sans. */
-
-    .card-title {
-      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      font-size: 20px;
-      font-weight: 700;
-      line-height: 1.3;
-      letter-spacing: -0.01em;
-    }
-
-    .stat-value {
-      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      font-size: 18px;
-      font-weight: 700;
-      line-height: 1.3;
-    }
-
-    .card-price {
-      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      font-size: 22px;
-      font-weight: 700;
-      line-height: 1.2;
-    }
-
-    /* Section headings stay Barlow, same size as the workflow library's */
-    .intro-box-title {
-      font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
-      font-weight: 800;
-      font-size: 30px;
-      line-height: 1;
-    }
   </style>
 </head>
 
@@ -668,23 +732,21 @@
     <div class="pw-arc-inner">
       <h1 class="pw-arc-title">Resource Library</h1>
       <p class="pw-arc-tagline">New resources every month</p>
-      <p class="pw-arc-sub">Guides, prompt packs, cheatsheets and Notion workspaces. Get all
-        of
-        them free with Pro.</p>
+      <p class="pw-arc-sub">Prompt packs, guides, cheatsheets and Notion workspaces. Free ones you can open right now,
+        plus new Pro drops every month.</p>
     </div>
   </div>
 
   <section class="resources-section">
 
     <div class="intro-box">
-      <div class="intro-box-title">What is Inside</div>
-      <p class="intro-box-body">
-        A regularly updated collection of guides, tutorials, and workflow playbooks for practical AI. Everything on this
-        page is
-        included with a Pro membership, and updated monthly.</p>
+      <div class="intro-box-title">What is inside</div>
+      <p class="intro-box-body">Start with the free resources below, open them and use them today. The Pro resources are
+        updated monthly with
+        the latest ways to put AI to work, and unlock the moment you upgrade.</p>
       <div class="intro-box-tags">
-        <span class="intro-tag">Step-by-step guides</span>
         <span class="intro-tag">Prompt packs</span>
+        <span class="intro-tag">Step-by-step guides</span>
         <span class="intro-tag">Cheatsheets</span>
         <span class="intro-tag">Notion workspaces</span>
       </div>
@@ -692,17 +754,84 @@
 
     <div class="sort-bar">
       <span class="sort-label">Sort</span>
-      <button class="sort-btn" onclick="sortCards('newest', this)">Newest</button>
-      <button class="sort-btn" onclick="sortCards('oldest', this)">Oldest</button>
-      <div class="sort-divider"></div>
-      <span class="sort-label">Show</span>
-      <button class="sort-btn" onclick="sortCards('all', this)">All</button>
-      <button class="sort-btn" onclick="sortCards('type-guide', this)">Guides</button>
-      <button class="sort-btn" onclick="sortCards('type-cheatsheet', this)">Cheatsheets</button>
-      <button class="sort-btn" onclick="sortCards('type-workspace', this)">Workspaces</button>
+      <button class="sort-btn active" onclick="sortAll('newest', this)">Newest</button>
+      <button class="sort-btn" onclick="sortAll('oldest', this)">Oldest</button>
     </div>
 
-    <div class="resources-grid" id="resources-grid">
+    <div class="group-head">
+      <h2 class="group-title">Free resources</h2>
+      <span class="group-note">Open these now. No account required.</span>
+    </div>
+
+    <div class="resources-grid" id="free-grid">
+
+      <a href="https://www.notion.so/100-Things-You-Can-Do-With-Claude-and-ChatGPT-Right-Now-37622f5720c480aea510e1ec286803f6?source=copy_link"
+        target="_blank" rel="noopener" class="resource-card" data-date="20260610" data-type="guide">
+        <div class="card-top"><span class="card-category">Prompt Pack</span></div>
+        <div class="card-icon">⚡</div>
+        <h3 class="card-title">100 Things You Can Do With Claude and ChatGPT in 2026</h3>
+        <p class="card-desc">100 concrete things AI can do for you today, each with the prompt to run it. Skip the
+          theory and start with something useful in the next five minutes.</p>
+        <div class="card-stats">
+          <div class="stat"><span class="stat-value">100</span><span class="stat-label">Things to Do</span></div>
+          <div class="stat"><span class="stat-value">11</span><span class="stat-label">Categories</span></div>
+        </div>
+        <div class="card-cta">Open in Notion <span class="card-cta-arrow">→</span></div>
+      </a>
+
+      <a href="https://www.notion.so/The-Command-Codes-Pack-39122f5720c4801198c4f4980f2abd39?source=copy_link"
+        target="_blank" rel="noopener" class="resource-card" data-date="20260605" data-type="cheatsheet">
+        <div class="card-top"><span class="card-category">Cheatsheet</span></div>
+        <div class="card-icon">⌘</div>
+        <h3 class="card-title">The Command Codes Pack</h3>
+        <p class="card-desc">A set of short command codes that make Claude and ChatGPT do exactly what you want, faster.
+          Paste one in and skip the long explanation every time.</p>
+        <div class="card-stats">
+          <div class="stat"><span class="stat-value">50</span><span class="stat-label">Codes</span></div>
+          <div class="stat"><span class="stat-value">5</span><span class="stat-label">Categories</span></div>
+        </div>
+        <div class="card-cta">Open in Notion <span class="card-cta-arrow">→</span></div>
+      </a>
+
+      <a href="https://www.notion.so/100-AI-Business-Ideas-50-Prompts-to-Start-Them-25e22f5720c48078aa8cc95ec56ddb2d?source=copy_link"
+        target="_blank" rel="noopener" class="resource-card" data-date="20260601" data-type="guide">
+        <div class="card-top"><span class="card-category">Prompt Pack</span></div>
+        <div class="card-icon">💡</div>
+        <h3 class="card-title">100 AI Business Ideas &amp; 50 Prompts to Start Them</h3>
+        <p class="card-desc">100 business ideas you can start with AI, plus 50 prompts to research, validate and launch
+          them. A starting point for anyone who wants to build something.</p>
+        <div class="card-stats">
+          <div class="stat"><span class="stat-value">100</span><span class="stat-label">Ideas</span></div>
+          <div class="stat"><span class="stat-value">50</span><span class="stat-label">Prompts</span></div>
+        </div>
+        <div class="card-cta">Open in Notion <span class="card-cta-arrow">→</span></div>
+      </a>
+
+
+      <a href="https://www.notion.so/The-AI-Visibility-Audit-3d622f5720c4803ea8f0f51e69455505?source=copy_link"
+        target="_blank" rel="noopener" class="resource-card" data-date="20260901" data-type="guide">
+        <div class="card-top"><span class="card-category">Guide</span></div>
+        <div class="card-icon">🔍</div>
+        <h3 class="card-title">The AI Visibility Audit</h3>
+        <p class="card-desc">Find out what AI actually says about you or your business, who it recommends instead, and
+          where the gaps are. A repeatable audit you run yourself in an afternoon, with every prompt included.</p>
+        <div class="card-stats">
+          <div class="stat"><span class="stat-value">9</span><span class="stat-label">Parts</span></div>
+          <div class="stat"><span class="stat-value">10+</span><span class="stat-label">Prompts</span></div>
+        </div>
+        <div class="card-cta">Open in Notion <span class="card-cta-arrow">→</span></div>
+      </a>
+
+    </div>
+
+    <div class="group-gap"></div>
+
+    <div class="group-head">
+      <h2 class="group-title">Pro resources</h2>
+      <span class="group-note">Updated monthly with the latest ways to put AI to work. Unlock all of them with Pro.</span>
+    </div>
+
+    <div class="resources-grid" id="pro-grid">
 
       <a href="https://www.promptwireai.com/products/ai-business-toolkit-hub" target="_blank" rel="noopener"
         class="resource-card" data-date="20240101" data-type="workspace">
@@ -757,11 +886,6 @@
           <div class="stat"><span class="stat-value">9</span><span class="stat-label">Prompts</span></div>
           <div class="stat"><span class="stat-value">∞</span><span class="stat-label">Business Paths</span></div>
         </div>
-        <div class="card-price-row">
-          <div style="flex:1">
-            <div class="pro-only-badge">Pro members only</div>
-          </div>
-        </div>
         <div class="card-cta">Unlock with Pro <span class="card-cta-arrow">→</span></div>
       </a>
 
@@ -776,34 +900,19 @@
           <div class="stat"><span class="stat-value">4</span><span class="stat-label">Prompts</span></div>
           <div class="stat"><span class="stat-value">10+</span><span class="stat-label">Job Categories</span></div>
         </div>
-        <div class="card-price-row">
-          <div style="flex:1">
-            <div class="pro-only-badge">Pro members only</div>
-          </div>
-        </div>
         <div class="card-cta">Unlock with Pro <span class="card-cta-arrow">→</span></div>
       </a>
 
-      <!--
-        NAMING CONFLICT. This card is titled "The Free Guide to Claude Skills" and
-        badged "Pro members only". A reader sees the word Free in the title and a
-        lock underneath it. Rename it or unlock it, but do not ship both.
-      -->
       <a href="https://www.promptwireai.com/upgrade" target="_blank" rel="noopener" class="resource-card"
         data-date="20240501" data-type="guide">
         <div class="card-top"><span class="card-category">Guide</span></div>
         <div class="card-icon">📚</div>
-        <h3 class="card-title">The Free Guide to Claude Skills</h3>
+        <h3 class="card-title">The Guide to Claude Skills</h3>
         <p class="card-desc">Build custom Claude Skills in 10 minutes. 3 prompts to identify tasks, generate complete
           Skill files, and fix Skills that are not working. No coding required.</p>
         <div class="card-stats">
           <div class="stat"><span class="stat-value">3</span><span class="stat-label">Builder Prompts</span></div>
           <div class="stat"><span class="stat-value">10</span><span class="stat-label">Min Setup</span></div>
-        </div>
-        <div class="card-price-row">
-          <div style="flex:1">
-            <div class="pro-only-badge">Pro members only</div>
-          </div>
         </div>
         <div class="card-cta">Unlock with Pro <span class="card-cta-arrow">→</span></div>
       </a>
@@ -819,11 +928,6 @@
           <div class="stat"><span class="stat-value">7</span><span class="stat-label">Prompts</span></div>
           <div class="stat"><span class="stat-value">Setup</span><span class="stat-label">Step-by-Step</span></div>
         </div>
-        <div class="card-price-row">
-          <div style="flex:1">
-            <div class="pro-only-badge">Pro members only</div>
-          </div>
-        </div>
         <div class="card-cta">Unlock with Pro <span class="card-cta-arrow">→</span></div>
       </a>
 
@@ -837,11 +941,6 @@
         <div class="card-stats">
           <div class="stat"><span class="stat-value">17</span><span class="stat-label">Servers</span></div>
           <div class="stat"><span class="stat-value">51</span><span class="stat-label">Prompts</span></div>
-        </div>
-        <div class="card-price-row">
-          <div style="flex:1">
-            <div class="pro-only-badge">Pro members only</div>
-          </div>
         </div>
         <div class="card-cta">Unlock with Pro <span class="card-cta-arrow">→</span></div>
       </a>
@@ -857,11 +956,6 @@
           <div class="stat"><span class="stat-value">10</span><span class="stat-label">Tools</span></div>
           <div class="stat"><span class="stat-value">10</span><span class="stat-label">Prompts</span></div>
         </div>
-        <div class="card-price-row">
-          <div style="flex:1">
-            <div class="pro-only-badge">Pro members only</div>
-          </div>
-        </div>
         <div class="card-cta">Unlock with Pro <span class="card-cta-arrow">→</span></div>
       </a>
 
@@ -875,11 +969,6 @@
         <div class="card-stats">
           <div class="stat"><span class="stat-value">8</span><span class="stat-label">Roles</span></div>
           <div class="stat"><span class="stat-value">24</span><span class="stat-label">Agents</span></div>
-        </div>
-        <div class="card-price-row">
-          <div style="flex:1">
-            <div class="pro-only-badge">Pro members only</div>
-          </div>
         </div>
         <div class="card-cta">Unlock with Pro <span class="card-cta-arrow">→</span></div>
       </a>
@@ -895,10 +984,65 @@
           <div class="stat"><span class="stat-value">10</span><span class="stat-label">Design Systems</span></div>
           <div class="stat"><span class="stat-value">10</span><span class="stat-label">Industries</span></div>
         </div>
-        <div class="card-price-row">
-          <div style="flex:1">
-            <div class="pro-only-badge">Pro members only</div>
-          </div>
+        <div class="card-cta">Unlock with Pro <span class="card-cta-arrow">→</span></div>
+      </a>
+
+      <a href="https://www.promptwireai.com/upgrade" target="_blank" rel="noopener" class="resource-card"
+        data-date="20260802" data-type="guide">
+        <div class="card-top"><span class="card-category">Guide</span></div>
+        <div class="card-icon">🧰</div>
+        <h3 class="card-title">100 Claude Skills That Turn Claude Into a Full Team</h3>
+        <p class="card-desc">The open-source skill library almost nobody knows about. 100 curated skills organised by
+          role: marketing, sales, finance, product, engineering, and more. Install once, works like a specialist.</p>
+        <div class="card-stats">
+          <div class="stat"><span class="stat-value">100</span><span class="stat-label">Skills</span></div>
+          <div class="stat"><span class="stat-value">10</span><span class="stat-label">Domains</span></div>
+        </div>
+        <div class="card-cta">Unlock with Pro <span class="card-cta-arrow">→</span></div>
+      </a>
+
+      <a href="https://www.promptwireai.com/upgrade" target="_blank" rel="noopener" class="resource-card"
+        data-date="20260817" data-type="cheatsheet">
+        <div class="card-top"><span class="card-category">Cheatsheet</span></div>
+        <div class="card-icon">🔌</div>
+        <h3 class="card-title">The Connector Playbook</h3>
+        <p class="card-desc">30 connectors that turn Claude and ChatGPT from something you read into something that does
+          the work. Phone calls, video generation, hiring a human, real maths. Includes a copy-paste prompt for every
+          connector.</p>
+        <div class="card-stats">
+          <div class="stat"><span class="stat-value">30</span><span class="stat-label">Connectors</span></div>
+          <div class="stat"><span class="stat-value">30</span><span class="stat-label">Prompts</span></div>
+        </div>
+        <div class="card-cta">Unlock with Pro <span class="card-cta-arrow">→</span></div>
+      </a>
+
+
+      <a href="https://www.promptwireai.com/upgrade" target="_blank" rel="noopener" class="resource-card"
+        data-date="20260825" data-type="guide">
+        <div class="card-top"><span class="card-category">Guide</span></div>
+        <div class="card-icon">🍌</div>
+        <h3 class="card-title">Google's Free AI Stack</h3>
+        <p class="card-desc">12 free Google tools that do what you are paying agencies and subscriptions for. Marketing,
+          automations, design, video, music, research, coding. With the exact prompts to run in each one.</p>
+        <div class="card-stats">
+          <div class="stat"><span class="stat-value">12</span><span class="stat-label">Tools</span></div>
+          <div class="stat"><span class="stat-value">12</span><span class="stat-label">Prompts</span></div>
+        </div>
+        <div class="card-cta">Unlock with Pro <span class="card-cta-arrow">→</span></div>
+      </a>
+
+
+      <a href="https://www.promptwireai.com/upgrade" target="_blank" rel="noopener" class="resource-card"
+        data-date="20260902" data-type="guide">
+        <div class="card-top"><span class="card-category">Guide</span></div>
+        <div class="card-icon">📈</div>
+        <h3 class="card-title">AI Visibility Improvement and Management</h3>
+        <p class="card-desc">The companion to the AI Visibility Audit. Turn your findings into a strategy, improve your
+          website, build content, earn third-party visibility, and run an ongoing system that tracks whether it is
+          working.</p>
+        <div class="card-stats">
+          <div class="stat"><span class="stat-value">15</span><span class="stat-label">Parts</span></div>
+          <div class="stat"><span class="stat-value">15+</span><span class="stat-label">Prompts</span></div>
         </div>
         <div class="card-cta">Unlock with Pro <span class="card-cta-arrow">→</span></div>
       </a>
@@ -918,7 +1062,7 @@
         <div class="pro-value-list">
           <div class="pro-value-item">All paid resources included</div>
           <div class="pro-value-item">New resources every month</div>
-          <div class="pro-value-item">One complete AI workflow every Thursday</div>
+          <div class="pro-value-item">One new tested AI workflow every Thursday</div>
           <div class="pro-value-item">The full workflow library</div>
           <div class="pro-value-item">Weekly AI briefings</div>
           <div class="pro-value-item">Every past issue from day one</div>
@@ -935,37 +1079,28 @@
   </section>
 
   <script>
-    function sortCards(mode, btn) {
-      const grid = document.getElementById('resources-grid');
+    function sortGrid(gridId, dir) {
+      const grid = document.getElementById(gridId);
+      if (!grid) return;
       const cards = Array.from(grid.querySelectorAll('.resource-card'));
       const comingSoon = cards.find(c => c.dataset.type === 'coming-soon');
       const sortable = cards.filter(c => c.dataset.type !== 'coming-soon');
+      sortable.sort((a, b) => dir === 'oldest'
+        ? a.dataset.date - b.dataset.date
+        : b.dataset.date - a.dataset.date);
+      sortable.forEach(c => grid.appendChild(c));
+      if (comingSoon) grid.appendChild(comingSoon);
+    }
 
+    function sortAll(dir, btn) {
       document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
       if (btn) btn.classList.add('active');
-
-      if (mode === 'newest' || mode === 'oldest' || mode === 'all') {
-        cards.forEach(c => c.style.display = '');
-        if (mode === 'oldest') {
-          sortable.sort((a, b) => a.dataset.date - b.dataset.date);
-        } else {
-          sortable.sort((a, b) => b.dataset.date - a.dataset.date);
-        }
-        sortable.forEach(c => grid.appendChild(c));
-        if (comingSoon) grid.appendChild(comingSoon);
-      } else {
-        const typeMap = { 'type-guide': 'guide', 'type-cheatsheet': 'cheatsheet', 'type-workspace': 'workspace' };
-        const target = typeMap[mode];
-        cards.forEach(c => {
-          if (c.dataset.type === 'coming-soon') return;
-          c.style.display = c.dataset.type === target ? '' : 'none';
-        });
-        if (comingSoon) comingSoon.style.display = 'none';
-      }
+      sortGrid('free-grid', dir);
+      sortGrid('pro-grid', dir);
     }
 
     document.addEventListener('DOMContentLoaded', function () {
-      sortCards('newest', document.querySelectorAll('.sort-btn')[0]);
+      sortAll('newest');
     });
   </script>
 </body>
