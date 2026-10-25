@@ -722,6 +722,50 @@
         text-align: left;
       }
     }
+
+    /* ---- PHONES ONLY. Desktop is unchanged. ---- */
+    @media (max-width: 600px) {
+      /* Hero: tighter */
+      .pw-arc { padding: 40px 20px 42px; }
+      .pw-arc-title { font-size: 40px; text-wrap: balance; }
+      .pw-arc-tagline { font-size: 11px; margin-bottom: 12px; }
+      .pw-arc-sub { font-size: 16px; line-height: 1.55; }
+
+      .resources-section { padding: 26px 16px 56px; }
+
+      /* Intro box: same words, less height */
+      .intro-box { padding: 20px 18px; margin-bottom: 22px; }
+      .intro-box-title { font-size: 23px; }
+      .intro-box-tags { display: none; }
+
+      /* Sort and filter buttons: one row you swipe sideways */
+      .sort-bar {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        margin: 0 -16px 22px;
+        padding: 4px 16px 8px;
+      }
+      .sort-bar::-webkit-scrollbar { display: none; }
+      .sort-btn, .sort-label, .sort-divider { flex-shrink: 0; }
+
+      /* Group headings stack instead of squeezing side by side */
+      .group-head { flex-direction: column; align-items: flex-start; gap: 4px; margin-bottom: 20px; }
+      .group-title { font-size: 28px; }
+
+      /* Compact cards */
+      .resources-grid { gap: 14px; }
+      .resource-card { padding: 20px; border-radius: 16px; }
+      .card-top { margin-bottom: 12px; }
+      .card-icon { width: 40px; height: 40px; font-size: 20px; border-radius: 10px; margin-bottom: 12px; }
+      .card-title { font-size: 18px; margin-bottom: 8px; }
+      .card-desc { margin-bottom: 14px; }
+      .card-stats { margin-bottom: 14px; }
+      .stat-value { font-size: 16px; }
+      .card-price-row { margin-bottom: 14px; padding: 12px 14px; }
+      .card-cta { padding-top: 14px; }
+    }
   </style>
 </head>
 
@@ -1043,6 +1087,34 @@
         <div class="card-stats">
           <div class="stat"><span class="stat-value">15</span><span class="stat-label">Parts</span></div>
           <div class="stat"><span class="stat-value">15+</span><span class="stat-label">Prompts</span></div>
+        </div>
+        <div class="card-cta">Unlock with Pro <span class="card-cta-arrow">→</span></div>
+      </a>
+
+      <a href="https://www.promptwireai.com/upgrade"
+        target="_blank" rel="noopener" class="resource-card" data-date="20261005" data-type="guide">
+        <div class="card-top"><span class="card-category">Guide</span></div>
+        <div class="card-icon">📱</div>
+        <h3 class="card-title">Run Your Computer From Your Phone</h3>
+        <p class="card-desc">Your desk machine has the files, the accounts, and the access. Your phone just needs to
+          tell it what to do. Twenty minutes to set up on Mac or Windows, no code.</p>
+        <div class="card-stats">
+          <div class="stat"><span class="stat-value">7</span><span class="stat-label">Parts</span></div>
+          <div class="stat"><span class="stat-value">9</span><span class="stat-label">Prompts</span></div>
+        </div>
+        <div class="card-cta">Unlock with Pro <span class="card-cta-arrow">→</span></div>
+      </a>
+
+      <a href="https://www.promptwireai.com/upgrade"
+        target="_blank" rel="noopener" class="resource-card" data-date="20261022" data-type="guide">
+        <div class="card-top"><span class="card-category">Guide</span></div>
+        <div class="card-icon">📲</div>
+        <h3 class="card-title">The App Builder's Kit</h3>
+        <p class="card-desc">Pick the right app, build it in an evening, and get it onto the phones that matter: your
+          team's, your customers', or people who pay for it. No code, no developer.</p>
+        <div class="card-stats">
+          <div class="stat"><span class="stat-value">50</span><span class="stat-label">App ideas</span></div>
+          <div class="stat"><span class="stat-value">60</span><span class="stat-label">Prompts</span></div>
         </div>
         <div class="card-cta">Unlock with Pro <span class="card-cta-arrow">→</span></div>
       </a>
