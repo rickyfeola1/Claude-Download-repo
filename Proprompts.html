@@ -872,7 +872,7 @@
 <div class="pw-lib-hero">
   <div class="pw-lib-grid"></div>
   <div class="pw-lib-inner">
-    <h1 class="pw-lib-title">Pro Workflow Template Library</h1>
+    <h1 class="pw-lib-title"><i>Pro Workflow Template Library</i></h1>
     <p class="pw-lib-tagline">Ready to Use. Updated Weekly.</p>
     <p class="pw-lib-sub">Ready-to-run workflows & agents covering the tasks you are still
       doing manually. Copy, paste, and run inside ChatGPT, Claude and
@@ -3602,6 +3602,228 @@ Keep the proportions accurate to the measurements I gave you. If a measurement i
 List the ten things you would improve, ranked by how much difference they would make. Then pick the top five and do them.
 
 Do not touch anything outside those five. When you are done, tell me what you changed, what you tried that did not work, and what you would do next.`
+},
+{
+    id: 91,
+    title: "AI Recommendation Diagnosis",
+    description: "Find out exactly why an AI engine is or isn't recommending your business. Run a customer question first, then paste this in the same chat to get the specific gaps named.",
+    category: "marketing",
+    tags: ["AI search", "reputation", "visibility", "SEO", "discovery"],
+    icon: "🔎",
+    whatItDoes: "Gets the engine to list who it recommends and why, report what it actually knows about your business and its sources, name what is missing, and identify what makes the strongest-ranked competitor's information footprint strong",
+    bestFor: "Any business, freelancer, or consultant who wants to know the specific reason they are not showing up in AI recommendations, not just that they are missing. Run logged out or in a private window.",
+    inputsNeeded: "Your business name, and a customer-style question you have just asked in the same chat",
+    copies: 15,
+    prompt: `Answer that exactly as you would for a stranger asking cold. Do not adjust it based on what you think I want to hear.
+
+Now, separately from your answer, tell me:
+
+1. The specific businesses you would recommend, in order, and what you know about each one
+2. What you actually know about [YOUR BUSINESS NAME], and where that information came from
+3. If you know nothing about them, say so plainly rather than guessing
+4. What would need to exist online for you to have recommended them
+5. Which of the businesses you named has the strongest information footprint, and what specifically makes it strong
+
+Be blunt. I would rather hear the gap than be reassured.`
+},
+
+{
+    id: 92,
+    title: "Customer Vocabulary Finder",
+    description: "Paste your real customer reviews and find out what words your customers use to describe you that your marketing copy is not using.",
+    category: "marketing",
+    tags: ["AI search", "copywriting", "reviews", "messaging", "SEO"],
+    icon: "🗣️",
+    whatItDoes: "Analyses reviews for consistent praise, repeated concerns, pre-purchase hesitations, and the specific vocabulary customers use to describe what you do, then tells you where each should appear on your website",
+    bestFor: "Anyone with customer reviews and a website whose marketing copy does not sound like the people it is written for. The vocabulary mismatch is one of the main reasons AI fails to match you to a customer's question.",
+    inputsNeeded: "A batch of recent customer reviews from Google, Facebook, or wherever you collect them",
+    copies: 13,
+    prompt: `Here are our recent customer reviews: [PASTE]
+
+Analyse them:
+1. What do customers consistently praise? Use their words.
+2. What concerns or hesitations come up repeatedly?
+3. What questions do reviewers answer that suggest customers were uncertain beforehand?
+4. What language do customers use to describe what we do? How does it differ from how we describe ourselves?
+
+Then tell me which of these should appear on our website, and where. Point 4 especially. If customers describe us differently to how we describe ourselves, I want to know.`
+},
+
+{
+    id: 93,
+    title: "Capability Gap vs Communication Gap Test",
+    description: "Find out whether a competitor is beating you because they are genuinely better or because they just explain themselves more clearly. Those require very different responses.",
+    category: "research",
+    tags: ["competitive intelligence", "AI search", "visibility", "positioning", "SEO"],
+    icon: "⚖️",
+    whatItDoes: "Compares your website against a competitor's to identify what they communicate more clearly, what information they provide that you do not, and where the gap is a real capability versus a communication problem",
+    bestFor: "Anyone losing visibility or work to a specific competitor who wants to know whether to fix their messaging or their service before spending time on either",
+    inputsNeeded: "Your business name and URL, the competitor's name and URL, and what you do. Requires an AI with web access.",
+    copies: 11,
+    prompt: `Analyse a competitor's visibility footprint against mine.
+
+MY BUSINESS: [NAME], [URL], [WHAT WE DO]
+COMPETITOR: [NAME], [URL]
+
+Analyse:
+1. Based on their website, what do they communicate more clearly than I do?
+2. What information do they provide that I do not?
+3. What services or use cases do they cover in detail that I only mention in passing?
+4. What kinds of third-party presence do they appear to have?
+5. Where are they genuinely stronger, and where are they just better explained?
+
+That last question matters most. I want to know the difference between a real capability gap and a communication gap.
+
+Then: what could I legitimately do to close the communication gaps? Do not suggest copying their content or misrepresenting my capabilities.`
+},
+{
+    id: 94,
+    title: "Unclaimed Money Sweep",
+    description: "Search official government unclaimed property records under every name, former name, and address for you, your household, and your business across every state you have lived or operated in.",
+    category: "research",
+    tags: ["unclaimed money", "Meta Muse", "ChatGPT Work", "money recovery", "browser agent"],
+    icon: "💵",
+    whatItDoes: "Searches official state registers under all your names, your partner's names, and your business names and trading names, groups results by person, flags possible same-name matches separately, and lists exactly what each claim requires without starting any claim",
+    bestFor: "Individuals, households, and small businesses who want to check if money is sitting in official unclaimed property registers under any name or address they have ever used. Requires Meta Muse, ChatGPT Work, or Claude in Chrome.",
+    inputsNeeded: "Every state you have lived or done business in, full names and former names for each person and business, and every address associated with each",
+    copies: 12,
+    prompt: `JOB: Find unclaimed money owed to me, my household, and my business.
+
+SEARCH EVERY STATE where any of us has lived or done business: [list].
+
+NAMES: [your full name and former names], [partner's full name and former names], [business name, former trading names, and any old business entities].
+
+ADDRESSES: [every address for each person and the business].
+
+RULES: official government sites only. Never use a paid finder service. Never enter tax or ID numbers. If a result could belong to someone else with the same name, list it separately as "possible".
+
+REPORT BACK: a list grouped by person and business. For each find: who holds it, the approximate amount, the reference number, and exactly what the claim requires. Do not start any claim.`
+},
+
+{
+    id: 95,
+    title: "The Renegotiator",
+    description: "Lower a recurring bill by having an agent contact your provider, present competitor quotes, escalate to the retention team when told no, and stop before agreeing to anything that locks you in.",
+    category: "productivity",
+    tags: ["bills", "negotiation", "Meta Muse", "cost reduction", "browser agent"],
+    icon: "📉",
+    whatItDoes: "Finds your current plan details and new-customer offers, sources two competitor quotes, contacts the provider via live chat, escalates to retention when the first answer is no, and stops for your approval before any contract change or lock-in",
+    bestFor: "Anyone paying a phone, internet, or insurance bill they have not renegotiated recently. Requires Meta Muse or any agent that can operate a browser and use live chat.",
+    inputsNeeded: "Your provider name, a copy of your latest bill, and the type of service you want renegotiated",
+    copies: 14,
+    prompt: `JOB: Lower my [phone / internet / insurance] bill with [provider].
+
+FIRST: find my current plan and monthly price from my latest bill: [paste or upload it]. Then find what [provider] currently offers new customers, and two competitor offers for the same or better coverage.
+
+THEN: contact [provider] through their online chat. Ask for a better price as a loyal customer.
+
+IF THEY SAY no or it is already the lowest price: present the competitor offers, ask to be transferred to the retention or loyalty team, and ask again.
+
+STOP AND ASK ME before you agree to anything that changes contract length, adds a lock-in, removes something from my plan, or switches provider.
+
+REPORT BACK: the old price, the new offer, and every term that changed.`
+},
+
+{
+    id: 96,
+    title: "Line-by-Line Bill Audit",
+    description: "Check every line of an invoice against the quote, contract, or price list it should match and get a flagged report of overcharges, duplicates, unagreed fees, and maths errors plus a ready-to-send dispute message.",
+    category: "business",
+    tags: ["invoicing", "accounts", "cost reduction", "supplier management", "audit"],
+    icon: "🧾",
+    whatItDoes: "Compares every invoice line against the agreed rate or contract, flags duplicates, overcharges, undelivered items, unagreed fees, and maths errors each with evidence, then drafts a polite dispute message with line references without sending it",
+    bestFor: "Anyone who pays supplier invoices, medical bills, or service invoices without checking every line. Works in Claude, ChatGPT, or Muse with the invoice and the matching quote or contract uploaded.",
+    inputsNeeded: "The invoice or bill you want audited, and the quote, contract, order, or price list it should be checked against",
+    copies: 16,
+    prompt: `JOB: Audit this bill line by line: [upload the invoice or bill].
+
+COMPARE IT AGAINST: [the quote, contract, order, or price list it should match].
+
+FLAG EVERY LINE that is: charged twice, priced above the agreed rate, for something not delivered or not ordered, a fee not mentioned in the agreement, or a maths error.
+
+FOR EACH FLAG: the line, the amount, what it should be, and the evidence.
+
+THEN: draft a polite dispute message that lists each item with its reference. Do not send it.
+
+RULES: if you cannot find what a line should have been, mark it "ask about" rather than calling it an error.`
+},
+{
+    id: 97,
+    title: "Loyalty App Build",
+    description: "Paste into Vibecode, Rork, or Bilt to build a native iPhone stamp-card loyalty app with your branding, staff stamping, a reward screen, hours, and a current offer.",
+    category: "business",
+    tags: ["app building", "Vibecode", "Rork", "loyalty", "iPhone"],
+    icon: "📱",
+    whatItDoes: "Builds a native iPhone loyalty app with a 10-stamp card, staff stamp scanning, a reward screen, opening hours, address, and a current offer screen, with a branded icon and simple large-button UI",
+    bestFor: "Cafes, salons, barbers, and any business with regulars who want a stamp-card app without paying a developer. Paste as your first message in a new iOS project on Vibecode, Rork, or Bilt.",
+    inputsNeeded: "Your business name, type, city, brand colours, preferred style, and the reward you want to offer at 10 stamps",
+    copies: 13,
+    prompt: `Build a native iPhone loyalty card app for my business.
+
+Business: [name], a [type of business] in [city]
+Brand colours: [colours]. Style: [clean / bold / warm]
+
+What it does:
+- A customer opens the app and sees a stamp card with 10 spaces
+- Staff add a stamp by scanning a code the customer shows
+- After 10 stamps, the card shows a reward: [a coffee on us / 20% off]
+- A second screen shows our opening hours and address
+- A third screen shows our current offer
+
+Keep it simple. Large buttons, readable text, no login for now.
+Generate an app icon using my brand colours.
+
+Before you build, tell me in five lines what you're going to make.`
+},
+
+{
+    id: 98,
+    title: "App Spec Writer",
+    description: "Read your real business files and write a complete app spec covering every screen, the actual content on each, data model, error handling, and a list of everything missing, before you open the builder.",
+    category: "productivity",
+    tags: ["app building", "Cowork", "ChatGPT Projects", "planning", "spec"],
+    icon: "📐",
+    whatItDoes: "Reads your menus, price lists, timetables, FAQs, and procedures then writes a full one-page spec with every screen, real content pulled from your files, data requirements, error handling, and a list of gaps the builder would otherwise have to invent",
+    bestFor: "Anyone building a business app who wants a complete spec before opening the builder. Every credit saved on rewrites pays for this step. Use in Claude Cowork pointed at a folder, or a ChatGPT Project with files uploaded.",
+    inputsNeeded: "Your business files (menu, price list, timetable, FAQs, procedures) and the app type and audience",
+    copies: 11,
+    prompt: `I'm building a native iPhone app for my business with an AI app builder. Read everything in this folder and write the full app spec I'll paste into the builder.
+
+The app: [loyalty card / bookings / job checklist / client portal]
+Who uses it: [customers / staff / clients]
+
+Write:
+1. Every screen, in order, with exactly what's on it
+2. All the real content for each screen, taken from my files: prices, times, steps, wording
+3. What data the app needs to save, and who can see it
+4. What should happen when something goes wrong, such as no internet or a full class
+5. Anything you couldn't find in my files, listed separately
+
+Use my wording where it exists. Don't invent prices, times or policies. Keep the whole spec under one page.`
+},
+
+{
+    id: 99,
+    title: "Sellable App Finder",
+    description: "Read your expertise files and find three iPhone app ideas people would pay for, then design the strongest one screen by screen with a pricing split between free and paid.",
+    category: "business",
+    tags: ["app building", "Cowork", "monetisation", "iPhone", "passive income"],
+    icon: "💡",
+    whatItDoes: "Reads your guides, methods, and customer questions to generate three app ideas each solving a specific customer problem, then designs the strongest one with every screen, content from your files, a free vs paid split, and a list of gaps",
+    bestFor: "Coaches, trainers, trades, consultants, and anyone with expertise people pay for who wants to turn their knowledge into an app with real revenue potential. Use in Claude Cowork or a ChatGPT Project with your material uploaded.",
+    inputsNeeded: "A folder of your best guides, methods, frameworks, and the questions customers regularly ask you",
+    copies: 9,
+    prompt: `Read everything in this folder. It's my expertise as a [your role].
+
+Design an iPhone app people would pay for, built from this material.
+
+Give me:
+1. Three app ideas, each solving one specific problem my customers bring to me, with who would pay and why
+2. For the strongest one, every screen and the content on each, taken from my files
+3. What's included at no cost and what sits behind a one-time purchase or subscription
+4. What's missing from my material that the app would need
+
+Only use methods and advice that are actually in my files.`
 }
   ];
 
@@ -3680,10 +3902,34 @@ Do not touch anything outside those five. When you are done, tell me what you ch
     btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copy Prompt`;
     btn.classList.remove('copied');
     document.getElementById('pbModalOverlay').classList.add('active');
-    const section = document.getElementById('promptBankSection');
-    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    placePbModal();
   };
+  // Opens the popup level with the card that was tapped, instead of at the top
+  // of the library. On iPhone, Safari does not always let the embed scroll the
+  // page, so a popup parked at the top could open off screen.
+  let pbLastCard = null;
+  document.addEventListener('click', function (e) {
+    const card = e.target.closest('.pb-prompt-card');
+    if (card) pbLastCard = card;
+  }, true);
 
+  function placePbModal() {
+    const overlay = document.getElementById('pbModalOverlay');
+    const modal = overlay.querySelector('.pb-modal');
+    const holder = overlay.offsetParent || document.body;
+    let top = 0;
+    if (pbLastCard) {
+      const r = pbLastCard.getBoundingClientRect();
+      if (r.height > 0) top = r.top - holder.getBoundingClientRect().top - 64;
+    }
+    const maxTop = holder.offsetHeight - modal.offsetHeight - 110;
+    top = Math.max(0, Math.min(top, maxTop));
+    modal.style.marginTop = top + 'px';
+    modal.style.scrollMarginTop = '14px';
+    const touch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
+    setTimeout(function () { modal.scrollIntoView({ behavior: touch ? 'auto' : 'smooth', block: 'start' }); }, 50);
+    if (touch) setTimeout(function () { modal.scrollIntoView({ behavior: 'auto', block: 'start' }); }, 400);
+  }
   window.closePbModal = function() {
     document.getElementById('pbModalOverlay').classList.remove('active');
   };
