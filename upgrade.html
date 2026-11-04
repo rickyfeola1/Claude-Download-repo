@@ -6,44 +6,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PromptWire Pro Upgrade</title>
   <link
-    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@1,600&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
     rel="stylesheet">
 
   <!--
     =========================================================================
-    CHANGE LOG. Your original page. Structure, hero, headline, CTA and the
-    #pricing scroll all untouched. No pricing and no trial mentioned anywhere,
-    since the offer varies by link.
+    PAGE ORDER
+    Hero (library style) → Ticker → One real build, free vs Pro (offline AI)
+    → What's in the library (6 cards by type) → What you get (4 items, each with its benefit)
 
-    REMOVED  the three .eyebrow labels above the section titles
-    REMOVED  the "⚡ How it works" pill above the dark box heading
-    REMOVED  emoji from the three hero stat pills
-    REMOVED  emoji from the four workflow card tags
-    REMOVED  the ⏱ stopwatch and the green pill around the saving line.
-             Same words, now plain bold green text. Reads as a fact, not a
-             badge.
-    REMOVED  the six emoji .benefit-icon glyphs
+    KEPT  the hero, the ticker style, the empty #pricing div and the scroll
+          script. scrollIntoView from inside the iframe propagates to the
+          parent, which lands the reader on the real CTA built into the
+          Beehiiv page below this embed. No pricing and no trial on the page,
+          since the offer varies by link.
 
-    CHANGED  workflow card tags from blue pills to the plain uppercase blue
-             labels used on the home page and the thank-you page, so the three
-             pages share one card component
-    CHANGED  card hover: the blue bar now wipes in from the left, matching the
-             other two pages
-
-    ADDED    --blue-text (#0C6BAF) for small blue text. #1292eb on white is
-             about 3.1:1 and fails WCAG AA at body sizes. Fills, buttons and
-             large type still use #1292eb.
-    ADDED    prefers-reduced-motion
-
-    KEPT     the empty #pricing div and the scroll script. scrollIntoView from
-             inside the iframe propagates to the parent, which lands the reader
-             on the real CTA built into the Beehiiv page below this embed.
-    =========================================================================
-    VERIFY BEFORE PUBLISHING: search for data-check
-      data-check="library-count"  "70+ in the library"
-      data-check="time-saved"     "6+ hours saved per week"
-      data-check="tool-cost"      "replaces $200+ per month"
-      data-check="testimonials"   SEE THE NOTE ABOVE THAT SECTION
+    REMOVED the "90+ workflows" claim (the library is now 44 workflows).
+    VERIFY: data-check="time-saved" "6+ hours"
     =========================================================================
   -->
 
@@ -59,16 +38,8 @@
     :root {
       --blue: #1292eb;
       --blue-text: #0C6BAF;
-      --blue-dim: rgba(18, 146, 235, 0.1);
-      --blue-mid: rgba(18, 146, 235, 0.2);
-      --blue-hover: #0d7fd4;
       --white: #ffffff;
-      --gray-50: #f8f9fa;
-      --gray-200: #e9ecef;
-      --gray-300: #dee2e6;
-      --gray-400: #adb5bd;
       --gray-500: #6c757d;
-      --gray-700: #343a40;
       --gray-900: #0d1117;
       --green: #0d8f63;
       --radius: 14px;
@@ -77,7 +48,7 @@
       --paper: #fbfbfa;
       --paper-line: rgba(13, 31, 60, 0.045);
       --ink: #1c2430;
-      --card-border: #1c2430;
+      --rule: rgba(28, 36, 48, 0.14);
       --band: #f4f2ec;
     }
 
@@ -107,6 +78,7 @@
     }
 
     .hero,
+    .ticker,
     .section,
     .section-alt {
       position: relative;
@@ -122,11 +94,9 @@
     /* ---- HERO ---- */
     .hero {
       background: linear-gradient(135deg, #171717 0%, #1292eb 100%);
-      position: relative;
       overflow: hidden;
-      padding: 72px 24px 80px;
+      padding: 56px 24px 60px;
       text-align: center;
-      border-bottom: 2px solid var(--ink);
     }
 
     .hero::before {
@@ -151,13 +121,12 @@
 
     .hero h1 {
       font-family: var(--display);
-      font-size: clamp(48px, 7vw, 82px);
+      font-size: clamp(40px, 5.5vw, 62px);
       font-weight: 700;
       letter-spacing: -0.03em;
-      line-height: 0.96;
-      letter-spacing: -1.5px;
+      line-height: 1.0;
       color: #ffffff;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
       animation: fadeUp 0.5s ease both;
     }
 
@@ -168,10 +137,10 @@
 
     .hero-sub {
       font-size: 17px;
-      color: rgba(255, 255, 255, 0.65);
-      max-width: 520px;
-      margin: 0 auto 32px;
-      line-height: 1.65;
+      color: rgba(255, 255, 255, 0.75);
+      max-width: 480px;
+      margin: 0 auto 28px;
+      line-height: 1.6;
       animation: fadeUp 0.5s ease 0.1s both;
     }
 
@@ -180,191 +149,185 @@
       font-weight: 600;
     }
 
-    /* Stat pills row. Emoji removed. */
-    .hero-stats {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 32px;
-      animation: fadeUp 0.5s ease 0.18s both;
-    }
-
-    .hero-stat {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 100px;
-      padding: 7px 16px;
-      font-size: 13px;
-      font-weight: 600;
-      color: rgba(255, 255, 255, 0.85);
-    }
-
     .hero-cta {
-      animation: fadeUp 0.5s ease 0.24s both;
+      animation: fadeUp 0.5s ease 0.2s both;
     }
 
     .btn-primary {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 8px;
       background: #ffffff;
       color: var(--blue-text);
-      padding: 16px 44px;
-      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      padding: 15px 40px;
+      font-family: inherit;
       font-size: 16px;
       font-weight: 700;
+      border: 2px solid var(--ink);
       border-radius: 10px;
       text-decoration: none;
       cursor: pointer;
-      border: none;
-      transition: all 0.2s;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
     }
 
     .btn-primary:hover {
-      background: rgba(255, 255, 255, 0.92);
-      transform: translateY(-2px);
-      box-shadow: 0 10px 32px rgba(0, 0, 0, 0.2);
+      transform: translate(-3px, -3px);
+      box-shadow: 5px 5px 0 var(--ink);
     }
 
-    .hero-trust {
-      margin-top: 12px;
+    /* ---- TICKER ---- */
+    .ticker {
+      background: var(--white);
+      border-top: 2px solid var(--ink);
+      border-bottom: 2px solid var(--ink);
+      overflow: hidden;
+    }
+
+    .ticker-track {
+      display: flex;
+      width: max-content;
+      animation: ticker 44s linear infinite;
+    }
+
+    .ticker:hover .ticker-track {
+      animation-play-state: paused;
+    }
+
+    .ticker-group {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .ticker-group span {
+      font-family: var(--mono);
       font-size: 12px;
-      color: rgba(255, 255, 255, 0.3);
-      animation: fadeUp 0.5s ease 0.28s both;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink);
+      white-space: nowrap;
+      padding: 16px 0;
     }
 
-    .hero-arrow {
-      margin-top: 28px;
-      font-size: 20px;
-      color: rgba(255, 255, 255, 0.3);
-      animation: bounce 2s infinite, fadeUp 0.5s ease 0.32s both;
+    .ticker-group i {
+      font-style: normal;
+      color: var(--blue);
+      font-size: 13px;
+      margin: 0 22px;
+    }
+
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
     }
 
     /* ---- SECTIONS ---- */
     .section {
-      padding: 68px 24px;
+      padding: 80px 24px;
       background: transparent;
     }
 
     .section-alt {
-      padding: 68px 24px;
+      padding: 80px 24px;
       background: var(--band);
       border-top: 2px solid var(--ink);
       border-bottom: 2px solid var(--ink);
     }
 
     .wrap {
-      max-width: 900px;
+      max-width: 940px;
       margin: 0 auto;
+    }
+
+    .section-head {
+      margin-bottom: 36px;
+    }
+
+    .section-kick {
+      display: block;
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--blue-text);
+      margin-bottom: 12px;
     }
 
     .section-title {
       font-family: var(--display);
-      font-size: clamp(28px, 4vw, 44px);
+      font-size: clamp(30px, 4vw, 46px);
       font-weight: 700;
       letter-spacing: -0.03em;
-      text-align: center;
-      margin-bottom: 10px;
-      color: var(--gray-900);
       line-height: 1.05;
+      color: var(--gray-900);
+      text-wrap: balance;
     }
 
     .section-sub {
-      font-size: 15px;
-      text-align: center;
-      max-width: 500px;
-      margin: 0 auto 40px;
+      font-size: 16px;
+      max-width: 560px;
+      margin-top: 14px;
       color: var(--gray-500);
-      line-height: 1.7;
+      line-height: 1.65;
     }
 
-    /* ---- WORKFLOW SECTION ---- */
-    .workflow-intro {
-      background: var(--gray-900);
-      border-radius: 16px;
-      padding: 32px;
-      margin-bottom: 20px;
-      position: relative;
-      overflow: hidden;
+    /* ---- STATEMENT ---- */
+    .statement {
+      background: var(--ink);
+      border: 2px solid var(--ink);
+      border-radius: var(--radius);
+      padding: 34px 34px 32px;
+      margin-bottom: 16px;
     }
 
-    .workflow-intro::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--blue), #38bdf8);
-    }
-
-    .workflow-intro-inner {
-      position: relative;
-      z-index: 1;
-    }
-
-    .workflow-intro h3 {
+    .statement h3 {
       font-family: var(--display);
       font-size: clamp(22px, 3vw, 30px);
       font-weight: 700;
       letter-spacing: -0.02em;
       color: #ffffff;
-      line-height: 1.1;
-      margin-bottom: 10px;
+      line-height: 1.12;
+      margin-bottom: 12px;
+      text-wrap: balance;
     }
 
-    .workflow-intro p {
-      font-size: 14px;
-      color: rgba(255, 255, 255, 0.5);
+    .statement h3 span {
+      color: #5db4f0;
+    }
+
+    .statement p {
+      font-size: 15px;
+      color: rgba(255, 255, 255, 0.65);
       line-height: 1.65;
-      max-width: 560px;
+      max-width: 600px;
     }
 
-    /* Workflow cards grid */
+    /* ---- WORKFLOW CARDS ---- */
     .workflow-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
+      gap: 16px;
     }
 
     .workflow-card {
-      background: var(--white);
-      border: 2px solid var(--card-border);
-      border-radius: var(--radius);
-      padding: 22px;
-      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
       position: relative;
-      overflow: hidden;
-    }
-
-    /* Accent bar wipes in from the left, same as the other two pages */
-    .workflow-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: var(--blue);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.3s ease;
+      background: var(--white);
+      border: 2px solid var(--ink);
+      border-radius: var(--radius);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     .workflow-card:hover {
       transform: translate(-3px, -3px);
-      box-shadow: 6px 6px 0 var(--card-border);
+      box-shadow: 6px 6px 0 var(--ink);
     }
 
-    .workflow-card:hover::before {
-      transform: scaleX(1);
-    }
-
-    /* Plain uppercase label, not a pill. Matches the home and thank-you pages. */
     .wf-tag {
       font-family: var(--mono);
       font-size: 11px;
@@ -375,167 +338,322 @@
     }
 
     .workflow-card h4 {
-      font-size: 16px;
+      font-family: var(--display);
+      font-size: 19px;
       font-weight: 700;
+      letter-spacing: -0.02em;
       color: var(--gray-900);
-      margin: 10px 0 7px;
-      line-height: 1.3;
+      margin: 10px 0 8px;
+      line-height: 1.2;
     }
 
     .workflow-card p {
-      font-size: 13px;
+      font-size: 14.5px;
       color: var(--gray-500);
       line-height: 1.6;
     }
 
-    /* Plain text, not a green pill with a stopwatch. */
     .wf-saving {
       display: block;
-      margin-top: 13px;
-      font-size: 12.5px;
+      margin-top: auto;
+      padding-top: 14px;
+      font-size: 13px;
       font-weight: 700;
       color: var(--green);
     }
 
-    /* ---- TESTIMONIALS ---- */
-    .proof-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-    }
-
-    .proof-card {
-      background: var(--white);
-      border: 2px solid var(--card-border);
-      border-radius: var(--radius);
-      padding: 24px;
-      transition: all 0.2s;
-    }
-
-    .proof-card:hover {
-      transform: translate(-3px, -3px);
-      box-shadow: 6px 6px 0 var(--card-border);
-    }
-
-    .stars {
-      display: flex;
-      gap: 3px;
-      margin-bottom: 12px;
-    }
-
-    .star {
-      width: 13px;
-      height: 13px;
-      background: var(--blue);
-      clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-    }
-
-    .proof-quote {
-      font-size: 14px;
-      color: var(--gray-700);
-      line-height: 1.7;
-      margin-bottom: 16px;
-    }
-
-    .proof-author {
-      display: flex;
+    .wf-link {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid var(--rule);
+      display: inline-flex;
       align-items: center;
-      gap: 10px;
-    }
-
-    .proof-avatar {
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      background: var(--blue-dim);
-      border: 1px solid var(--blue-mid);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--display);
+      gap: 6px;
       font-size: 14px;
       font-weight: 700;
       color: var(--blue-text);
-      flex-shrink: 0;
+      text-decoration: none;
     }
 
-    .proof-name {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--gray-900);
+    /* The link stretches over the whole card, so any tap on it opens the issue. */
+    .wf-link::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 12px;
     }
 
-    .proof-role {
-      font-size: 11px;
-      color: var(--gray-400);
+    .wf-link span {
+      transition: transform 0.2s ease;
     }
 
-    /* ---- BENEFITS ---- */
-    .benefits-grid {
+    .workflow-card:hover .wf-link {
+      text-decoration: underline;
+    }
+
+    .workflow-card:hover .wf-link span {
+      transform: translateX(4px);
+    }
+
+    /* ---- WHAT YOU GET ---- */
+    .benefit-list {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 56px;
+      border-top: 2px solid var(--ink);
     }
 
-    /* Emoji icons removed. A blue rule down the left carries the same
-       structure without the AI-generated look. */
-    .benefit-card {
-      background: var(--white);
-      border: 1.5px solid var(--gray-200);
-      border-left: 3px solid var(--gray-300);
-      border-radius: var(--radius);
-      padding: 24px 22px;
-      transition: border-color 0.25s, border-left-color 0.25s, transform 0.25s, box-shadow 0.25s;
+    .benefit {
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      column-gap: 14px;
+      padding: 26px 0;
+      border-bottom: 1px solid var(--rule);
     }
 
-    .benefit-card:hover {
-      transform: translate(-3px, -3px);
-      box-shadow: 6px 6px 0 var(--card-border);
+    .benefit-num {
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--blue-text);
+      padding-top: 4px;
     }
 
-    .benefit-card h3 {
-      font-size: 16px;
+    .benefit h3 {
+      font-family: var(--display);
+      font-size: 19px;
       font-weight: 700;
-      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
       color: var(--gray-900);
-      line-height: 1.3;
+      margin-bottom: 8px;
     }
 
-    .benefit-card p {
-      font-size: 13px;
+    .benefit p {
+      font-size: 14.5px;
       color: var(--gray-500);
       line-height: 1.6;
     }
 
-    /* ---- ANIMATIONS ---- */
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(14px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 12px;
+      padding: 4px 0;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--blue-text);
+      text-decoration: none;
     }
 
-    @keyframes bounce {
+    .card-link:hover {
+      text-decoration: underline;
+    }
 
-      0%,
-      100% {
-        transform: translateY(0);
-      }
+    .card-link span {
+      transition: transform 0.2s ease;
+    }
 
-      50% {
-        transform: translateY(7px);
-      }
+    .card-link:hover span {
+      transform: translateX(4px);
+    }
+
+    /* ---- EXAMPLE BUILD: what the free issue gives vs what Pro gives ---- */
+    .example {
+      background: var(--white);
+      border: 2px solid var(--ink);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .ex-head {
+      padding: 28px 30px 24px;
+      border-bottom: 2px solid var(--ink);
+    }
+
+    .ex-kick {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--blue-text);
+      margin-bottom: 12px;
+    }
+
+    .ex-kick span:last-child { color: var(--gray-500); }
+
+    .ex-head h3 {
+      font-family: var(--display);
+      font-size: clamp(24px, 3.2vw, 32px);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 1.1;
+      color: var(--gray-900);
+      margin-bottom: 10px;
+    }
+
+    .ex-head p {
+      font-size: 15.5px;
+      color: var(--gray-500);
+      line-height: 1.6;
+      max-width: 640px;
+    }
+
+    .ex-facts {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: var(--band);
+      border-bottom: 2px solid var(--ink);
+    }
+
+    .ex-fact {
+      padding: 16px 30px;
+    }
+
+    .ex-fact + .ex-fact { border-left: 1px solid var(--rule); }
+
+    .ex-fact b {
+      display: block;
+      font-family: var(--mono);
+      font-size: 10.5px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--blue-text);
+      margin-bottom: 4px;
+    }
+
+    .ex-fact.replaces b { color: var(--green); }
+
+    .ex-fact span {
+      font-size: 14.5px;
+      line-height: 1.5;
+      color: var(--ink);
+    }
+
+    .ex-split {
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+    }
+
+    .ex-col {
+      padding: 26px 30px 28px;
+    }
+
+    .ex-col h4 {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gray-500);
+      margin-bottom: 14px;
+    }
+
+    .ex-col ul {
+      list-style: none;
+      display: grid;
+      gap: 12px;
+    }
+
+    .ex-col li {
+      display: grid;
+      grid-template-columns: 20px 1fr;
+      gap: 10px;
+      font-size: 14.5px;
+      line-height: 1.5;
+      color: var(--ink);
+    }
+
+    .ex-col li::before {
+      content: '✓';
+      font-weight: 700;
+      color: var(--gray-500);
+    }
+
+    .ex-col li b { font-weight: 700; }
+
+    .ex-col.pro {
+      background: var(--ink);
+      color: #ffffff;
+    }
+
+    .ex-col.pro h4 { color: #5db4f0; }
+
+    .ex-col.pro li { color: rgba(255, 255, 255, 0.72); }
+    .ex-col.pro li b { color: #ffffff; }
+    .ex-col.pro li::before { color: #5db4f0; }
+
+    .ex-note {
+      margin-top: 14px;
+      font-size: 13.5px;
+      color: var(--gray-500);
+    }
+
+    /* ---- LIBRARY: what kinds of builds are inside ---- */
+    .type-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .type-card {
+      position: relative;
+      text-decoration: none;
+      color: inherit;
+      background: var(--white);
+      border: 2px solid var(--ink);
+      border-radius: var(--radius);
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .type-card:hover {
+      transform: translate(-3px, -3px);
+      box-shadow: 6px 6px 0 var(--ink);
+    }
+
+    .type-card .wf-tag { margin-bottom: 10px; }
+
+    .type-card h4 {
+      font-family: var(--display);
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+      color: var(--gray-900);
+      margin-bottom: 10px;
+    }
+
+    .type-card p {
+      font-size: 13.5px;
+      line-height: 1.5;
+      color: var(--gray-500);
+      margin-top: auto;
+    }
+
+    .type-card p b { color: var(--gray-900); }
+
+    .lib-foot {
+      margin-top: 22px;
+    }
+
+    /* ---- ANIMATIONS ---- */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      html {
-        scroll-behavior: auto;
-      }
+      html { scroll-behavior: auto; }
 
       *,
       *::before,
@@ -543,236 +661,252 @@
         animation: none !important;
         transition: none !important;
       }
+
+      .ticker { overflow-x: auto; }
     }
 
-    /* ---- RESPONSIVE ---- */
-    @media (max-width: 720px) {
-      .proof-grid {
+    /* ---- TABLET ---- */
+    @media (max-width: 760px) {
+      .workflow-grid,
+      .benefit-list {
         grid-template-columns: 1fr;
       }
 
-      .workflow-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .benefits-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .hero-stats {
-        gap: 8px;
+      .benefit-list {
+        column-gap: 0;
       }
     }
 
+    /* ---- PHONE ---- */
     @media (max-width: 560px) {
       .hero {
-        padding: 56px 20px 64px;
+        padding: 42px 20px 46px;
       }
 
       .hero h1 {
-        font-size: 44px;
-        letter-spacing: -1px;
+        font-size: 36px;
+        margin-bottom: 14px;
       }
 
       .hero-sub {
-        font-size: 15px;
+        font-size: 16px;
+        margin-bottom: 24px;
       }
 
       .btn-primary {
-        padding: 15px 28px;
-        font-size: 15px;
         width: 100%;
-        justify-content: center;
+        padding: 16px 24px;
+      }
+
+      .ticker-group span {
+        font-size: 11px;
+        padding: 14px 0;
+      }
+
+      .ticker-group i {
+        margin: 0 16px;
       }
 
       .section,
       .section-alt {
-        padding: 52px 20px;
+        padding: 56px 18px;
       }
 
-      .benefits-grid {
-        grid-template-columns: 1fr;
+      .section-head {
+        margin-bottom: 28px;
       }
 
-      .workflow-intro {
+      .section-sub {
+        font-size: 15px;
+      }
+
+      .statement {
         padding: 24px 20px;
       }
 
-      .hero-stat {
-        font-size: 12px;
-        padding: 6px 12px;
+      .workflow-card {
+        padding: 20px;
       }
+
+      .benefit {
+        padding: 22px 0;
+      }
+    }
+
+    /* ---- NEW SECTIONS ON SMALLER SCREENS ---- */
+    @media (max-width: 860px) {
+      .type-grid { grid-template-columns: 1fr 1fr; }
+      .ex-split { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 560px) {
+      .type-grid { grid-template-columns: 1fr; }
+      .ex-head { padding: 22px 20px 20px; }
+      .ex-facts { grid-template-columns: 1fr; }
+      .ex-fact { padding: 14px 20px; }
+      .ex-fact + .ex-fact { border-left: 0; border-top: 1px solid var(--rule); }
+      .ex-col { padding: 22px 20px 24px; }
+      .type-card { padding: 20px; }
+    }
+
+    /* ---- HERO in the library style: left-aligned, condensed italic caps ---- */
+    .hero { text-align: center; padding: 64px 24px 60px; }
+    .hero-inner { max-width: 760px; }
+    .hero h1 {
+      font-family: 'Barlow Condensed', var(--display);
+      font-style: italic;
+      font-weight: 600;
+      text-transform: none;
+      font-size: clamp(42px, 5vw, 60px);
+      line-height: 1.02;
+      letter-spacing: .01em;
+      margin-bottom: 16px;
+    }
+    .hero-sub { margin: 0 auto 28px; max-width: 560px; font-size: 18px; }
+    .hero h1 .dim { font-style: italic; color: rgba(255, 255, 255, 0.5); }
+    .hero h1 { max-width: 760px; margin-left: auto; margin-right: auto; }
+
+    @media (max-width: 560px) {
+      .hero { padding: 40px 20px 40px; }
+      .hero h1 { font-size: 40px; margin-bottom: 12px; }
+      .hero-sub { font-size: 16px; }
+    }
+
+    /* ---- What Pro members get: thing, then the benefit ---- */
+    .benefit.wide { grid-column: 1 / -1; }
+    .benefit .gain {
+      display: block;
+      margin-top: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--green);
     }
   </style>
 </head>
 
 <body>
 
-  <!-- HERO -->
+  <!-- HERO: same style as the workflow libraries -->
   <section class="hero">
     <div class="hero-inner">
-
-      <h1>The people moving fast<br><span class="dim">already have</span><br>the system.</h1>
-
-      <p class="hero-sub">Pro members get <strong>one tested AI workflow every Thursday</strong> built around what AI
-        can actually do right now. Copy it, run it, and start replacing manual work that day.</p>
-
-      <div class="hero-stats">
-        <div class="hero-stat">1 new workflow every Thursday</div>
-        <div class="hero-stat" data-check="library-count">80+ in the library</div>
-        <div class="hero-stat" data-check="time-saved">6+ hours saved per week</div>
-      </div>
-
+      <h1>The complete system, <span class="dim">not just</span> the overview.</h1>
+      <p class="hero-sub">A weekly newsletter that replaces one paid app or manual job with AI every Thursday, plus the
+        full workflow library. <strong>The exact prompts and setup, ready to run that day.</strong></p>
       <div class="hero-cta">
-        <a href="#pricing" class="btn-primary" id="scrollBtn">Get Access Now</a>
+        <a href="#pricing" class="btn-primary js-scroll" id="scrollBtn">Get Access Now</a>
       </div>
-      <div class="hero-arrow">↓</div>
-
     </div>
   </section>
 
-  <!-- SECTION 1: WORKFLOWS -->
+  <!-- TICKER -->
+  <div class="ticker">
+    <div class="ticker-track">
+      <div class="ticker-group">
+        <span>Unlocked from day one</span><i>✱</i><span>New workflow every Thursday</span><i>✱</i><span>Agents, connectors and skills</span><i>✱</i><span data-check="time-saved">6+ hours saved per week</span><i>✱</i><span>Replaces manual work</span><i>✱</i><span>New kits added regularly</span><i>✱</i><span>Built around what AI can do right now</span><i>✱</i>
+      </div>
+      <div class="ticker-group" aria-hidden="true">
+        <span>Unlocked from day one</span><i>✱</i><span>New workflow every Thursday</span><i>✱</i><span>Agents, connectors and skills</span><i>✱</i><span>6+ hours saved per week</span><i>✱</i><span>Replaces manual work</span><i>✱</i><span>New kits added regularly</span><i>✱</i><span>Built around what AI can do right now</span><i>✱</i>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 1: ONE REAL BUILD, FREE VS PRO -->
   <section class="section">
     <div class="wrap">
-      <h2 class="section-title">A new workflow every week,<br>before most people know it exists.</h2>
-      <p class="section-sub">Each week you get a ready-to-use workflow built around what AI can do right now. Copy it
-        into your tools and start replacing repetitive work that day.</p>
-
-      <div class="workflow-intro">
-        <div class="workflow-intro-inner">
-          <h3>Free subscribers find out what exists.<br>Pro members get the system to use it.</h3>
-          <p>Every Thursday the full workflow, step-by-step setup, and implementation guide lands in your inbox. Not an
-            overview of what is possible. The actual system you run that day.</p>
-        </div>
+      <div class="section-head">
+        <span class="section-kick">Every Thursday</span>
+        <h2 class="section-title">Free subscribers get a quick win. Pro members get the full build.</h2>
+        <p class="section-sub">Most people read about what AI can do now, try it once, and get stuck on the setup.
+          Here's what that looks like on a real build from the library.</p>
       </div>
 
-      <div class="workflow-grid">
-        <div class="workflow-card">
-          <span class="wf-tag">Video Production</span>
-          <h4>A finished video in 34 minutes without opening an editor</h4>
-          <p>Codex plus Remotion turns a sentence into a finished MP4. No After Effects. No timeline. No $400 editor.
-          </p>
-          <span class="wf-saving">Saves 3+ hours per video</span>
+      <div class="example">
+        <div class="ex-head">
+          <div class="ex-kick"><span>Local AI · LM Studio + GPT4All</span><span>5 minutes to set up</span></div>
+          <h3>Run a private AI on your own laptop</h3>
+          <p>Contracts with real numbers, payroll, a medical letter. The files you never paste into ChatGPT, so that
+            work still gets done by hand. Now a real AI reads them on your own machine, with the wifi off.</p>
         </div>
-        <div class="workflow-card">
-          <span class="wf-tag">Paid Ads</span>
-          <h4>Claude runs your entire Meta ad operation from one conversation</h4>
-          <p>Meta opened its ad system to Claude. Audit campaigns, generate creatives, and launch ads without leaving
-            the chat.</p>
-          <span class="wf-saving">Replaces 2 hours of manual work</span>
+        <div class="ex-facts">
+          <div class="ex-fact"><b>What's new</b><span>Small AI models now run well on an ordinary laptop. No account, no
+              subscription, and nothing leaves the device.</span></div>
+          <div class="ex-fact replaces"><b>Replaces</b><span>Anonymising files before every paste, or doing the
+              sensitive work by hand</span></div>
         </div>
-        <div class="workflow-card">
-          <span class="wf-tag">AI Agents</span>
-          <h4>3 Claude sub-agents that replace what a $200K hire would do</h4>
-          <p>Set up once. They handle research, outreach, and reporting automatically in the background while you focus
-            on real work.</p>
-          <span class="wf-saving">20 minutes to set up</span>
-        </div>
-        <div class="workflow-card">
-          <span class="wf-tag">Small Business</span>
-          <h4>15 prebuilt workflows from Anthropic, free with your existing plan</h4>
-          <p>Claude for Small Business launched with 7 connectors and 15 ready-to-run workflows. Setup takes 10 minutes.
-          </p>
-          <span class="wf-saving">Live same day</span>
+        <div class="ex-split">
+          <div class="ex-col">
+            <h4>In the free issue</h4>
+            <ul>
+              <li><span><b>The 5-minute setup.</b> Install LM Studio, load a model, chat</span></li>
+              <li><span><b>The First Test.</b> One prompt to try on a real document with the wifi off</span></li>
+            </ul>
+          </div>
+          <div class="ex-col pro">
+            <h4>In Pro</h4>
+            <ul>
+              <li><span><b>Private document Q&amp;A.</b> Point it at a folder of your own contracts or records and
+                  ask questions, offline, with the source for every answer</span></li>
+              <li><span><b>5 jobs with the full prompts.</b> The contract read, the financial sanity check, the
+                  difficult message, the plain-English second opinion, and the one with a real name in it</span></li>
+              <li><span><b>The model-to-laptop table.</b> What actually runs well on 8, 16 and 32GB, so it isn't
+                  slow</span></li>
+              <li><span><b>The phone version and the 4 mistakes</b> that make people give up in the first
+                  hour</span></li>
+            </ul>
+          </div>
         </div>
       </div>
+      <p class="ex-note">One build. Every Thursday there's a new one, and they all stay in the library.</p>
 
     </div>
   </section>
 
-  <!-- SECTION 2: TESTIMONIALS -->
-  <!--
-    data-check="testimonials"  READ BEFORE PUBLISHING.
-
-    These same four people, with the same initials and the same roles, appear
-    on your home page saying completely different and much shorter things. If
-    they are real, keep both sets and be able to point at the source. If they
-    are not, the same four people saying two different things on two pages is
-    exactly how a reader notices, and under Australian Consumer Law a
-    fabricated testimonial is a misleading representation. Delete the section
-    rather than run it.
-  -->
+  <!-- SECTION 2: WHAT'S IN THE LIBRARY -->
   <section class="section-alt">
     <div class="wrap">
-      <h2 class="section-title">Real people. Real results.</h2>
-      <p class="section-sub">From founders, consultants, and operators already using it every week.</p>
+      <div class="section-head">
+        <span class="section-kick">The library</span>
+        <h2 class="section-title">Agents, connectors, skills. Set up for you.</h2>
+        <p class="section-sub">The newest things AI can do, each turned into a workflow that replaces a paid app or a job
+          you still do by hand. Sorted newest first, so the latest is always at the top.</p>
+      </div>
 
-      <div class="proof-grid">
-        <div class="proof-card">
-          <div class="stars">
-            <div class="star"></div>
-            <div class="star"></div>
-            <div class="star"></div>
-            <div class="star"></div>
-            <div class="star"></div>
-          </div>
-          <p class="proof-quote">I ran the video workflow on a Tuesday and had a finished MP4 before lunch. That used to
-            take me a full afternoon with editing. The workflow was in my inbox that morning and I had it running within
-            20 minutes.</p>
-          <div class="proof-author">
-            <div class="proof-avatar">S</div>
-            <div>
-              <div class="proof-name">Sarah P.</div>
-              <div class="proof-role">Marketing Manager</div>
-            </div>
-          </div>
-        </div>
-        <div class="proof-card">
-          <div class="stars">
-            <div class="star"></div>
-            <div class="star"></div>
-            <div class="star"></div>
-            <div class="star"></div>
-            <div class="star"></div>
-          </div>
-          <p class="proof-quote">The Meta ads workflow alone justified the subscription. I was spending two hours a week
-            manually reviewing campaigns. Now Claude pulls the data, flags what is underperforming, and drafts new
-            creative. I just review and approve.</p>
-          <div class="proof-author">
-            <div class="proof-avatar">J</div>
-            <div>
-              <div class="proof-name">James R.</div>
-              <div class="proof-role">Consultant</div>
-            </div>
-          </div>
-        </div>
-        <div class="proof-card">
-          <div class="stars">
-            <div class="star"></div>
-            <div class="star"></div>
-            <div class="star"></div>
-            <div class="star"></div>
-            <div class="star"></div>
-          </div>
-          <p class="proof-quote">I set up the sub-agent workflow over a weekend and by Monday it was handling research
-            and first-draft outreach. I did not hire anyone. I just followed the guide.</p>
-          <div class="proof-author">
-            <div class="proof-avatar">E</div>
-            <div>
-              <div class="proof-name">Elena M.</div>
-              <div class="proof-role">DTC Founder</div>
-            </div>
-          </div>
-        </div>
-        <div class="proof-card">
-          <div class="stars">
-            <div class="star"></div>
-            <div class="star"></div>
-            <div class="star"></div>
-            <div class="star"></div>
-            <div class="star"></div>
-          </div>
-          <p class="proof-quote">I had been reading about AI for months but could not figure out what to actually do
-            with it. This gave me a specific system every week. I stopped reading about AI and started using it. That
-            shift happened in the first two issues.</p>
-          <div class="proof-author">
-            <div class="proof-avatar">P</div>
-            <div>
-              <div class="proof-name">Priya S.</div>
-              <div class="proof-role">Small Business Owner</div>
-            </div>
-          </div>
-        </div>
+      <div class="type-grid">
+        <a class="type-card" href="https://www.promptwireai.com/templates" target="_top">
+          <span class="wf-tag">Connector · QuickBooks</span>
+          <h4>Send invoices, quotes and overdue reminders from one chat</h4>
+          <p><b>Replaces:</b> Payment chasing apps like Chaser</p>
+        </a>
+        <a class="type-card" href="https://www.promptwireai.com/templates" target="_top">
+          <span class="wf-tag">Skill · Claude</span>
+          <h4>Get an analyst's read of your business numbers on demand</h4>
+          <p><b>Replaces:</b> Reporting apps like Fathom</p>
+        </a>
+        <a class="type-card" href="https://www.promptwireai.com/templates" target="_top">
+          <span class="wf-tag">Connector · Shopify</span>
+          <h4>Run your Shopify store from a chat on your phone</h4>
+          <p><b>Replaces:</b> Daily checks in the Shopify admin</p>
+        </a>
+        <a class="type-card" href="https://www.promptwireai.com/templates" target="_top">
+          <span class="wf-tag">Agent</span>
+          <h4>Get an agent to lower a recurring bill for you</h4>
+          <p><b>Replaces:</b> Bill negotiation services that take a cut</p>
+        </a>
+        <a class="type-card" href="https://www.promptwireai.com/templates" target="_top">
+          <span class="wf-tag">Connector · Meta Ads</span>
+          <h4>Run your Meta ads from one chat every morning</h4>
+          <p><b>Replaces:</b> An hour a morning in Ads Manager</p>
+        </a>
+        <a class="type-card" href="https://www.promptwireai.com/templates" target="_top">
+          <span class="wf-tag">App build</span>
+          <h4>Build your own client CRM instead of paying for one</h4>
+          <p><b>Replaces:</b> CRMs like Pipedrive or HubSpot</p>
+        </a>
+      </div>
+
+      <div class="lib-foot">
+        <a class="card-link" href="https://www.promptwireai.com/templates" target="_top">Browse the workflow library
+          <span>→</span></a>
       </div>
     </div>
   </section>
@@ -780,37 +914,59 @@
   <!-- SECTION 3: WHAT YOU GET -->
   <section class="section">
     <div class="wrap">
-      <h2 class="section-title">What Pro members get every week.</h2>
-      <p class="section-sub">Not a list of features. The actual things that land in your inbox and save hours before the
-        weekend.</p>
+      <div class="section-head">
+        <span class="section-kick">What you get</span>
+        <h2 class="section-title">What Pro members get every week.</h2>
+        <p class="section-sub">PromptWire Pro is a weekly newsletter. Every Thursday it lands in your inbox with one new
+          AI workflow that replaces a paid app or a job you still do by hand, set up step by step. Every workflow also
+          goes into the library, so it's there the day you need it.</p>
+      </div>
 
-      <div class="benefits-grid">
-        <div class="benefit-card">
-          <h3>One new tested workflow every Thursday</h3>
-          <p>The complete setup to run it the same day. Built around what AI can do right now, before most people know
-            it exists.</p>
+      <div class="benefit-list">
+        <div class="benefit">
+          <span class="benefit-num">01</span>
+          <div>
+            <h3>A new workflow every Thursday</h3>
+            <p>One new workflow every week, built on what AI can do right now. Agents, connectors, skills and
+              prompts.</p>
+            <a class="card-link" href="https://www.promptwireai.com/archive" target="_top">Read past issues
+              <span>→</span></a>
+          </div>
         </div>
-        <div class="benefit-card">
-          <h3 data-check="library-count">80+ workflow library</h3>
-          <p data-check="tool-cost">Replaces $200+ per month in single-job tools. Content, sales, research, video,
-            agents, and more. All unlocked from day one.</p>
+        <div class="benefit">
+          <span class="benefit-num">02</span>
+          <div>
+            <h3>The full setup, every time</h3>
+            <p>The exact prompts, every step in order, and the limits and workarounds the free version skips.</p>
+          </div>
         </div>
-        <div class="benefit-card">
-          <h3>Plain-English AI briefings</h3>
-          <p>When something shifts in AI you get a clear explanation of what changed and the concrete steps to act on
-            it.</p>
+        <div class="benefit">
+          <span class="benefit-num">03</span>
+          <div>
+            <h3>The workflow library</h3>
+            <p>Every workflow ever published, searchable by type and sorted newest first, so the fix for a job is
+              there the day you need it.</p>
+            <a class="card-link" href="https://www.promptwireai.com/templates" target="_top">Browse the library
+              <span>→</span></a>
+          </div>
         </div>
-        <div class="benefit-card">
-          <h3>Full back catalog from day one</h3>
-          <p>Every issue, every prompt, every resource from the beginning. All available the moment you join.</p>
+        <div class="benefit">
+          <span class="benefit-num">04</span>
+          <div>
+            <h3>New AI, heard here first</h3>
+            <p>What just became possible, like private AI on your laptop or connectors for QuickBooks and Shopify,
+              and how to use it.</p>
+          </div>
         </div>
-        <div class="benefit-card">
-          <h3>Implementation steps, not just ideas</h3>
-          <p>Every issue ends with a specific action and a time estimate. You always know what to do next.</p>
-        </div>
-        <div class="benefit-card">
-          <h3>Monthly Pro resource drops</h3>
-          <p>New toolkits, template packs, and guides every month. Included in your membership, no extra charge.</p>
+        <div class="benefit wide">
+          <span class="benefit-num">05</span>
+          <div>
+            <h3>New kits and resources</h3>
+            <p>The bigger, more advanced builds that don't fit in an issue: toolkits, guides and templates for putting
+              AI to work, added to the resource library regularly.</p>
+            <a class="card-link" href="https://www.promptwireai.com/resources" target="_top">See the latest kits
+              <span>→</span></a>
+          </div>
         </div>
       </div>
     </div>
@@ -819,7 +975,7 @@
   <div id="pricing"></div>
 
   <script>
-    document.getElementById('scrollBtn').addEventListener('click', function(e) {
+    function scrollToPricing(e) {
       e.preventDefault();
       const target = document.getElementById('pricing');
       if (target) {
@@ -827,10 +983,14 @@
       } else {
         try {
           window.parent.scrollTo({ top: window.parent.document.body.scrollHeight, behavior: 'smooth' });
-        } catch(err) {
+        } catch (err) {
           window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
         }
       }
+    }
+
+    document.querySelectorAll('.js-scroll').forEach(function (btn) {
+      btn.addEventListener('click', scrollToPricing);
     });
   </script>
 
