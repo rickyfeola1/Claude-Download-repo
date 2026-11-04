@@ -6,38 +6,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PromptWire | You Are In</title>
   <link
-    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,800;1,700;1,800&family=DM+Sans:wght@400;500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@1,600&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
     rel="stylesheet">
 
   <!--
     =========================================================================
     PAGE ORDER
-    Hero (3 routes) → Proof bar → Workflow showcase (6) → Issues + Resources → CTA
+    Hero (3 links) → Proof bar → What happens next (3 steps) →
+    Starter workflows (3 free, from the workflow library) →
+    Recent issues + Resources → Pro trial CTA
 
-    The prompt box is gone. The showcase now carries the section on its own
-    with six real workflows from the library, spread across Business,
-    Marketing, Content, Research and Productivity so a reader in any of
-    those jobs sees themselves in at least one card.
-
-    REMOVED FROM THE ORIGINAL PAGE: the free-vs-Pro comparison table (it told
-    a person who had just subscribed that their choice was "not enough to
-    actually run it"), the six-card Pro benefits grid, the hero badge pill,
-    all four eyebrow labels, every emoji icon square, the emoji category
-    pills, the green stopwatch badges.
+    CHANGED: hero title in the library style; "90+ workflows" removed (the
+    library is now 44); the six-prompt showcase and its popup replaced with
+    three free starter workflows that open the library; Pro prompts are no
+    longer given away in full here; recent issues and resources updated.
 
     PRESERVED EXACTLY: the Facebook Pixel block and its event mapping, the
     upgrade URL with offer_id, target="_top" on every link.
     =========================================================================
     VERIFY BEFORE PUBLISHING: search for data-check
-      data-check="library-count" "70+ workflows"
-      data-check="time-saved"    "6 hrs saved per week"
-      data-check="tool-cost"     "replaces $200+ per month in AI tools"
+      data-check="time-saved"    "6+ hours saved per week"
       data-check="trial-terms"   7 days, cancel before day 7
-
-    NOTE ON THE GREEN LINES under each workflow: these describe what the
-    workflow replaces rather than claiming a specific number of hours saved,
-    because I do not have real figures for these six. If you have them, swap
-    in the numbers, they will hit harder. Do not invent them.
     =========================================================================
   -->
 
@@ -68,6 +57,13 @@
       --gray-900: #0d1117;
       --green: #0d8f63;
       --radius: 14px;
+      --mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+      --display: 'Space Grotesk', 'DM Sans', -apple-system, sans-serif;
+      --paper: #fbfbfa;
+      --paper-line: rgba(13, 31, 60, 0.045);
+      --ink: #1c2430;
+      --card-border: #1c2430;
+      --band: #f4f2ec;
     }
 
     html {
@@ -76,16 +72,35 @@
 
     body {
       -webkit-overflow-scrolling: touch;
-      font-family: 'DM Sans', sans-serif;
-      background: var(--white);
-      color: var(--gray-900);
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background-color: var(--paper);
+      color: var(--ink);
       -webkit-font-smoothing: antialiased;
       overflow-x: clip;
     }
 
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(var(--paper-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--paper-line) 1px, transparent 1px);
+      background-size: 44px 44px;
+    }
+
+    .hero,
+    .section,
+    .section-gray,
+    .section-cta {
+      position: relative;
+      z-index: 1;
+    }
+
     a:focus-visible,
-    button:focus-visible,
-    .wf-card:focus-visible {
+    button:focus-visible {
       outline: 3px solid var(--blue);
       outline-offset: 3px;
     }
@@ -97,6 +112,7 @@
       overflow: hidden;
       padding: 56px 24px 52px;
       text-align: center;
+      border-bottom: 2px solid var(--ink);
     }
 
     .hero::before {
@@ -120,9 +136,10 @@
     }
 
     .hero h1 {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: clamp(44px, 7vw, 72px);
-      font-weight: 800;
+      font-family: var(--display);
+      font-size: clamp(46px, 7vw, 76px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
       line-height: 0.95;
       letter-spacing: -1.5px;
       margin-bottom: 18px;
@@ -231,17 +248,19 @@
     /* ---- SECTION SHELL ---- */
     .section {
       padding: 64px 24px;
-      background: var(--white);
+      background: transparent;
     }
 
     .section-gray {
       padding: 64px 24px;
-      background: var(--gray-50);
+      background: var(--band);
+      border-top: 2px solid var(--ink);
+      border-bottom: 2px solid var(--ink);
     }
 
     .section-cta {
       padding: 64px 24px;
-      background: var(--white);
+      background: transparent;
       text-align: center;
     }
 
@@ -262,9 +281,10 @@
     }
 
     .section-title {
-      font-family: 'Barlow Condensed', sans-serif;
+      font-family: var(--display);
       font-size: clamp(28px, 3.4vw, 40px);
-      font-weight: 800;
+      font-weight: 700;
+      letter-spacing: -0.03em;
       color: var(--gray-900);
       line-height: 1.05;
     }
@@ -293,119 +313,6 @@
       text-decoration: underline;
     }
 
-    /* ---- WORKFLOW SHOWCASE ---- */
-    .wf-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-    }
-
-    .wf-card {
-      position: relative;
-      background: var(--white);
-      border: 1px solid var(--gray-200);
-      border-radius: var(--radius);
-      padding: 22px;
-      display: flex;
-      flex-direction: column;
-      cursor: pointer;
-      overflow: hidden;
-      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
-    }
-
-    .wf-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: var(--blue);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.3s ease;
-    }
-
-    .wf-card:hover {
-      border-color: var(--blue-mid);
-      transform: translateY(-3px);
-      box-shadow: 0 14px 30px rgba(18, 146, 235, 0.1);
-    }
-
-    .wf-card:hover::before {
-      transform: scaleX(1);
-    }
-
-    .wf-cat {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: var(--blue-text);
-    }
-
-    .wf-card h4 {
-      font-size: 17px;
-      font-weight: 700;
-      color: var(--gray-900);
-      margin: 10px 0 8px;
-      line-height: 1.3;
-    }
-
-    .wf-card p {
-      font-size: 13.5px;
-      color: var(--gray-500);
-      line-height: 1.6;
-      flex: 1;
-    }
-
-    /* Plain text, not a badge. Reads as a fact. */
-    .wf-save {
-      display: block;
-      margin-top: 14px;
-      font-size: 12.5px;
-      font-weight: 700;
-      color: var(--green);
-      letter-spacing: 0.01em;
-    }
-
-    .wf-foot {
-      margin-top: 16px;
-      padding-top: 14px;
-      border-top: 1px solid var(--gray-200);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--blue-text);
-    }
-
-    .wf-foot .arw {
-      transition: transform 0.2s ease;
-    }
-
-    .wf-card:hover .wf-foot .arw {
-      transform: translateX(4px);
-    }
-
-    .wf-note {
-      margin-top: 22px;
-      font-size: 13.5px;
-      color: var(--gray-500);
-      line-height: 1.65;
-    }
-
-    .wf-note a {
-      color: var(--blue-text);
-      font-weight: 700;
-      text-decoration: none;
-    }
-
-    .wf-note a:hover {
-      text-decoration: underline;
-    }
-
     /* ---- TWO COLUMN: ISSUES + RESOURCES ---- */
     .two-col {
       display: grid;
@@ -414,9 +321,10 @@
     }
 
     .col-title {
-      font-family: 'Barlow Condensed', sans-serif;
+      font-family: var(--display);
       font-size: 26px;
-      font-weight: 800;
+      font-weight: 700;
+      letter-spacing: -0.02em;
       color: var(--gray-900);
       padding-bottom: 14px;
       border-bottom: 2px solid var(--gray-900);
@@ -436,9 +344,10 @@
     }
 
     .row-meta {
+      font-family: var(--mono);
       font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
+      font-weight: 500;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--gray-400);
       display: block;
@@ -493,9 +402,10 @@
     }
 
     .cta-title {
-      font-family: 'Barlow Condensed', sans-serif;
+      font-family: var(--display);
       font-size: clamp(30px, 4vw, 46px);
-      font-weight: 800;
+      font-weight: 700;
+      letter-spacing: -0.03em;
       color: var(--gray-900);
       line-height: 1.0;
       margin-bottom: 12px;
@@ -522,7 +432,7 @@
       color: white;
       border: none;
       border-radius: 12px;
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       font-size: 16px;
       font-weight: 700;
       cursor: pointer;
@@ -543,6 +453,237 @@
       color: var(--gray-400);
       text-align: center;
       line-height: 1.6;
+    }
+
+
+    /* ---- HERO in the library style ---- */
+    .hero {
+      background: linear-gradient(135deg, #171717 0%, #1292eb 100%);
+    }
+
+    .hero h1 {
+      font-family: 'Barlow Condensed', var(--display);
+      font-style: italic;
+      font-weight: 600;
+      font-size: clamp(44px, 5.6vw, 66px);
+      line-height: 1.02;
+      letter-spacing: 0;
+      color: #ffffff;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 .dim {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .hero-sub {
+      font-size: 17px;
+      color: rgba(255, 255, 255, 0.78);
+    }
+
+    .section-kick {
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--blue-text);
+      margin-bottom: 12px;
+    }
+
+    /* ---- WHAT HAPPENS NEXT ---- */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .step {
+      background: var(--white);
+      border: 2px solid var(--ink);
+      border-radius: var(--radius);
+      padding: 22px;
+    }
+
+    .step-num {
+      display: inline-grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      background: var(--ink);
+      color: #fff;
+      font-family: var(--mono);
+      font-size: 12px;
+      margin-bottom: 14px;
+    }
+
+    .step h3 {
+      font-family: var(--display);
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+      color: var(--gray-900);
+      margin-bottom: 6px;
+    }
+
+    .step p {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--gray-500);
+    }
+
+    .step a {
+      color: var(--blue-text);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .step a:hover {
+      text-decoration: underline;
+    }
+
+    /* ---- STARTER WORKFLOWS (same card as the library) ---- */
+    .wf-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .wf-card {
+      background: var(--white);
+      border: 2px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .wf-card:hover {
+      transform: translate(-3px, -3px);
+      box-shadow: 6px 6px 0 var(--card-border);
+    }
+
+    .wf-type {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--blue-text);
+      margin-bottom: 14px;
+    }
+
+    .wf-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: var(--gray-100);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 14px;
+    }
+
+    .wf-card h4 {
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--gray-900);
+      margin-bottom: 8px;
+    }
+
+    .wf-card p {
+      font-size: 13.5px;
+      line-height: 1.55;
+      color: var(--gray-500);
+      flex: 1;
+    }
+
+    .wf-card p b {
+      color: var(--gray-900);
+    }
+
+    .wf-meta {
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid var(--gray-200);
+      display: flex;
+      justify-content: space-between;
+      font-size: 12.5px;
+      color: var(--gray-500);
+    }
+
+    .wf-meta span:first-child {
+      font-weight: 600;
+      color: var(--gray-700);
+    }
+
+    /* ---- CTA benefits ---- */
+    .cta-wrap {
+      max-width: 520px;
+    }
+
+    .cta-list {
+      list-style: none;
+      text-align: left;
+      display: grid;
+      gap: 10px;
+      margin: 0 0 24px;
+    }
+
+    .cta-list li {
+      display: grid;
+      grid-template-columns: 20px 1fr;
+      gap: 10px;
+      font-size: 14.5px;
+      line-height: 1.5;
+      color: var(--gray-500);
+    }
+
+    .cta-list li::before {
+      content: '✓';
+      font-weight: 700;
+      color: var(--blue);
+    }
+
+    .cta-list b {
+      color: var(--gray-900);
+    }
+
+    @media (max-width: 860px) {
+      .steps {
+        grid-template-columns: 1fr;
+      }
+
+      .wf-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .hero h1 {
+        font-size: 42px;
+        letter-spacing: 0;
+      }
+
+      .hero-sub {
+        font-size: 15.5px;
+      }
+
+      .wf-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .step,
+      .wf-card {
+        padding: 20px;
+      }
     }
 
     /* ---- ANIMATIONS ---- */
@@ -573,9 +714,6 @@
 
     /* ---- RESPONSIVE ---- */
     @media (max-width: 860px) {
-      .wf-grid {
-        grid-template-columns: 1fr 1fr;
-      }
 
       .two-col {
         grid-template-columns: 1fr;
@@ -625,8 +763,21 @@
         display: none;
       }
 
-      .wf-grid {
-        grid-template-columns: 1fr;
+
+
+
+
+
+
+
+
+
+    }
+
+    @media (max-width: 600px) {
+      .hero h1 {
+        font-size: 42px;
+        letter-spacing: 0;
       }
     }
   </style>
@@ -634,17 +785,13 @@
 
 <body>
 
-  <!-- HERO: confirm, set the expectation, hand them three doors -->
+  <!-- HERO: confirm, set the expectation, three doors -->
   <section class="hero">
     <div class="hero-inner">
-      <h1>
-        <span class="line-1">You are in.</span>
-        <span class="line-2">Your first issue</span>
-        <span class="line-3">lands Thursday.</span>
-      </h1>
+      <h1>You're in. <span class="dim">Your first issue</span> lands Thursday.</h1>
       <p class="hero-sub">
-        Every issue starts with something people are still doing manually, then shows the replacement. While you wait,
-        here is <strong>everything already open to you</strong>.
+        Every Thursday, one paid app or manual job gets replaced or improved with AI, with a quick win you can try
+        that week. While you wait, here's <strong>everything already open to you</strong>.
       </p>
       <div class="hero-links">
         <a class="hero-link" href="https://www.promptwireai.com/templates" target="_top">Workflow library
@@ -660,127 +807,117 @@
   <!-- PROOF BAR -->
   <div class="proof-bar">
     <div class="proof-bar-inner">
-      <div class="proof-stat"><strong>1 workflow</strong> every Thursday</div>
+      <div class="proof-stat"><strong>1 new workflow</strong> every Thursday</div>
       <div class="proof-divider"></div>
-      <div class="proof-stat" data-check="library-count"><strong>70+ workflows</strong> in the library</div>
+      <div class="proof-stat"><strong>Agents, connectors</strong> and skills</div>
       <div class="proof-divider"></div>
-      <div class="proof-stat" data-check="tool-cost">Replaces <strong>$200+ per month</strong> in AI tools</div>
+      <div class="proof-stat">Replaces <strong>paid apps</strong> and manual work</div>
       <div class="proof-divider"></div>
-      <div class="proof-stat" data-check="time-saved">Average <strong>6 hrs saved</strong> per week</div>
+      <div class="proof-stat" data-check="time-saved"><strong>6+ hours saved</strong> per week</div>
     </div>
   </div>
 
-  <!-- WORKFLOW SHOWCASE -->
+  <!-- WHAT HAPPENS NEXT -->
   <section class="section">
     <div class="wrap">
       <div class="section-head">
         <div>
-          <h2 class="section-title">A new tested workflow every week,<br>before most people know it exists.</h2>
-          <p class="section-sub">Every workflow ever published in one searchable library. Updated every Thursday. Six of
-            them below.</p>
+          <p class="section-kick">What happens next</p>
+          <h2 class="section-title">Three things to know.</h2>
+        </div>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <span class="step-num">01</span>
+          <h3>Check your inbox</h3>
+          <p>Your welcome email is on its way. If it's not there in a few minutes, check Promotions or spam and move
+            it to your main inbox, so Thursday's issue lands where you'll see it.</p>
+        </div>
+        <div class="step">
+          <span class="step-num">02</span>
+          <h3>Thursday, your first issue</h3>
+          <p>One manual job or paid app, and the AI workflow that replaces it. Plus a quick win you can try in under
+            10 minutes, on your phone if you like.</p>
+        </div>
+        <div class="step">
+          <span class="step-num">03</span>
+          <h3>Start today if you want</h3>
+          <p>The starter workflows below are free and ready now. Open one, follow the setup, copy the prompts. <a
+              href="https://www.promptwireai.com/templates" target="_top">See them all →</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STARTER WORKFLOWS -->
+  <section class="section-gray">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="section-kick">Free starter workflows</p>
+          <h2 class="section-title">Three to try this week.</h2>
+          <p class="section-sub">Each one replaces a paid app or a job you still do by hand. Full setup and prompts
+            in the library.</p>
         </div>
         <a class="section-more" href="https://www.promptwireai.com/templates" target="_top">Browse all →</a>
       </div>
 
       <div class="wf-grid">
-
-        <div class="wf-card" tabindex="0" role="link" onclick="go('https://www.promptwireai.com/templates')"
-          onkeydown="cardKey(event, 'https://www.promptwireai.com/templates')">
-          <span class="wf-cat">Business</span>
-          <h4>Client CRM Builder</h4>
-          <p>A fully working client CRM as a single HTML file. Search, filters, pipeline tracking, follow-up alerts, and
-            data that survives a refresh.</p>
-          <span class="wf-save">Replaces the CRM you rent by the seat</span>
-          <div class="wf-foot"><span>Open workflow</span><span class="arw">→</span></div>
-        </div>
-
-        <div class="wf-card" tabindex="0" role="link" onclick="go('https://www.promptwireai.com/templates')"
-          onkeydown="cardKey(event, 'https://www.promptwireai.com/templates')">
-          <span class="wf-cat">Business</span>
-          <h4>Booking Page Builder</h4>
-          <p>A fully working booking page as a single HTML file. Availability rules, slot generation, double-booking
-            prevention, and a password-gated admin view.</p>
-          <span class="wf-save">Replaces your scheduling subscription</span>
-          <div class="wf-foot"><span>Open workflow</span><span class="arw">→</span></div>
-        </div>
-
-        <div class="wf-card" tabindex="0" role="link" onclick="go('https://www.promptwireai.com/templates')"
-          onkeydown="cardKey(event, 'https://www.promptwireai.com/templates')">
-          <span class="wf-cat">Marketing</span>
-          <h4>Morning Ad Audit</h4>
-          <p>Pull live campaign data every morning, flag fatiguing creatives, surface top performers, and get the one
-            action to take today.</p>
-          <span class="wf-save">Replaces a daily manual campaign review</span>
-          <div class="wf-foot"><span>Open workflow</span><span class="arw">→</span></div>
-        </div>
-
-        <div class="wf-card" tabindex="0" role="link" onclick="go('https://www.promptwireai.com/templates')"
-          onkeydown="cardKey(event, 'https://www.promptwireai.com/templates')">
-          <span class="wf-cat">Content</span>
-          <h4>Product Demo Video Builder</h4>
-          <p>A 30-second product demo with a problem opener, product reveal, three benefits, and a closing CTA. Outputs
-            both landscape and vertical.</p>
-          <span class="wf-save">Replaces the editor and the afternoon</span>
-          <div class="wf-foot"><span>Open workflow</span><span class="arw">→</span></div>
-        </div>
-
-        <div class="wf-card" tabindex="0" role="link" onclick="go('https://www.promptwireai.com/templates')"
-          onkeydown="cardKey(event, 'https://www.promptwireai.com/templates')">
-          <span class="wf-cat">Research</span>
-          <h4>Researcher Sub-Agent</h4>
-          <p>Pulls primary sources, cites everything inline, flags contradictions, and returns a structured brief with a
-            confidence rating.</p>
-          <span class="wf-save">Runs while you do other work</span>
-          <div class="wf-foot"><span>Open workflow</span><span class="arw">→</span></div>
-        </div>
-
-        <div class="wf-card" tabindex="0" role="link" onclick="go('https://www.promptwireai.com/templates')"
-          onkeydown="cardKey(event, 'https://www.promptwireai.com/templates')">
-          <span class="wf-cat">Productivity</span>
-          <h4>Subscription Audit</h4>
-          <p>Which subscriptions you could replace with a self-built tool, which to keep, and the order to tackle them
-            by savings versus effort.</p>
-          <span class="wf-save">Start here. It finds what to cancel first</span>
-          <div class="wf-foot"><span>Open workflow</span><span class="arw">→</span></div>
-        </div>
-
+        <a class="wf-card" href="https://www.promptwireai.com/templates" target="_top">
+          <span class="wf-type">Prompt</span>
+          <div class="wf-icon">🔎</div>
+          <h4>Find out why AI recommends your competitors instead of you</h4>
+          <p><b>Replaces:</b> An agency's AI visibility audit</p>
+          <div class="wf-meta"><span>ChatGPT · Perplexity</span><span>30 minutes</span></div>
+        </a>
+        <a class="wf-card" href="https://www.promptwireai.com/templates" target="_top">
+          <span class="wf-type">App build</span>
+          <div class="wf-icon">👥</div>
+          <h4>Build your own client CRM instead of paying for one</h4>
+          <p><b>Replaces:</b> CRMs like Pipedrive or HubSpot ($15 to $30 a month)</p>
+          <div class="wf-meta"><span>Claude</span><span>15 minutes</span></div>
+        </a>
+        <a class="wf-card" href="https://www.promptwireai.com/templates" target="_top">
+          <span class="wf-type">Prompt</span>
+          <div class="wf-icon">🎙️</div>
+          <h4>Make AI write like you, not like AI</h4>
+          <p><b>Replaces:</b> Rewriting every draft by hand, or paid AI humaniser tools</p>
+          <div class="wf-meta"><span>Claude · ChatGPT</span><span>30 minutes</span></div>
+        </a>
       </div>
-
-      <p class="wf-note">Ready-to-run workflows and agents covering the tasks you are still doing manually. Replaces
-        paid AI tools doing one job each.
-        <a href="https://www.promptwireai.com/templates" target="_top">See the rest of the library →</a>
-      </p>
     </div>
   </section>
 
   <!-- ISSUES + RESOURCES, SIDE BY SIDE -->
-  <section class="section-gray">
+  <section class="section">
     <div class="wrap">
       <div class="two-col">
 
         <div>
           <h3 class="col-title">Recent issues</h3>
 
-          <a class="row" href="https://www.promptwireai.com/p/the-200-month-of-apps-you-can-now-build-yourself"
+          <a class="row" href="https://www.promptwireai.com/p/i-d-never-have-built-an-app-now-it-takes-an-evening"
             target="_top">
-            <span class="row-meta">18 min read</span>
-            <h4>The $200/month of apps you can now build yourself</h4>
-            <p>Most of your subscriptions do one simple thing. AI builds the working version in an afternoon, and you
-              own it.</p>
+            <span class="row-meta">Apps</span>
+            <h4>I'd never have built an app. Now it takes an evening.</h4>
+            <p>A stamp-card loyalty app for your regulars, built in an app builder from a spec written off your own
+              files.</p>
           </a>
 
-          <a class="row" href="https://www.promptwireai.com/p/make-six-on-brand-graphics-by-typing-one-sentence"
+          <a class="row" href="https://www.promptwireai.com/p/your-ai-agent-s-best-job-is-finding-your-own-money"
             target="_top">
-            <span class="row-meta">13 min read</span>
-            <h4>Make six on-brand graphics by typing one sentence</h4>
-            <p>Claude builds your flyers, carousels, and banners inside Canva, in your colors, free to start.</p>
+            <span class="row-meta">Money</span>
+            <h4>Your AI agent's best job is finding your own money</h4>
+            <p>Unclaimed money, a bill lowered for you, and every invoice line checked for overcharges.</p>
           </a>
 
-          <a class="row" href="https://www.promptwireai.com/p/teach-ai-a-task-once-never-explain-it-again"
+          <a class="row" href="https://www.promptwireai.com/p/the-software-you-never-learned-now-has-a-driver"
             target="_top">
-            <span class="row-meta">14 min read</span>
-            <h4>Teach AI a task once. Never explain it again.</h4>
-            <p>Teach AI a task once and it remembers it for good. Build your first in ten minutes.</p>
+            <span class="row-meta">Agents</span>
+            <h4>The software you never learned now has a driver</h4>
+            <p>It doesn't explain Blender or a video editor to you. It opens them, does the work, and hands back a
+              real file.</p>
           </a>
 
           <a class="col-more" href="https://www.promptwireai.com/archive" target="_top">Read the archive
@@ -791,22 +928,22 @@
           <h3 class="col-title">In the resource library</h3>
 
           <a class="row" href="https://www.promptwireai.com/resources" target="_top">
-            <span class="row-meta">Pack · 10 design systems</span>
-            <h4>The Claude Code Design Systems Pack</h4>
-            <p>Ten named design systems that stop Claude building the same generic AI website every time.</p>
+            <span class="row-meta">Kit · 50 app ideas · 60 prompts</span>
+            <h4>The App Builder's Kit</h4>
+            <p>App ideas for your kind of business and the prompts to build them, no developer needed.</p>
           </a>
 
           <a class="row" href="https://www.promptwireai.com/resources" target="_top">
-            <span class="row-meta">Guide · 24 agents</span>
-            <h4>Your First 8 AI Employees</h4>
-            <p>Agents you can set up with no code. Each replaces a role and runs on a schedule while you do other work.
-            </p>
+            <span class="row-meta">Guide · 7 parts · 9 prompts</span>
+            <h4>Run Your Computer From Your Phone</h4>
+            <p>Send a job from your phone and have it done on your computer while you're out.</p>
           </a>
 
           <a class="row" href="https://www.promptwireai.com/resources" target="_top">
-            <span class="row-meta">Guide · 10 tools</span>
-            <h4>Cancel These Apps. Claude Does It Free.</h4>
-            <p>Ten tools you are probably paying for monthly that Claude replaces right now.</p>
+            <span class="row-meta">Guide · 9 parts · 10+ prompts</span>
+            <h4>The AI Visibility Audit</h4>
+            <p>Find out what AI says about you or your business, who it recommends instead, and where the gaps
+              are.</p>
           </a>
 
           <a class="col-more" href="https://www.promptwireai.com/resources" target="_top">See the resources
@@ -818,11 +955,17 @@
   </section>
 
   <!-- CTA -->
-  <section class="section-cta">
+  <section class="section-gray section-cta">
     <div class="cta-wrap">
       <h2 class="cta-title">Want the full setup?<br><span>Try Pro free for 7 days.</span></h2>
-      <p class="cta-sub">You do not need Pro to get value on Thursday. The free issue is a full read. Pro adds the exact
-        prompts, the setup steps, and the whole library.</p>
+      <p class="cta-sub">The free issue is a full read. Pro adds:</p>
+      <ul class="cta-list">
+        <li><span><b>A new workflow every Thursday</b>, with the exact prompts and setup so it works the first
+            time</span></li>
+        <li><span><b>The full workflow library</b>: agents, connectors and skills, newest first</span></li>
+        <li><span><b>New AI, heard here first</b>, and how to use it before most people know</span></li>
+        <li><span><b>Kits and resources</b> for the bigger builds that don't fit in an issue</span></li>
+      </ul>
       <a href="https://www.promptwireai.com/upgrade?offer_id=053e320d-8698-4148-bf12-bdd8e740ebb3" class="cta-btn"
         target="_top">
         Start Your Free 7 Day Trial →
@@ -830,16 +973,6 @@
       <p class="cta-trust" data-check="trial-terms">No charge today · Cancel before day 7 and pay nothing</p>
     </div>
   </section>
-
-  <script>
-    // Break out of the Beehiiv iframe.
-    function go(url) { window.top.location.href = url; }
-
-    // Keyboard support for the clickable workflow cards.
-    function cardKey(e, url) {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(url); }
-    }
-  </script>
 
   <!-- Facebook Pixel -->
   <script>
