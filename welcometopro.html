@@ -6,13 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome to PromptWire Pro</title>
     <link
-        href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,800;1,700;1,800&family=DM+Sans:wght@400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@1,600&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
         rel="stylesheet">
+
+    <!--
+      PRO WELCOME PAGE
+      Hero → Start here (3 places) → Three good first builds → What happens next → Bottom links
+
+      CHANGED: hero title in the same style as the other pages; emoji removed
+      throughout; "AI briefings" and "implementation steps" removed (no longer
+      part of Pro); "$200+ per month" claim removed; "monthly" resources now
+      "added regularly"; new section pointing members at three of the newest
+      workflows so they see what's new straight away.
+
+      PRESERVED EXACTLY: the Facebook Pixel block and the Purchase event
+      mapping, target="_top" on every link.
+    -->
+
     <style>
         :root {
             --blue: #1292eb;
-            --blue-dim: rgba(18, 146, 235, 0.1);
-            --blue-mid: rgba(18, 146, 235, 0.2);
+            --blue-text: #0C6BAF;
             --blue-hover: #0d7fd4;
             --white: #ffffff;
             --gray-50: #f8f9fa;
@@ -22,7 +36,15 @@
             --gray-500: #6c757d;
             --gray-700: #343a40;
             --gray-900: #0d1117;
-            --radius: 16px;
+            --green: #0d8f63;
+            --radius: 14px;
+            --mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+            --display: 'Space Grotesk', 'DM Sans', -apple-system, sans-serif;
+            --paper: #fbfbfa;
+            --paper-line: rgba(13, 31, 60, 0.045);
+            --ink: #1c2430;
+            --card-border: #1c2430;
+            --band: #f4f2ec;
         }
 
         *,
@@ -38,20 +60,45 @@
         }
 
         body {
-            font-family: 'DM Sans', sans-serif;
-            background: var(--white);
-            color: var(--gray-900);
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: var(--paper);
+            color: var(--ink);
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background-image:
+                linear-gradient(var(--paper-line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--paper-line) 1px, transparent 1px);
+            background-size: 44px 44px;
+        }
+
+        .hero,
+        .section,
+        .section-alt,
+        .bottom-cta {
+            position: relative;
+            z-index: 1;
+        }
+
+        a:focus-visible {
+            outline: 3px solid var(--blue);
+            outline-offset: 3px;
         }
 
         /* ---- HERO ---- */
         .hero {
             background: linear-gradient(135deg, #171717 0%, #1292eb 100%);
-            position: relative;
             overflow: hidden;
-            padding: 72px 24px 80px;
+            padding: 64px 24px 64px;
             text-align: center;
+            border-bottom: 2px solid var(--ink);
         }
 
         .hero::before {
@@ -68,70 +115,34 @@
         }
 
         .hero-inner {
-            max-width: 700px;
+            max-width: 680px;
             margin: 0 auto;
             position: relative;
             z-index: 1;
         }
 
-        .pro-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(255, 255, 255, 0.12);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 12px;
-            font-weight: 700;
-            padding: 7px 18px;
-            border-radius: 100px;
-            margin-bottom: 24px;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
+        .hero h1 {
+            font-family: 'Barlow Condensed', var(--display);
+            font-style: italic;
+            font-weight: 600;
+            font-size: clamp(44px, 5.6vw, 66px);
+            line-height: 1.02;
+            color: #ffffff;
+            margin-bottom: 18px;
             animation: fadeUp 0.5s ease 0.1s both;
         }
 
-        .pro-dot {
-            width: 7px;
-            height: 7px;
-            background: var(--blue);
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-            will-change: opacity, transform;
-            -webkit-transform: translateZ(0);
-            flex-shrink: 0;
-        }
-
-        .hero h1 {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: clamp(44px, 7vw, 72px);
-            font-weight: 800;
-            line-height: 0.97;
-            color: white;
-            margin-bottom: 20px;
-            animation: fadeUp 0.5s ease 0.15s both;
-            letter-spacing: -0.5px;
-        }
-
-        .hero h1 em {
-            font-style: italic;
-            color: rgba(255, 255, 255, 0.35);
+        .hero h1 .dim {
+            color: rgba(255, 255, 255, 0.5);
         }
 
         .hero-desc {
             font-size: 17px;
-            color: rgba(255, 255, 255, 0.65);
-            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.78);
+            line-height: 1.65;
             max-width: 560px;
-            margin: 0 auto 36px;
-            animation: fadeUp 0.5s ease 0.2s both;
-        }
-
-        .login-note {
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.4);
-            margin-bottom: 28px;
-            animation: fadeUp 0.5s ease 0.22s both;
+            margin: 0 auto 26px;
+            animation: fadeUp 0.5s ease 0.18s both;
         }
 
         .unlocked-row {
@@ -139,31 +150,39 @@
             justify-content: center;
             gap: 8px;
             flex-wrap: wrap;
-            animation: fadeUp 0.5s ease 0.25s both;
+            margin-bottom: 22px;
+            animation: fadeUp 0.5s ease 0.24s both;
         }
 
         .unlocked-pill {
-            display: flex;
+            display: inline-flex;
             align-items: center;
-            gap: 6px;
-            background: rgba(18, 146, 235, 0.15);
-            border: 1px solid rgba(18, 146, 235, 0.3);
-            color: rgba(255, 255, 255, 0.85);
-            font-size: 12px;
+            gap: 7px;
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            color: #ffffff;
+            font-size: 13.5px;
             font-weight: 600;
-            padding: 6px 13px;
-            border-radius: 100px;
+            padding: 7px 12px;
+            border-radius: 7px;
+        }
+
+
+        .login-note {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.55);
+            animation: fadeUp 0.5s ease 0.28s both;
         }
 
         /* ---- SECTIONS ---- */
         .section {
             padding: 72px 24px;
-            background: var(--white);
         }
 
         .section-alt {
             padding: 72px 24px;
-            background: var(--gray-50);
+            background: var(--band);
+            border-top: 2px solid var(--ink);
+            border-bottom: 2px solid var(--ink);
         }
 
         .wrap {
@@ -172,19 +191,21 @@
         }
 
         .eyebrow {
+            font-family: var(--mono);
             font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 1.4px;
+            font-weight: 500;
+            letter-spacing: 0.14em;
             text-transform: uppercase;
-            color: var(--blue);
+            color: var(--blue-text);
             margin-bottom: 12px;
             text-align: center;
         }
 
         .section-title {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: clamp(30px, 4vw, 48px);
-            font-weight: 800;
+            font-family: var(--display);
+            font-size: clamp(30px, 4vw, 44px);
+            font-weight: 700;
+            letter-spacing: -0.03em;
             text-align: center;
             margin-bottom: 12px;
             color: var(--gray-900);
@@ -194,15 +215,10 @@
         .section-sub {
             font-size: 16px;
             text-align: center;
-            max-width: 540px;
-            margin: 0 auto 48px;
+            max-width: 560px;
+            margin: 0 auto 40px;
             color: var(--gray-500);
-            line-height: 1.7;
-        }
-
-        .divider {
-            border: none;
-            border-top: 1px solid var(--gray-200);
+            line-height: 1.65;
         }
 
         /* ---- DESTINATION CARDS ---- */
@@ -214,74 +230,45 @@
 
         .dest-card {
             background: var(--white);
-            border: 1.5px solid var(--gray-200);
+            border: 2px solid var(--card-border);
             border-radius: var(--radius);
-            padding: 28px 24px;
+            padding: 26px 24px;
             text-decoration: none;
             color: inherit;
-            transition: all 0.25s ease;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
             display: flex;
             flex-direction: column;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .dest-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--blue), #38bdf8);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.3s ease;
         }
 
         .dest-card:hover {
-            border-color: rgba(18, 146, 235, 0.3);
-            transform: translateY(-4px);
-            box-shadow: 0 14px 36px rgba(18, 146, 235, 0.1);
-        }
-
-        .dest-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .dest-icon {
-            font-size: 28px;
-            margin-bottom: 14px;
-            display: block;
+            transform: translate(-3px, -3px);
+            box-shadow: 6px 6px 0 var(--card-border);
         }
 
         .dest-tag {
-            font-size: 10px;
-            font-weight: 700;
+            font-family: var(--mono);
+            font-size: 11px;
+            font-weight: 500;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--blue);
-            background: var(--blue-dim);
-            padding: 3px 10px;
-            border-radius: 100px;
-            display: inline-block;
-            margin-bottom: 10px;
-            width: fit-content;
+            letter-spacing: 0.12em;
+            color: var(--blue-text);
+            margin-bottom: 12px;
         }
 
         .dest-card h3 {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 22px;
-            font-weight: 800;
+            font-family: var(--display);
+            font-size: 23px;
+            font-weight: 700;
+            letter-spacing: -0.025em;
             color: var(--gray-900);
             margin-bottom: 8px;
             line-height: 1.1;
         }
 
         .dest-card p {
-            font-size: 13px;
+            font-size: 14px;
             color: var(--gray-500);
-            line-height: 1.65;
+            line-height: 1.6;
             flex: 1;
             margin-bottom: 20px;
         }
@@ -290,11 +277,11 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 11px 16px;
+            padding: 12px 16px;
             background: var(--blue);
             border-radius: 10px;
-            font-size: 13px;
-            font-weight: 600;
+            font-size: 14px;
+            font-weight: 700;
             color: white;
             transition: background 0.2s;
         }
@@ -303,7 +290,87 @@
             background: var(--blue-hover);
         }
 
-        /* ---- WHAT TO EXPECT ---- */
+        /* ---- FIRST BUILDS (same card as the library) ---- */
+        .wf-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .wf-card {
+            background: var(--white);
+            border: 2px solid var(--card-border);
+            border-radius: var(--radius);
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .wf-card:hover {
+            transform: translate(-3px, -3px);
+            box-shadow: 6px 6px 0 var(--card-border);
+        }
+
+        .wf-type {
+            font-family: var(--mono);
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--blue-text);
+            margin-bottom: 14px;
+        }
+
+        .wf-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: var(--gray-100);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 14px;
+        }
+
+        .wf-card h4 {
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 1.3;
+            color: var(--gray-900);
+            margin-bottom: 8px;
+        }
+
+        .wf-card p {
+            font-size: 13.5px;
+            line-height: 1.55;
+            color: var(--gray-500);
+            flex: 1;
+        }
+
+        .wf-card p b {
+            color: var(--gray-900);
+        }
+
+        .wf-meta {
+            margin-top: 14px;
+            padding-top: 12px;
+            border-top: 1px solid var(--gray-200);
+            display: flex;
+            justify-content: space-between;
+            font-size: 12.5px;
+            color: var(--gray-500);
+        }
+
+        .wf-meta span:first-child {
+            font-weight: 600;
+            color: var(--gray-700);
+        }
+
+        /* ---- WHAT HAPPENS NEXT ---- */
         .expect-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -312,36 +379,28 @@
 
         .expect-item {
             background: var(--white);
-            border: 1.5px solid var(--gray-200);
+            border: 2px solid var(--card-border);
             border-radius: var(--radius);
             padding: 24px;
-            display: flex;
-            align-items: flex-start;
-            gap: 16px;
-            transition: all 0.25s ease;
+            display: grid;
+            grid-template-columns: 34px 1fr;
+            gap: 14px;
         }
 
-        .expect-item:hover {
-            border-color: rgba(18, 146, 235, 0.3);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px var(--blue-dim);
-        }
-
-        .expect-icon {
-            width: 44px;
-            height: 44px;
-            background: var(--blue-dim);
-            border: 1px solid var(--blue-mid);
-            border-radius: 11px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            flex-shrink: 0;
+        .expect-num {
+            display: grid;
+            place-items: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            background: var(--ink);
+            color: #fff;
+            font-family: var(--mono);
+            font-size: 12px;
         }
 
         .expect-item h4 {
-            font-size: 15px;
+            font-size: 16px;
             font-weight: 700;
             color: var(--gray-900);
             margin-bottom: 5px;
@@ -349,17 +408,16 @@
         }
 
         .expect-item p {
-            font-size: 13px;
+            font-size: 14px;
             color: var(--gray-500);
             line-height: 1.6;
         }
 
-        /* ---- BOTTOM CTA ---- */
+        /* ---- BOTTOM ---- */
         .bottom-cta {
             background: linear-gradient(135deg, #171717 0%, #1292eb 100%);
-            padding: 72px 24px;
+            padding: 64px 24px;
             text-align: center;
-            position: relative;
             overflow: hidden;
         }
 
@@ -381,23 +439,23 @@
         }
 
         .bottom-cta h2 {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: clamp(32px, 5vw, 52px);
-            font-weight: 800;
+            font-family: 'Barlow Condensed', var(--display);
+            font-style: italic;
+            font-weight: 600;
+            font-size: clamp(36px, 4.6vw, 52px);
             color: white;
-            line-height: 1.0;
+            line-height: 1.02;
             margin-bottom: 14px;
         }
 
-        .bottom-cta h2 em {
-            font-style: italic;
-            color: rgba(255, 255, 255, 0.35);
+        .bottom-cta h2 .dim {
+            color: rgba(255, 255, 255, 0.5);
         }
 
         .bottom-cta p {
             font-size: 15px;
-            color: rgba(255, 255, 255, 0.5);
-            margin-bottom: 32px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 28px;
             line-height: 1.6;
         }
 
@@ -414,22 +472,20 @@
             gap: 6px;
             padding: 12px 22px;
             background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.25);
             border-radius: 10px;
             font-size: 14px;
             font-weight: 600;
-            color: rgba(255, 255, 255, 0.8);
+            color: #ffffff;
             text-decoration: none;
-            transition: all 0.2s;
+            transition: background 0.2s, transform 0.2s;
         }
 
         .bottom-link:hover {
             background: rgba(255, 255, 255, 0.18);
-            color: white;
             transform: translateY(-1px);
         }
 
-        /* ---- ANIMATIONS ---- */
         @keyframes fadeUp {
             from {
                 opacity: 0;
@@ -442,63 +498,34 @@
             }
         }
 
-        @keyframes popIn {
-            from {
-                opacity: 0;
-                transform: scale(0.5);
-            }
+        @media (prefers-reduced-motion: reduce) {
 
-            to {
-                opacity: 1;
-                transform: scale(1);
+            *,
+            *::before,
+            *::after {
+                animation: none !important;
+                transition: none !important;
             }
         }
 
-        @keyframes pulse {
-
-            0%,
-            100% {
-                opacity: 1;
-                transform: scale(1);
-            }
-
-            50% {
-                opacity: 0.3;
-                transform: scale(0.85);
-            }
-        }
-
-        /* ---- RESPONSIVE ---- */
         @media (max-width: 860px) {
-            .destinations {
-                grid-template-columns: 1fr 1fr;
-            }
 
-            .expect-grid {
+            .destinations,
+            .wf-grid {
                 grid-template-columns: 1fr 1fr;
             }
         }
 
         @media (max-width: 600px) {
-            .destinations {
-                grid-template-columns: 1fr;
-            }
 
+            .destinations,
+            .wf-grid,
             .expect-grid {
                 grid-template-columns: 1fr;
             }
 
             .hero {
-                padding: 56px 20px 64px;
-            }
-
-            .section,
-            .section-alt {
-                padding: 56px 20px;
-            }
-
-            .bottom-cta {
-                padding: 56px 20px;
+                padding: 44px 20px 48px;
             }
 
             .hero h1 {
@@ -506,23 +533,21 @@
             }
 
             .hero-desc {
+                font-size: 15.5px;
+            }
+
+            .section,
+            .section-alt {
+                padding: 52px 20px;
+            }
+
+            .bottom-cta {
+                padding: 52px 20px;
+            }
+
+            .section-sub {
                 font-size: 15px;
-            }
-
-            .login-note {
-                font-size: 13px;
-                color: rgba(255, 255, 255, 0.4);
-                margin-bottom: 28px;
-                animation: fadeUp 0.5s ease 0.22s both;
-            }
-
-            .unlocked-row {
-                gap: 6px;
-            }
-
-            .unlocked-pill {
-                font-size: 11px;
-                padding: 5px 11px;
+                margin-bottom: 30px;
             }
 
             .dest-card {
@@ -530,27 +555,15 @@
             }
 
             .dest-card h3 {
-                font-size: 20px;
+                font-size: 21px;
             }
 
-            .dest-btn {
-                font-size: 12px;
-                padding: 10px 14px;
+            .wf-card {
+                padding: 20px;
             }
 
             .expect-item {
-                padding: 18px;
-                gap: 12px;
-            }
-
-            .expect-icon {
-                width: 38px;
-                height: 38px;
-                font-size: 17px;
-            }
-
-            .expect-item h4 {
-                font-size: 14px;
+                padding: 20px;
             }
 
             .bottom-links {
@@ -564,21 +577,6 @@
                 max-width: 280px;
                 justify-content: center;
             }
-
-            .section-sub {
-                font-size: 14px;
-            }
-        }
-
-        @media (max-width: 400px) {
-            .hero h1 {
-                font-size: 36px;
-            }
-
-            .pro-badge {
-                font-size: 10px;
-                padding: 6px 14px;
-            }
         }
     </style>
 </head>
@@ -588,111 +586,122 @@
     <!-- HERO -->
     <section class="hero">
         <div class="hero-inner">
+            <h1>You're in. <span class="dim">Welcome to</span> Pro.</h1>
 
-            <div class="pro-badge">
-                <span class="pro-dot"></span>
-                PromptWire Pro Active
-            </div>
+            <p class="hero-desc">Your subscription is confirmed and everything is unlocked. Every workflow, every past
+                issue and every kit, with the full setup and the exact prompts. Start wherever you like.</p>
 
-            <h1>You're in.<br><em>Welcome to</em> Pro.</h1>
-
-            <p class="hero-desc">Your subscription is confirmed and everything is unlocked. The workflow library, every
-                past issue, and every Pro resource. Start wherever you want.</p>
-
-            <p class="login-note">Make sure you are logged in with the email you signed up with to access Pro features
-                on the site.</p>
-
-            <div class="unlocked-row">
-                <div class="unlocked-pill">⚡ Workflow Library</div>
-                <div class="unlocked-pill">🗂️ Full Issue Archive</div>
-                <div class="unlocked-pill">🎁 Pro Resources</div>
-                <div class="unlocked-pill">📡 Full AI Briefings</div>
-                <div class="unlocked-pill">🎯 Implementation Steps</div>
-            </div>
+            <p class="login-note">Log in on the site with the email you signed up with to open the Pro parts.</p>
         </div>
     </section>
 
     <!-- START HERE -->
     <section class="section">
         <div class="wrap">
-            <div class="eyebrow">🚀 Start here</div>
+            <div class="eyebrow">Start here</div>
             <h2 class="section-title">Three places to go right now.</h2>
-            <p class="section-sub">Everything is unlocked. These are the best places to start as a new Pro member.</p>
+            <p class="section-sub">Start with the job that's eating most of your week.</p>
 
             <div class="destinations">
                 <a href="https://www.promptwireai.com/templates" target="_top" class="dest-card">
-                    <span class="dest-icon">⚡</span>
-                    <span class="dest-tag">Most popular first stop</span>
-                    <h3>Workflow Library</h3>
-                    <p>A growing library of complete AI workflows covering content, sales, research, video, agents, and
-                        more. Replaces $200+ per month in tools. Updated every Thursday. Start with whatever task is
-                        eating the most of your time right now.</p>
-                    <div class="dest-btn">Open Workflow Library <span>→</span></div>
+                    <span class="dest-tag">Best first stop</span>
+                    <h3>Workflow library</h3>
+                    <p>Every workflow ever published: agents, connectors, skills and prompts, each with what it
+                        replaces. Filter by type, newest at the top, with a new one every Thursday.</p>
+                    <div class="dest-btn">Open the workflow library <span>→</span></div>
                 </a>
 
                 <a href="https://www.promptwireai.com/resources" target="_top" class="dest-card">
-                    <span class="dest-icon">🎁</span>
-                    <span class="dest-tag">Pro exclusive</span>
-                    <h3>Resources</h3>
-                    <p>Every toolkit, template pack, and guide released under Pro. New resources added every month. All
-                        in one place.</p>
-                    <div class="dest-btn">Open Resources <span>→</span></div>
+                    <span class="dest-tag">Kits and resources</span>
+                    <h3>Resource library</h3>
+                    <p>The bigger builds that don't fit in an issue: toolkits, guides and templates for putting AI to
+                        work. New ones added regularly.</p>
+                    <div class="dest-btn">Open the resources <span>→</span></div>
                 </a>
 
                 <a href="https://www.promptwireai.com/archive" target="_top" class="dest-card">
-                    <span class="dest-icon">🗂️</span>
                     <span class="dest-tag">Full back catalogue</span>
-                    <h3>Issue Archive</h3>
-                    <p>Every issue from the beginning. Each one starts with the old way of doing something, then shows
-                        the replacement. The workflows from early issues are still used by Pro members every week.</p>
-                    <div class="dest-btn">Open Archive <span>→</span></div>
+                    <h3>Issue archive</h3>
+                    <p>Every issue from the start, now with the full setup unlocked. Each one takes a paid app or a
+                        manual job and shows the AI replacement.</p>
+                    <div class="dest-btn">Open the archive <span>→</span></div>
                 </a>
             </div>
         </div>
     </section>
 
-    <hr class="divider">
-
-    <!-- WHAT TO EXPECT -->
+    <!-- FIRST BUILDS -->
     <section class="section-alt">
         <div class="wrap">
-            <div class="eyebrow">📬 What happens next</div>
+            <div class="eyebrow">New in the library</div>
+            <h2 class="section-title">Three good first builds.</h2>
+            <p class="section-sub">Some of the newest workflows. Each takes about 10 minutes to set up.</p>
+
+            <div class="wf-grid">
+                <a class="wf-card" href="https://www.promptwireai.com/templates" target="_top">
+                    <span class="wf-type">Trigger</span>
+                    <div class="wf-icon">📨</div>
+                    <h4>Draft a reply to every new enquiry automatically</h4>
+                    <p><b>Replaces:</b> The AI auto-drafts in Superhuman's Business plan, or the VA who clears your
+                        inbox</p>
+                    <div class="wf-meta"><span>ChatGPT · Gmail</span><span>10 minutes</span></div>
+                </a>
+                <a class="wf-card" href="https://www.promptwireai.com/templates" target="_top">
+                    <span class="wf-type">Local AI</span>
+                    <div class="wf-icon">🗄️</div>
+                    <h4>Run a private AI on your own laptop for the files you never upload</h4>
+                    <p><b>Replaces:</b> Anonymising files before every paste, or doing the sensitive work by hand</p>
+                    <div class="wf-meta"><span>LM Studio · GPT4All</span><span>5 minutes</span></div>
+                </a>
+                <a class="wf-card" href="https://www.promptwireai.com/templates" target="_top">
+                    <span class="wf-type">Connector</span>
+                    <div class="wf-icon">🧾</div>
+                    <h4>Send invoices, quotes and overdue reminders from one chat</h4>
+                    <p><b>Replaces:</b> Payment chasing apps like Chaser, or an hour of invoicing admin every week</p>
+                    <div class="wf-meta"><span>Claude · QuickBooks</span><span>10 minutes</span></div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHAT HAPPENS NEXT -->
+    <section class="section">
+        <div class="wrap">
+            <div class="eyebrow">What happens next</div>
             <h2 class="section-title">What lands in your inbox from here.</h2>
-            <p class="section-sub">Your first full Pro issue arrives this Thursday. Here is exactly what to expect going
-                forward.</p>
+            <p class="section-sub">Your first full Pro issue arrives this Thursday.</p>
 
             <div class="expect-grid">
                 <div class="expect-item">
-                    <div class="expect-icon">⚡</div>
+                    <span class="expect-num">01</span>
                     <div>
-                        <h4>One new tested workflow every Thursday</h4>
-                        <p>Built around what AI can do right now, before most people know it exists. Each issue starts
-                            with the old way, then shows the replacement. Free subscribers see the overview. You get the
-                            complete setup.</p>
+                        <h4>A new workflow every Thursday</h4>
+                        <p>One paid app or manual job replaced or improved with AI. Free subscribers get a quick win.
+                            You get the full build: every step, the exact prompts and the catches to watch for.</p>
                     </div>
                 </div>
                 <div class="expect-item">
-                    <div class="expect-icon">📚</div>
+                    <span class="expect-num">02</span>
                     <div>
-                        <h4>Workflow library updated every Thursday</h4>
-                        <p>A new workflow added every Thursday. The library covers content, sales, research, video,
-                            agents, and more. Check back regularly and it keeps growing.</p>
+                        <h4>Added to the library the same day</h4>
+                        <p>Every Thursday's workflow goes into the workflow library, newest at the top, so it's there
+                            when you need it.</p>
                     </div>
                 </div>
                 <div class="expect-item">
-                    <div class="expect-icon">🎁</div>
+                    <span class="expect-num">03</span>
                     <div>
-                        <h4>New Pro resources monthly</h4>
-                        <p>A new toolkit, template pack, or guide drops every month exclusively for Pro members. You
-                            will be notified by email when each one goes live.</p>
+                        <h4>New AI, heard here first</h4>
+                        <p>What just became possible, like ChatGPT triggers, private AI on your laptop or connectors
+                            for QuickBooks and Shopify, and how to use it before most people know.</p>
                     </div>
                 </div>
                 <div class="expect-item">
-                    <div class="expect-icon">📡</div>
+                    <span class="expect-num">04</span>
                     <div>
-                        <h4>Full AI briefing every week</h4>
-                        <p>Every issue covers the biggest AI story of the week. Pro gets the full breakdown and the
-                            concrete steps to act on it. Not just the summary.</p>
+                        <h4>New kits and resources</h4>
+                        <p>Toolkits, guides and templates for the bigger builds, added to the resource library
+                            regularly. You'll get an email when each one goes live.</p>
                     </div>
                 </div>
             </div>
@@ -702,13 +711,12 @@
     <!-- BOTTOM -->
     <section class="bottom-cta">
         <div class="bottom-inner">
-            <h2>Everything is unlocked.<br><em>Go explore.</em></h2>
-            <p>Start with whichever section is most useful right now. Questions? Reply to any PromptWire email.</p>
+            <h2>Everything is unlocked.<br><span class="dim">Go explore.</span></h2>
+            <p>Questions or a workflow you want covered? Reply to any PromptWire email.</p>
             <div class="bottom-links">
-                <a href="https://www.promptwireai.com/templates" target="_top" class="bottom-link">⚡ Workflow
-                    Library</a>
-                <a href="https://www.promptwireai.com/resources" target="_top" class="bottom-link">🎁 Resources</a>
-                <a href="https://www.promptwireai.com/archive" target="_top" class="bottom-link">🗂️ Archive</a>
+                <a href="https://www.promptwireai.com/templates" target="_top" class="bottom-link">Workflow library</a>
+                <a href="https://www.promptwireai.com/resources" target="_top" class="bottom-link">Resources</a>
+                <a href="https://www.promptwireai.com/archive" target="_top" class="bottom-link">Archive</a>
             </div>
         </div>
     </section>
