@@ -1,0 +1,102 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link
+  href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@1,600&family=DM+Sans:wght@400;500;600&display=swap"
+  rel="stylesheet">
+
+<style>
+  .pw-arc {
+    background: linear-gradient(135deg, #171717 0%, #1292eb 100%);
+    padding: 72px 24px 76px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    border-bottom: 2px solid #1c2430;
+  }
+
+  .pw-arc,
+  .pw-arc * {
+    box-sizing: border-box;
+  }
+
+  .pw-arc-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 60px 60px;
+    -webkit-mask-image: radial-gradient(ellipse at 50% 50%, black 20%, transparent 70%);
+    mask-image: radial-gradient(ellipse at 50% 50%, black 20%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .pw-arc-inner {
+    position: relative;
+    z-index: 2;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  /* Same title style as the workflow libraries and the logo */
+  .pw-arc-title {
+    font-family: 'Barlow Condensed', 'DM Sans', -apple-system, sans-serif;
+    font-style: italic;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: clamp(54px, 7vw, 84px);
+    line-height: .95;
+    letter-spacing: .02em;
+    color: #ffffff;
+    margin: 0 0 14px;
+  }
+
+  .pw-arc-tagline {
+    font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0 0 16px;
+  }
+
+  .pw-arc-sub {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.85);
+    max-width: 560px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 600px) {
+    .pw-arc {
+      padding: 44px 20px 48px;
+    }
+
+    .pw-arc-title {
+      font-size: 52px;
+      margin-bottom: 10px;
+    }
+
+    .pw-arc-tagline {
+      font-size: 11px;
+      margin-bottom: 12px;
+    }
+
+    .pw-arc-sub {
+      font-size: 16px;
+      line-height: 1.55;
+    }
+  }
+</style>
+
+<div class="pw-arc">
+  <div class="pw-arc-grid"></div>
+  <div class="pw-arc-inner">
+    <h1 class="pw-arc-title">Archive.</h1>
+    <p class="pw-arc-tagline">Every issue. Free to read.</p>
+    <p class="pw-arc-sub">Every issue PromptWire has published, newest first. Each one takes a paid app or a manual job
+      and shows the AI workflow that replaces it.</p>
+  </div>
+</div>
