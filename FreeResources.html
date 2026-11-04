@@ -4,10 +4,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Resource Library — PromptWire</title>
+  <title>Resource Library | PromptWire</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link
-    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@1,600&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
     rel="stylesheet" />
   <style>
     :root {
@@ -70,7 +70,7 @@
 
     .pw-arc {
       background: linear-gradient(135deg, #171717 0%, #1292eb 100%);
-      padding: 96px 24px;
+      padding: 72px 24px 76px;
       text-align: center;
       position: relative;
       overflow: hidden;
@@ -95,13 +95,14 @@
     }
 
     .pw-arc-title {
-      font-family: var(--display);
-      font-size: clamp(50px, 7vw, 82px);
-      font-weight: 700;
+      font-family: 'Barlow Condensed', var(--display);
+      font-size: clamp(54px, 7vw, 84px);
+      font-weight: 600;
       font-style: italic;
-      line-height: 0.98;
-      letter-spacing: -0.03em;
-      color: #fff;
+      text-transform: uppercase;
+      line-height: .95;
+      letter-spacing: .02em;
+      color: #ffffff;
       margin-bottom: 14px;
     }
 
@@ -398,12 +399,12 @@
     }
 
     .card-title {
-      font-family: var(--display);
-      font-size: 19px;
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 20px;
       font-weight: 700;
-      line-height: 1.2;
-      letter-spacing: -0.02em;
+      line-height: 1.3;
       margin-bottom: 10px;
+      color: var(--gray-900);
     }
 
     .card-desc {
@@ -514,9 +515,8 @@
       position: relative;
     }
 
-    #pro-grid .resource-card:not(.card-coming-soon) .card-title,
-    #pro-grid .resource-card:not(.card-coming-soon) .card-desc {
-      opacity: 0.7;
+    #pro-grid .resource-card:not(.card-coming-soon) .card-icon {
+      opacity: 0.6;
     }
 
     #pro-grid .resource-card:not(.card-coming-soon):hover {
@@ -693,7 +693,7 @@
       }
 
       .pw-arc-title {
-        font-size: 42px;
+        font-size: 50px;
       }
 
       .pw-arc-sub {
@@ -725,18 +725,44 @@
 
     /* ---- PHONES ONLY. Desktop is unchanged. ---- */
     @media (max-width: 600px) {
-      /* Hero: tighter */
-      .pw-arc { padding: 40px 20px 42px; }
-      .pw-arc-title { font-size: 40px; text-wrap: balance; }
-      .pw-arc-tagline { font-size: 11px; margin-bottom: 12px; }
-      .pw-arc-sub { font-size: 16px; line-height: 1.55; }
 
-      .resources-section { padding: 26px 16px 56px; }
+      /* Hero: tighter */
+      .pw-arc {
+        padding: 40px 20px 42px;
+      }
+
+      .pw-arc-title {
+        font-size: 46px;
+        text-wrap: balance;
+      }
+
+      .pw-arc-tagline {
+        font-size: 11px;
+        margin-bottom: 12px;
+      }
+
+      .pw-arc-sub {
+        font-size: 16px;
+        line-height: 1.55;
+      }
+
+      .resources-section {
+        padding: 26px 16px 56px;
+      }
 
       /* Intro box: same words, less height */
-      .intro-box { padding: 20px 18px; margin-bottom: 22px; }
-      .intro-box-title { font-size: 23px; }
-      .intro-box-tags { display: none; }
+      .intro-box {
+        padding: 20px 18px;
+        margin-bottom: 22px;
+      }
+
+      .intro-box-title {
+        font-size: 23px;
+      }
+
+      .intro-box-tags {
+        display: none;
+      }
 
       /* Sort and filter buttons: one row you swipe sideways */
       .sort-bar {
@@ -747,24 +773,76 @@
         margin: 0 -16px 22px;
         padding: 4px 16px 8px;
       }
-      .sort-bar::-webkit-scrollbar { display: none; }
-      .sort-btn, .sort-label, .sort-divider { flex-shrink: 0; }
+
+      .sort-bar::-webkit-scrollbar {
+        display: none;
+      }
+
+      .sort-btn,
+      .sort-label,
+      .sort-divider {
+        flex-shrink: 0;
+      }
 
       /* Group headings stack instead of squeezing side by side */
-      .group-head { flex-direction: column; align-items: flex-start; gap: 4px; margin-bottom: 20px; }
-      .group-title { font-size: 28px; }
+      .group-head {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        margin-bottom: 20px;
+      }
+
+      .group-title {
+        font-size: 28px;
+      }
 
       /* Compact cards */
-      .resources-grid { gap: 14px; }
-      .resource-card { padding: 20px; border-radius: 16px; }
-      .card-top { margin-bottom: 12px; }
-      .card-icon { width: 40px; height: 40px; font-size: 20px; border-radius: 10px; margin-bottom: 12px; }
-      .card-title { font-size: 18px; margin-bottom: 8px; }
-      .card-desc { margin-bottom: 14px; }
-      .card-stats { margin-bottom: 14px; }
-      .stat-value { font-size: 16px; }
-      .card-price-row { margin-bottom: 14px; padding: 12px 14px; }
-      .card-cta { padding-top: 14px; }
+      .resources-grid {
+        gap: 14px;
+      }
+
+      .resource-card {
+        padding: 20px;
+        border-radius: 16px;
+      }
+
+      .card-top {
+        margin-bottom: 12px;
+      }
+
+      .card-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+        border-radius: 10px;
+        margin-bottom: 12px;
+      }
+
+      .card-title {
+        font-size: 18px;
+        margin-bottom: 8px;
+      }
+
+      .card-desc {
+        margin-bottom: 14px;
+      }
+
+      .card-stats {
+        margin-bottom: 14px;
+      }
+
+      .stat-value {
+        font-size: 16px;
+      }
+
+      .card-price-row {
+        margin-bottom: 14px;
+        padding: 12px 14px;
+      }
+
+      .card-cta {
+        padding-top: 14px;
+      }
     }
   </style>
 </head>
@@ -774,10 +852,10 @@
   <div class="pw-arc">
     <div class="pw-arc-grid"></div>
     <div class="pw-arc-inner">
-      <h1 class="pw-arc-title">Resource Library</h1>
-      <p class="pw-arc-tagline">New resources every month</p>
-      <p class="pw-arc-sub">Prompt packs, guides, cheatsheets and Notion workspaces. Free ones you can open right now,
-        plus new Pro drops every month.</p>
+      <h1 class="pw-arc-title">Resource Library.</h1>
+      <p class="pw-arc-tagline">New kits added regularly</p>
+      <p class="pw-arc-sub">The bigger builds that don't fit in an issue: toolkits, guides and templates for putting AI
+        to work. Free ones to open now, newest at the top.</p>
     </div>
   </div>
 
@@ -785,14 +863,14 @@
 
     <div class="intro-box">
       <div class="intro-box-title">What is inside</div>
-      <p class="intro-box-body">Start with the free resources below, open them and use them today. The Pro resources are
-        updated monthly with
-        the latest ways to put AI to work, and unlock the moment you upgrade.</p>
+      <p class="intro-box-body">Each kit goes further than a single issue: a full setup, a set of prompts, or a guide to
+        something AI can do right now. Open the free ones below today. The Pro kits unlock the moment you upgrade, and
+        new ones are added regularly.</p>
       <div class="intro-box-tags">
-        <span class="intro-tag">Prompt packs</span>
+        <span class="intro-tag">Toolkits</span>
         <span class="intro-tag">Step-by-step guides</span>
+        <span class="intro-tag">Templates</span>
         <span class="intro-tag">Cheatsheets</span>
-        <span class="intro-tag">Notion workspaces</span>
       </div>
     </div>
 
@@ -872,7 +950,7 @@
 
     <div class="group-head">
       <h2 class="group-title">Pro resources</h2>
-      <span class="group-note">Updated monthly with the latest ways to put AI to work. Unlock all of them with Pro.</span>
+      <span class="group-note">Newest first, with new kits added regularly. Unlock all of them with Pro.</span>
     </div>
 
     <div class="resources-grid" id="pro-grid">
@@ -907,7 +985,7 @@
           business tasks. Clone it, fill it in, stop doing the same thing twice.</p>
         <div class="card-stats">
           <div class="stat"><span class="stat-value">10</span><span class="stat-label">Workflows</span></div>
-          <div class="stat"><span class="stat-value">∞</span><span class="stat-label">Hours Saved</span></div>
+          <div class="stat"><span class="stat-value">Notion</span><span class="stat-label">Workspace</span></div>
         </div>
         <div class="card-price-row">
           <div>
@@ -928,7 +1006,6 @@
           from idea generation and market gap analysis to creating visual concepts and plans.</p>
         <div class="card-stats">
           <div class="stat"><span class="stat-value">9</span><span class="stat-label">Prompts</span></div>
-          <div class="stat"><span class="stat-value">∞</span><span class="stat-label">Business Paths</span></div>
         </div>
         <div class="card-cta">Unlock with Pro <span class="card-cta-arrow">→</span></div>
       </a>
@@ -1091,8 +1168,8 @@
         <div class="card-cta">Unlock with Pro <span class="card-cta-arrow">→</span></div>
       </a>
 
-      <a href="https://www.promptwireai.com/upgrade"
-        target="_blank" rel="noopener" class="resource-card" data-date="20261005" data-type="guide">
+      <a href="https://www.promptwireai.com/upgrade" target="_blank" rel="noopener" class="resource-card"
+        data-date="20261005" data-type="guide">
         <div class="card-top"><span class="card-category">Guide</span></div>
         <div class="card-icon">📱</div>
         <h3 class="card-title">Run Your Computer From Your Phone</h3>
@@ -1105,8 +1182,8 @@
         <div class="card-cta">Unlock with Pro <span class="card-cta-arrow">→</span></div>
       </a>
 
-      <a href="https://www.promptwireai.com/upgrade"
-        target="_blank" rel="noopener" class="resource-card" data-date="20261022" data-type="guide">
+      <a href="https://www.promptwireai.com/upgrade" target="_blank" rel="noopener" class="resource-card"
+        data-date="20261022" data-type="guide">
         <div class="card-top"><span class="card-category">Guide</span></div>
         <div class="card-icon">📲</div>
         <h3 class="card-title">The App Builder's Kit</h3>
@@ -1121,23 +1198,23 @@
 
       <div class="resource-card card-coming-soon" data-date="99999999" data-type="coming-soon">
         <div class="coming-soon-label">Coming Soon</div>
-        <div class="coming-soon-title">More resources added every month</div>
+        <div class="coming-soon-title">New kits added regularly</div>
       </div>
 
     </div>
 
     <div class="pro-cta-banner">
       <div class="pro-cta-inner">
-        <h3 class="pro-cta-title">Get every resource.<br><span>Free with Pro.</span></h3>
-        <p class="pro-cta-sub">Skip the individual purchases. Pro members get all of it: every paid resource, every new
-          drop, the full workflow library, and a new workflow every Thursday.</p>
+        <h3 class="pro-cta-title">Get every kit.<br><span>Free with Pro.</span></h3>
+        <p class="pro-cta-sub">Skip the individual purchases. Pro members get every kit here, every new one as it lands,
+          and a new workflow every Thursday.</p>
         <div class="pro-value-list">
-          <div class="pro-value-item">All paid resources included</div>
-          <div class="pro-value-item">New resources every month</div>
-          <div class="pro-value-item">One new tested AI workflow every Thursday</div>
+          <div class="pro-value-item">Every kit and resource, including the paid ones</div>
+          <div class="pro-value-item">New kits added regularly</div>
+          <div class="pro-value-item">A new workflow every Thursday, with the full setup</div>
           <div class="pro-value-item">The full workflow library</div>
-          <div class="pro-value-item">Weekly AI briefings</div>
-          <div class="pro-value-item">Every past issue from day one</div>
+          <div class="pro-value-item">New AI, heard here first</div>
+          <div class="pro-value-item">Every past issue</div>
         </div>
         <a href="https://www.promptwireai.com/upgrade?offer_id=053e320d-8698-4148-bf12-bdd8e740ebb3"
           class="cta-btn-primary" target="_top">
