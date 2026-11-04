@@ -1,0 +1,103 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link
+  href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@1,600&family=DM+Sans:wght@400;500;600&display=swap"
+  rel="stylesheet">
+
+<style>
+  .pw-about {
+    background: linear-gradient(135deg, #171717 0%, #1292eb 100%);
+    padding: 72px 24px 76px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    border-bottom: 2px solid #1c2430;
+  }
+
+  .pw-about,
+  .pw-about * {
+    box-sizing: border-box;
+  }
+
+  .pw-about-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 60px 60px;
+    -webkit-mask-image: radial-gradient(ellipse at 50% 50%, black 20%, transparent 70%);
+    mask-image: radial-gradient(ellipse at 50% 50%, black 20%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .pw-about-inner {
+    position: relative;
+    z-index: 2;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  /* Same title style as the workflow libraries and the logo */
+  .pw-about-title {
+    font-family: 'Barlow Condensed', 'DM Sans', -apple-system, sans-serif;
+    font-style: italic;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: clamp(54px, 7vw, 84px);
+    line-height: .95;
+    letter-spacing: .02em;
+    color: #ffffff;
+    margin: 0 0 14px;
+  }
+
+  .pw-about-tagline {
+    font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0 0 16px;
+  }
+
+  .pw-about-sub {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.85);
+    max-width: 560px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 600px) {
+    .pw-about {
+      padding: 44px 20px 48px;
+    }
+
+    .pw-about-title {
+      font-size: 52px;
+      margin-bottom: 10px;
+    }
+
+    .pw-about-tagline {
+      font-size: 11px;
+      margin-bottom: 12px;
+    }
+
+    .pw-about-sub {
+      font-size: 16px;
+      line-height: 1.55;
+    }
+  }
+</style>
+
+<div class="pw-about">
+  <div class="pw-about-grid"></div>
+  <div class="pw-about-inner">
+    <h1 class="pw-about-title">About.</h1>
+    <p class="pw-about-tagline">For business owners, operators and the people doing the work</p>
+    <p class="pw-about-sub">Every Thursday, one paid app or manual job in work gets replaced or improved with AI. Each
+      issue shows the old way, the new way, and a quick win you can try that week, before most people know it exists.
+    </p>
+  </div>
+</div>
